@@ -17,7 +17,7 @@ CREATE TABLE Restaurants (
 	restaurant_name varchar(255) NOT NULL,
 	lat DECIMAL(10, 8) NOT NULL,
 	lng DECIMAL(10, 8) NOT NULL,
-	price_category smallint CHECK (price_category >= 1 AND price_category <=4),
+	price_category tinyint CHECK (price_category >= 1 AND price_category <=4),
 	agg_review float CHECK (agg_review >= 0.0 AND agg_review <= 5.0),
 	has_online_delivery bit,
 	featured_photo_url nvarchar(2083),
