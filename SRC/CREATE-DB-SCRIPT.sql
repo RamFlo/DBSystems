@@ -32,8 +32,8 @@ CREATE TABLE RestaurantsCuisines (
 	FOREIGN KEY (cuisine_id) REFERENCES Cuisines(cuisine_id)
 );
 
-CREATE TABLE Ingredients (
-	ingredient varchar(512) NOT NULL,
+CREATE TABLE Recipes (
+	recipe_id int IDENTITY(1,1),
 	yummly_recipe_id varchar(512),
 	cuisine_id smallint unsigned,
 	saltiness float CHECK (saltiness >= 0.0 AND saltiness <= 1.0),
@@ -41,17 +41,23 @@ CREATE TABLE Ingredients (
 	sourness float CHECK (sourness >= 0.0 AND sourness <= 1.0),
 	bitterness float CHECK (bitterness >= 0.0 AND bitterness <= 1.0),
 	FOREIGN KEY (cuisine_id) REFERENCES Cuisines(cuisine_id),
-	PRIMARY KEY (yummly_id)
+	PRIMARY KEY (recipe_id),
+	UNIQUE (yummly_recipe_id)
 );
 
-/* TODO: Need at least one more table (min needed is 6) */
+CREATE TABLE IngredientsRecipes (
+	ingredient varchar(256),
+	recipe_id int,
+	PRIMARY KEY (ingredient, recipe_id),
+	FOREIGN KEY (recipe_id) REFERENCES Recipes(recipe_id)
+);
 
 CREATE INDEX ingredient_index
-	ON Ingredients
+	ON IngredientsRecipes
 	USING hash(ingredient);
 
 CREATE INDEX flavors_index
-	ON Ingredients (saltiness, sweetness, sourness, bitterness);
+	ON Recipes (saltiness, sweetness, sourness, bitterness);
 	
 CREATE INDEX restaurants_location_index
 	ON Restaurants (lat, lng);
