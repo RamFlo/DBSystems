@@ -82,3 +82,10 @@ fabric.properties
 .idea/sonarlint
 
 # End of https://www.gitignore.io/api/webstorm
+
+
+#### Added by Mickey ####
+# ignore all idea files
+*.idea/
+# ignore python venv created by pycharm
+*venv/
