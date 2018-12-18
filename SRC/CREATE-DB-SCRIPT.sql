@@ -52,7 +52,7 @@ CREATE TABLE IngredientsRecipes (
 	FOREIGN KEY (recipe_id) REFERENCES Recipes(recipe_id)
 );
 
-CREATE INDEX ingredient_index
+CREATE CLUSTERED INDEX ingredient_index
 	ON IngredientsRecipes
 	USING hash(ingredient);
 
