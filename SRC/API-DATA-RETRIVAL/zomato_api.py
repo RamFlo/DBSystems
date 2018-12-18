@@ -12,7 +12,7 @@ headers = {"Accept": "application/json"}
 
 
 def fetch_cuisines():
-    full_url_request = zomato_base_url + "cuisines?" + "city_id=" + zomato_ny_city_id
+    full_url_request = zomato_base_url + "cuisines?city_id=" + zomato_ny_city_id
     headers[user_key_header] = zomato_api_keys[0]
     request = requests.post(full_url_request, headers=headers)
     json_response = request.json()
@@ -21,7 +21,8 @@ def fetch_cuisines():
     populator = DatabasePopulator(table_name='Cuisines')
     for cuisine in cuisines_list:
         curr_cuisine = cuisine['cuisine']
-        populator.insert_row([curr_cuisine['cuisine_id'], curr_cuisine['cuisine_name']])
+        populator.insert_row(
+            [curr_cuisine['cuisine_id'], curr_cuisine['cuisine_name']])
 
 
 fetch_cuisines()
