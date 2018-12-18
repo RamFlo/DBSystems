@@ -9,7 +9,8 @@ app.controller('mainController', ['$scope', function($scope, require, $sce) { //
     // });
     //$sce.trustAsUrl("https://www.google.com/maps/embed/v1/place?key=AIzaSyDVi-8TbF6uKXPHynmXSztCauLR7WjKI74&q=American+museum+of+Natural+History+New+York+City");
 
-    $scope.mapsQuery = $sce.trustAsUrl("https://www.google.com/maps/embed/v1/place?key=AIzaSyDVi-8TbF6uKXPHynmXSztCauLR7WjKI74&q=American+museum+of+Natural+History+New+York+City");
+    //$scope.mapsQuery = $sce.trustAsUrl("https://www.google.com/maps/embed/v1/place?key=AIzaSyDVi-8TbF6uKXPHynmXSztCauLR7WjKI74&q=American+museum+of+Natural+History+New+York+City");
     //$scope.mapsQuery += "American+museum+of+Natural+History+New+York+City" // the answer from the server
-
+    document.getElementById("googleLocation").src = "https://www.google.com/maps/embed/v1/place?key=AIzaSyDVi-8TbF6uKXPHynmXSztCauLR7WjKI74&q=central+park+New+York+City";
+    
 }]);
