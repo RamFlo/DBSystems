@@ -5,6 +5,7 @@ username = "username"
 password = "password"
 db_name = ""
 
+
 class DatabasePopulator:
 
     def __init__(self, table_name):
@@ -13,6 +14,11 @@ class DatabasePopulator:
         self.cur = self.con.cursor()
 
     def insert_row(self, values):
+        """
+        Inserts a row to the table, for all columns (a full row)
+        :param values: a list of the values inserted. len(values) should be
+                        equal to the num of columns in the table
+        """
         sql_query = "INSERT INTO %s" \
                     "VALUES %s"
         input_values = ', '.join(map(lambda x: '%s', values))
