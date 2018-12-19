@@ -89,3 +89,5 @@ fabric.properties
 *.idea/
 # ignore python venv created by pycharm
 *venv/
+# ignore pychaches
+*__pycache__/
