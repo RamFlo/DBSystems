@@ -4,7 +4,8 @@ from database_populator import DatabasePopulator
 
 zomato_api_keys = ["321da0bc263eda93da9f3d9497876d2e",
                    "d7afaabbb3109389a42d21af7bb3b3a5",
-                   "367e4e949648279a9951d011ee3a1f9d"]
+                   "367e4e949648279a9951d011ee3a1f9d",
+                   "4c5c438e2b3e4e998d6856482b651583"]
 user_key_header = "user-key"
 zomato_base_url = "https://developers.zomato.com/api/v2.1/"
 zomato_ny_city_id = "280"
@@ -21,26 +22,28 @@ def populate_cuisines():
     json_response = get_zomato_response(full_url_request, zomato_api_keys[2])
     cuisines_list = json_response['cuisines']
 
-    populator = DatabasePopulator(table_name='Cuisines')
+    populator = DatabasePopulator()
     for cuisine in cuisines_list:
         curr_cuisine = cuisine['cuisine']
-        populator.insert_row(
-            [curr_cuisine['cuisine_id'], curr_cuisine['cuisine_name']]
-            )
+        populator.insert_row('Cuisines',
+                             [curr_cuisine['cuisine_id'],
+                              curr_cuisine['cuisine_name']]
+                             )
 
 
 def populate_establishments():
     full_url_request = zomato_base_url + "establishments?city_id=" + \
-                        zomato_ny_city_id
+                       zomato_ny_city_id
     json_response = get_zomato_response(full_url_request, zomato_api_keys[2])
     establishment_list = json_response['establishments']
 
-    populator = DatabasePopulator(table_name='Establishments')
+    populator = DatabasePopulator()
     for establishment in establishment_list:
         curr_establishment = establishment['establishments']
-        populator.insert_row(
-            [curr_establishment['id'], curr_establishment['name']]
-            )
+        populator.insert_row('Establishments',
+                             [curr_establishment['id'],
+                              curr_establishment['name']]
+                             )
 
 
 def populate_restaurants(category_ids):
@@ -83,7 +86,7 @@ def populate_restaurants(category_ids):
                     full_url_request = (zomato_base_url +
                                         "search?entity_id=%s" + \
                                         "&entity_type=city&start=%d" + \
-                                        "cuisines=%d&establishment_type=%d" + \
+                                        "&cuisines=%d&establishment_type=%d" + \
                                         "&category=%d") % (zomato_ny_city_id,
                                                            offset, cuisine_id,
                                                            establishment_id,
@@ -92,34 +95,49 @@ def populate_restaurants(category_ids):
                                                         zomato_api_keys[
                                                             curr_key])
                     query_count += 1
-                    if query_count > 1000:
+                    if query_count > (curr_key + 1) * 1000:
                         curr_key += 1
-                    if curr_key == 3:
-                        print(query_count)
-                        print(total_restaurants)
-                        return (category_id, query_count)
+                    if curr_key == 4:
+                        return (category_id, query_count, total_restaurants)
 
                     if len(json_response) == 0:
                         continue
 
                     restaurants = json_response['restaurants']
+                    total_restaurants += len(restaurants)
                     for restaurant in restaurants:
                         populate_restaurant(restaurant)
-                    total_restaurants += len(restaurants)
                     if query_count % 100 == 0:
                         print("------ STATUS ------")
-                        print(query_count)
-                        print(total_restaurants)
+                        print("Total Queries = %d" % query_count)
+                        print("Total Restaurants = %d" % total_restaurants)
 
-    return
+    return (-1, query_count, total_restaurants)
 
 
-# TODO (mickey/nitzan): implement method
-# the method should try and insert the restaurant to the Restaurants table,
-# get the restaurants establishments from the json, compare them to existing
-# establishment in the Establishments tables, and if there is a match,
-# add the match to the RestaurantEstablishment table as well
 def populate_restaurant(restaurant_json):
+    restaurant = restaurant_json['restaurant']
+    id = restaurant['id']
+    name = restaurant['name']
+    lat, lng = restaurant['location']['latitude'], \
+               restaurant['location']['longitude']
+    price_category = restaurant['price_range']
+    cuisines = restaurant['cuisines']
+    agg_reviews = restaurant['user_rating']['aggregate_rating']
+    has_online_delivery = restaurant['has_online_delivery']
+    featured_photo = restaurant['featured_image']
+    establishment = restaurant['establishment_types']['establishment_type'][
+        'id']
+
+    populator = DatabasePopulator()
+    populator.insert_row('Restaurants',
+                         [id, name, lat, lng, price_category, agg_reviews,
+                          has_online_delivery, featured_photo, establishment])
+
+    # update the RestaurantsCuisines table
+    cuisines_list = cuisines.split(', ')
+    for cuisine in cuisines_list:
+        cuisine_id = populator.get_cuisine_id_by_name(cuisine)
+        populator.insert_row('RestaurantsCuisines', [id, cuisine_id])
+
     return
-
-
