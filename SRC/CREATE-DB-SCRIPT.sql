@@ -1,8 +1,8 @@
-CREATE TABLE Categories (
-	category_id smallint unsigned,
-	category_name varchar(255) NOT NULL,
-	PRIMARY KEY (category_id),
-	UNIQUE (category_name)
+CREATE TABLE Establishments (
+	establishment_id smallint unsigned,
+	establishment_name varchar(255) NOT NULL,
+	PRIMARY KEY (establishment_id),
+	UNIQUE (establishment_name)
 );
 
 CREATE TABLE Cuisines (
@@ -30,6 +30,14 @@ CREATE TABLE RestaurantsCuisines (
 	PRIMARY KEY (restaurant_id, cuisine_id),
 	FOREIGN KEY (restaurant_id) REFERENCES Restaurants(restaurant_id),
 	FOREIGN KEY (cuisine_id) REFERENCES Cuisines(cuisine_id)
+);
+
+CREATE TABLE RestaurantsEstablishments (
+	restaurant_id int unsigned,
+	establishment_id smallint unsigned,
+	PRIMARY KEY (restaurant_id, establishment_id),
+	FOREIGN KEY (restaurant_id) REFERENCES Restaurants(restaurant_id),
+	FOREIGN KEY (establishment_id) REFERENCES Establishments(establishment_id)
 );
 
 CREATE TABLE Recipes (
