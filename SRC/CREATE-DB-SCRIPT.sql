@@ -47,6 +47,14 @@ CREATE TABLE Recipes (
 	UNIQUE (yummly_recipe_id)
 );
 
+CREATE TABLE RecipesCuisines (
+	recipe_id int,
+	cuisine_id smallint unsigned,
+	PRIMARY KEY (recipe_id, cuisine_id),
+	FOREIGN KEY (recipe_id) REFERENCES Recipes(recipe_id),
+	FOREIGN KEY (cuisine_id) REFERENCES Cuisines(cuisine_id)
+);
+
 CREATE TABLE IngredientsRecipes (
 	ingredient varchar(256),
 	recipe_id int,
