@@ -19,13 +19,7 @@
         </div>
         <ul class="nav navbar-nav">
             <li class="active"><a href="TheFoodCourt.html">Home</a></li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Google Location</a></li>
-                    <li><a href="#">Page 1-2</a></li>
-                    <li><a href="#">Page 1-3</a></li>
-                </ul>
-            </li>
+            <li class="active"><a href="TheFoodCourt.html">Discover new cuisines</a></li>
             <li><a href="location.html">Google Location</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -34,6 +28,30 @@
         </ul>
     </div>
 </nav>
+<div style="width:800px; margin:0 auto; text-align: left;">
+    <p>Discover new cuisines</p>
+    <form>
+        Insert your favourite cuisine: <input id="favorC" type="text" name="favorCuisine" value=""><br>
+        <input type="submit" ng-click="favorFunc();" value="Submit">
+    </form>
+    <!--{{favor}} -->
+    <table style="margin: 0 auto;">
+        <tr>
+            <th style="text-align: center;">Cuisines</th>
+            <tr  style="text-align: center;" ng-repeat="cuisine in reply">
+        <td>{{cuisine}}</td>
+    </tr>
+    </table>
+</div>
+<div style="width:800px; margin:0 auto; text-align: left;">
+    <form>Insert ingredients and get your restaurants(bullet 2):<br>
+        <input id="ingred1" type="text" name="ingred1" value=""><br>
+        <input id="ingred2" type="text" name="ingred2" value=""><br>
+        <input id="ingred3" type="text" name="ingred3" value=""><br>
+        <input id="ingred4" type="text" name="ingred4" value=""><br>
+        <input type="submit" ng-click="ingredFunc();" value="Submit">
+    </form>
+</div>
 <!--<div style="alignment: center; position: center; display: block;">-->
 <!--<iframe id="googleLocation" width="600" height="450" frameborder="0" style="border:0;" src="" allowfullscreen></iframe>-->
 <!--</div>-->
