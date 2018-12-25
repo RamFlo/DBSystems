@@ -35,14 +35,12 @@ CREATE TABLE RestaurantsCuisines (
 );
 
 CREATE TABLE Recipes (
-	recipe_id int IDENTITY(1,1),
+	recipe_id int AUTO_INCREMENT,
 	yummly_recipe_id varchar(512),
-	cuisine_id smallint unsigned,
 	saltiness float CHECK (saltiness >= 0.0 AND saltiness <= 1.0),
 	sweetness float CHECK (sweetness >= 0.0 AND sweetness <= 1.0),
 	sourness float CHECK (sourness >= 0.0 AND sourness <= 1.0),
 	bitterness float CHECK (bitterness >= 0.0 AND bitterness <= 1.0),
-	FOREIGN KEY (cuisine_id) REFERENCES Cuisines(cuisine_id),
 	PRIMARY KEY (recipe_id),
 	UNIQUE (yummly_recipe_id)
 );
@@ -63,8 +61,8 @@ CREATE TABLE IngredientsRecipes (
 );
 
 CREATE CLUSTERED INDEX ingredient_index
-	ON IngredientsRecipes
-	USING hash(ingredient);
+	ON IngredientsRecipes(ingredient)
+	USING hash;
 
 CREATE INDEX flavors_index
 	ON Recipes (saltiness, sweetness, sourness, bitterness);
