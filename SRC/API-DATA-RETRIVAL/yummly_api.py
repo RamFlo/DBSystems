@@ -81,15 +81,17 @@ def populate_recipe(yummly_recipe):
     populator = DatabasePopulator()
     populator.insert_row('Recipes',
                          [yummly_recipe['id'],
-                          0,  # TODO: change table schema and add a table
-                          # for Recipe2Cuisine since this is many2many
                           yummly_recipe['flavors']['salty'],
                           yummly_recipe['flavors']['sweet'],
                           yummly_recipe['flavors']['sour'],
                           yummly_recipe['flavors']['bitter']])
 
-    ## TODO: get recipe id in table
-    recipe_id = 0
+
+    try:
+        recipe_id = populator.get_recipe_id_by_yummly_id(yummly_recipe['id'])
+    except:
+        print("yummly_api: Error fetching recipe_id of %s" % yummly_recipe['id'])
+        return
 
     ingredients = yummly_recipe['ingredients']
     for ingredient in ingredients:
@@ -101,5 +103,10 @@ def populate_recipe(yummly_recipe):
             cuisine_translated = yummly_cuisine_to_zomato_translation[cuisine]
         except: # no translation found
             continue
-        populator.insert_row('',
-                             [])  # TODO: insert to RecipesCuisines table as well
+        try:
+            cuisine_id = populator.get_cuisine_id_by_name(cuisine_translated)
+        except:
+            print("yummly_api: Error fetching cuisine_id of %s" %
+                  cuisine_translated)
+            continue
+        populator.insert_row('RecipesCuisines', [recipe_id, cuisine_id])

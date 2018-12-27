@@ -1,9 +1,9 @@
 import MySQLdb as mdb
 
-localhost_name = "localhost"
-username = "username"
-password = "password"
-db_name = ""
+localhost_name = "mysqlsrv1.cs.tau.ac.il"
+username = "DbMysql04"
+password = "DbMysql04"
+db_name = "DbMysql04"
 
 
 class DatabasePopulator:
@@ -30,6 +30,12 @@ class DatabasePopulator:
         sql_query = "SELECT cuisine_id" \
                     "FROM Cuisines" \
                     "WHERE cuisine_name=%s" % cuisine_name
-        res = self.cur.execute(sql_query)
-        return res  # TODO: we should check the format of the returned value
-        # and return an int with the id
+        self.cur.execute(sql_query)
+        return self.cur.fetchone()[0]
+
+    def get_recipe_id_by_yummly_id(self, yummly_id):
+        sql_query = "SELECT recipe_id" \
+                    "FROM Recipes" \ 
+                    "WHERE yummly_recipe_id = %s" % yummly_id
+        self.cur.execute(sql_query)
+        return self.cur.fetchone()[0]
