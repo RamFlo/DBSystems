@@ -141,3 +141,5 @@ def populate_restaurant(restaurant_json):
         populator.insert_row('RestaurantsCuisines', [id, cuisine_id])
 
     return
+
+populate_cuisines()

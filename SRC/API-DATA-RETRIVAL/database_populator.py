@@ -4,7 +4,8 @@ localhost_name = "mysqlsrv1.cs.tau.ac.il"
 username = "DbMysql04"
 password = "DbMysql04"
 db_name = "DbMysql04"
-
+ssh_host = 'nova.cs.tau.ac.il'
+ssh_port = 22
 
 class DatabasePopulator:
 
@@ -35,7 +36,7 @@ class DatabasePopulator:
 
     def get_recipe_id_by_yummly_id(self, yummly_id):
         sql_query = "SELECT recipe_id" \
-                    "FROM Recipes" \ 
+                    "FROM Recipes" \
                     "WHERE yummly_recipe_id = %s" % yummly_id
         self.cur.execute(sql_query)
         return self.cur.fetchone()[0]
