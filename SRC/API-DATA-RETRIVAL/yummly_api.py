@@ -84,7 +84,9 @@ def populate_recipe(yummly_recipe):
                           yummly_recipe['flavors']['salty'],
                           yummly_recipe['flavors']['sweet'],
                           yummly_recipe['flavors']['sour'],
-                          yummly_recipe['flavors']['bitter']])
+                          yummly_recipe['flavors']['bitter']],
+                         columns=['yummly_recipe_id', 'saltiness',
+                                  'sweetness', 'sourness', 'bitterness'])
 
 
     try:
