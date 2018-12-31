@@ -10,10 +10,13 @@ user_key_header = "user-key"
 zomato_base_url = "https://developers.zomato.com/api/v2.1/"
 zomato_ny_city_id = "280"
 
+response_code = -1
 
 def get_zomato_response(full_url_request, key):
-    headers = {"Accept": "application/json", user_key_header: key}
+    headers = {"User-agent": "curl/7.43.0", "Accept": "application/json",
+               user_key_header: key}
     request = requests.post(full_url_request, headers=headers)
+    response_code = request.status_code
     return request.json()
 
 
@@ -39,7 +42,7 @@ def populate_establishments():
 
     populator = DatabasePopulator()
     for establishment in establishment_list:
-        curr_establishment = establishment['establishments']
+        curr_establishment = establishment['establishment']
         populator.insert_row('Establishments',
                              [curr_establishment['id'],
                               curr_establishment['name']]
@@ -63,7 +66,7 @@ def populate_restaurants(category_ids):
     # searches (cuisine_id, establishment_id)
     cuisine_ids = []
     cuisines_url = zomato_base_url + "cuisines?city_id=" + zomato_ny_city_id
-    json_response = get_zomato_response(cuisines_url, zomato_api_keys[0])
+    json_response = get_zomato_response(cuisines_url, zomato_api_keys[3])
     cuisines_list = json_response['cuisines']
     for cuisine in cuisines_list:
         cuisine_ids += [cuisine['cuisine']['cuisine_id']]
@@ -71,7 +74,7 @@ def populate_restaurants(category_ids):
     establishment_ids = []
     establishment_url = zomato_base_url + "establishments?city_id=" + \
                         zomato_ny_city_id
-    json_response = get_zomato_response(establishment_url, zomato_api_keys[0])
+    json_response = get_zomato_response(establishment_url, zomato_api_keys[3])
     establishment_list = json_response['establishments']
     for establishment in establishment_list:
         establishment_ids += [establishment['establishment']['id']]
@@ -94,6 +97,10 @@ def populate_restaurants(category_ids):
                     json_response = get_zomato_response(full_url_request,
                                                         zomato_api_keys[
                                                             curr_key])
+
+                    if response_code == 500:
+                        curr_key += 1
+
                     query_count += 1
                     if query_count > (curr_key + 1) * 1000:
                         curr_key += 1
@@ -109,6 +116,7 @@ def populate_restaurants(category_ids):
                         populate_restaurant(restaurant)
                     if query_count % 100 == 0:
                         print("------ STATUS ------")
+                        print("Current key = %d" % curr_key)
                         print("Total Queries = %d" % query_count)
                         print("Total Restaurants = %d" % total_restaurants)
 
@@ -118,7 +126,7 @@ def populate_restaurants(category_ids):
 def populate_restaurant(restaurant_json):
     restaurant = restaurant_json['restaurant']
     id = restaurant['id']
-    name = restaurant['name']
+    name = restaurant['name'].replace("'", "")
     lat, lng = restaurant['location']['latitude'], \
                restaurant['location']['longitude']
     price_category = restaurant['price_range']
@@ -142,4 +150,4 @@ def populate_restaurant(restaurant_json):
 
     return
 
-populate_cuisines()
+populate_restaurants(1)
