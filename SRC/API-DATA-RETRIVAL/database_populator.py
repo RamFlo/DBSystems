@@ -26,16 +26,9 @@ class DatabasePopulator:
         """
         input_values = ', '.join(map(lambda x: "'%s'", values))
         input_values = input_values % tuple(values)
-        if columns is not None:
-            sql_query = "INSERT INTO %s (%s)" \
-                        "VALUES (%s)"
-            input_columns = ', '.join(map(lambda x: "'%s'", columns))
-            input_columns = input_values % tuple(columns)
-            sql_query = sql_query % (table_name, input_columns, input_values)
-        else:
-            sql_query = "INSERT INTO %s " \
-                        "VALUES (%s)"
-            sql_query = sql_query % (table_name, input_values)
+        sql_query = "INSERT INTO %s %s" \
+                    "VALUES (%s)"
+        sql_query = sql_query % (table_name, columns, input_values)
         sql_query = sql_query.encode('utf-8')
         try:
             self.cur.execute(sql_query)

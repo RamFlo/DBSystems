@@ -79,15 +79,24 @@ def populate_recipes_and_ingredients(api_key, offset):
 
 def populate_recipe(yummly_recipe):
     populator = DatabasePopulator()
-    populator.insert_row('Recipes',
-                         [yummly_recipe['id'],
-                          yummly_recipe['flavors']['salty'],
-                          yummly_recipe['flavors']['sweet'],
-                          yummly_recipe['flavors']['sour'],
-                          yummly_recipe['flavors']['bitter']],
-                         columns=['yummly_recipe_id', 'saltiness',
-                                  'sweetness', 'sourness', 'bitterness'])
-
+    if yummly_recipe['flavors'] is not None:
+        populator.insert_row('Recipes',
+                             [yummly_recipe['id'],
+                              yummly_recipe['flavors']['salty'],
+                              yummly_recipe['flavors']['sweet'],
+                              yummly_recipe['flavors']['sour'],
+                              yummly_recipe['flavors']['bitter']],
+                             columns=['yummly_recipe_id', 'saltiness',
+                                      'sweetness', 'sourness', 'bitterness'])
+    else:
+        populator.insert_row('Recipes',
+                             [yummly_recipe['id'],
+                              '0.5',
+                              '0.5',
+                              '0.5',
+                              '0.5'],
+                             columns='(yummly_recipe_id, saltiness, '
+                                     'sweetness, sourness, bitterness)')
 
     try:
         recipe_id = populator.get_recipe_id_by_yummly_id(yummly_recipe['id'])
