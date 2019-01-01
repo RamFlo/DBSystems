@@ -17,7 +17,7 @@ class DatabasePopulator:
         self.cur.execute('SET CHARACTER SET utf8;')
         self.cur.execute('SET character_set_connection=utf8;')
 
-    def insert_row(self, table_name, values, columns=None):
+    def insert_row(self, table_name, values, columns=""):
         """
         Inserts a row to the table, for all columns (a full row)
         :param table_name: the name of the table to insert the row into
@@ -26,7 +26,7 @@ class DatabasePopulator:
         """
         input_values = ', '.join(map(lambda x: "'%s'", values))
         input_values = input_values % tuple(values)
-        sql_query = "INSERT INTO %s %s" \
+        sql_query = "INSERT INTO %s %s " \
                     "VALUES (%s)"
         sql_query = sql_query % (table_name, columns, input_values)
         sql_query = sql_query.encode('utf-8')

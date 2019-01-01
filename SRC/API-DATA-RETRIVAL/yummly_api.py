@@ -86,8 +86,8 @@ def populate_recipe(yummly_recipe):
                               yummly_recipe['flavors']['sweet'],
                               yummly_recipe['flavors']['sour'],
                               yummly_recipe['flavors']['bitter']],
-                             columns=['yummly_recipe_id', 'saltiness',
-                                      'sweetness', 'sourness', 'bitterness'])
+                             columns='(yummly_recipe_id, saltiness, '
+                                     'sweetness, sourness, bitterness)')
     else:
         populator.insert_row('Recipes',
                              [yummly_recipe['id'],
@@ -121,3 +121,10 @@ def populate_recipe(yummly_recipe):
                   cuisine_translated)
             continue
         populator.insert_row('RecipesCuisines', [recipe_id, cuisine_id])
+
+
+for i in range(0, 30000, 100):
+    try:
+        populate_recipes_and_ingredients(0, i)
+    except:
+        continue

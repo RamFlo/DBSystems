@@ -49,7 +49,7 @@ def populate_establishments():
                              )
 
 
-def populate_restaurants(category_ids):
+def populate_restaurants(category_ids, key):
     # each query can return max of 20 results, and each search type can return
     # up to 100 results in total.
     # that means we need to generate as much as unique search types that will
@@ -79,8 +79,7 @@ def populate_restaurants(category_ids):
     for establishment in establishment_list:
         establishment_ids += [establishment['establishment']['id']]
 
-    curr_key = 0
-    query_count = 2
+    query_count = 10
     total_restaurants = 0
     for category_id in category_ids:
         for establishment_id in establishment_ids:
@@ -96,16 +95,7 @@ def populate_restaurants(category_ids):
                                                            category_id)
                     json_response = get_zomato_response(full_url_request,
                                                         zomato_api_keys[
-                                                            curr_key])
-
-                    if response_code == 500:
-                        curr_key += 1
-
-                    query_count += 1
-                    if query_count > (curr_key + 1) * 1000:
-                        curr_key += 1
-                    if curr_key == 4:
-                        return (category_id, query_count, total_restaurants)
+                                                            key])
 
                     if len(json_response) == 0:
                         continue
@@ -116,11 +106,13 @@ def populate_restaurants(category_ids):
                         populate_restaurant(restaurant)
                     if query_count % 100 == 0:
                         print("------ STATUS ------")
-                        print("Current key = %d" % curr_key)
                         print("Total Queries = %d" % query_count)
                         print("Total Restaurants = %d" % total_restaurants)
 
-    return (-1, query_count, total_restaurants)
+    print("------ FINAL STATUS ------")
+    print("Total Queries = %d" % query_count)
+    print("Total Restaurants = %d" % total_restaurants)
+    return
 
 
 def populate_restaurant(restaurant_json):
@@ -150,4 +142,4 @@ def populate_restaurant(restaurant_json):
 
     return
 
-populate_restaurants(1)
+populate_restaurants(1, 0)
