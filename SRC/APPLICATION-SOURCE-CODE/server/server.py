@@ -1,4 +1,4 @@
-from Flask import Flask
+from flask import Flask
 from db import Database
 import json
 
@@ -14,7 +14,7 @@ def log_request():
 
 
 @app.route('/ingredient_prefix/<string:prefix>')
-def get_ingredient_by_prefix():
+def get_ingredient_by_prefix(prefix):
     query_res = database.find_ingredients_by_prefix(prefix)
     if query_res == -1:
         return None
@@ -29,8 +29,8 @@ def get_cuisines():
     return json.dumps(query_res)
 
 
-@app.route('/discover_new_cuisines/<int:cuisine_id')
-def discover_new_cuisines():
+@app.route('/discover_new_cuisines/<int:cuisine_id>')
+def discover_new_cuisines(cuisine_id):
     if cuisine_id in cuisine_discovery_cache:
         return cuisine_discovery_cache[cuisine_id]
     else:
