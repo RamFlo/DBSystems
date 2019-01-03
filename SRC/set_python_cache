@@ -1,0 +1,2 @@
+#!/bin/bash
+setenv PYTHON_EGG_CACHE /specific/scratch/michaelk/python_cache
