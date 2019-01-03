@@ -21,7 +21,7 @@ class Database:
         """
         prefix = "%s%%" % prefix
         try:
-            self.cur.execute(sql_queries.find_ingredient_by_prefix, prefix)
+            self.cur.execute(sql_queries.find_ingredient_by_prefix, [prefix])
             return self.cur.fetchall()
         except Exception as ex:
             # TODO: log exception here
@@ -34,7 +34,7 @@ class Database:
         """
         try :
             self.cur.execute(sql_queries.discover_new_cuisines_from_cuisine,
-                             cuisine_id)
+                             [cuisine_id])
             return self.cur.fetchall()
         except Exception as ex:
             # TODO: log exception here
