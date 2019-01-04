@@ -46,3 +46,9 @@ FROM   (SELECT Cuisines.cuisine_id,
 WHERE  cuisine_receipe_count.cuisine_id = cuisineToCuisine.cuisine_id 
 ORDER  BY match_value DESC 
 LIMIT 3 """
+
+
+restaurant_query_wrapper = """
+SELECT restaurant_name, lat, lng, price_category, agg_review, 
+has_online_delivery, featured_photo_url, establishment_id 
+FROM (%s) as source """
