@@ -18,7 +18,7 @@ def log_request():
 	
 @app.route('/')
 def index():
-    return render_template("blabla.html")
+    return render_template("TheFoodCourt.html")
 
 
 @app.route('/ingredient_prefix/<string:prefix>')
