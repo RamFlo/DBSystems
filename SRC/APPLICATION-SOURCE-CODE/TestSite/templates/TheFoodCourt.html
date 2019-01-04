@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='angucomplete-alt.css') }}"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angucomplete-alt/2.4.1/angucomplete-alt.min.js"></script>
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    #map {
+    }
+    .marker {
+        background-image: url('{{ url_for('static', filename='resources/mapbox-icon.png') }}');
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    .mapboxgl-popup {
+        max-width: 200px;
+    }
+
+    .mapboxgl-popup-content {
+        text-align: center;
+        font-family: 'Open Sans', sans-serif;
+    }
+</style>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+</head>
+<body ng-app="myApp" ng-controller="mainController">
+<div style="background-image: url('{{ url_for('static', filename='resources/food_table.jpg') }}'); height: 200px;">
+</div>
+<div>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand">The Food Court</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href ng-click="decision(0)">Ingredient</a></li>
+            <li class="active"><a href ng-click="decision(1)">Discover new cuisines</a></li>
+            <li class="active"><a href ng-click="decision(2)">Unique ingredients of cuisine</a></li>
+            <li class="active"><a href ng-click="decision(3)">Discover new cuisines</a></li>
+            <li class="active"><a href ng-click="decision(4)">Discover new cuisines</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!--ingredient div-->
+<div ng-show="searchType == 0" style="width:800px; margin:0 auto; text-align: left;">
+    <div id="ingredientMainDiv">
+    <div angucomplete-alt id="ingredient" placeholder="Insert ingredient..." selected-object="selectedObj" local-data="autoCompleteRes"
+                      search-fields="entry_name" text-searching="Searching for results..." title-field="entry_name" minlength="1"
+         input-class="form-control form-control-small" input-changed="autoComplete" match-class="highlight">
+    </div>
+        <p>Select price range: </p>
+        <form id="restByIngredientPrice">
+            <label class="radio-inline">
+                <input ng-model="ingredPriceLevel" type="radio" name="priceRange" ng-value="0" checked>Unbounded
+            </label>
+            <label class="radio-inline">
+                <input ng-model="ingredPriceLevel" type="radio" name="priceRange" ng-value="1">$
+            </label>
+            <label class="radio-inline">
+                <input ng-model="ingredPriceLevel" type="radio" name="priceRange" ng-value="2">$$
+            </label>
+            <label class="radio-inline">
+                <input ng-model="ingredPriceLevel" type="radio" name="priceRange" ng-value="3">$$$
+            </label>
+            <label class="radio-inline">
+                <input ng-model="ingredPriceLevel" type="radio" name="priceRange" ng-value="4">$$$$
+            </label>
+            <br>
+            <div> Online delivery:
+            <label>
+                <input type="checkbox" ng-model="ingredDelivery">
+            </label>
+                <br>
+                <div> Search only around current location:
+                <label>
+                    <input type="checkbox" ng-model="currentLocation">
+                </label>
+                </div>
+            </div>
+        </form>
+    <input type="submit" ng-click="submitIngredient()" value="Search">
+    </div>
+<div>
+    <br>
+    <!--map-->
+    <div id='map' style="width: 600px; height: 500px;"></div>
+
+    Restaurant found:
+    <table style="margin: 0 auto;">
+    <tr  style="text-align: center;" ng-repeat="rest in restFromIngred">
+    <td><a href ng-click="locateRestInMap(rest)">{{rest.restaurant_name}}</a> </td>
+        <td>{{rest.agg_review}}</td>
+        <td>{{rest.price_category}}</td>
+        <td>{{rest.featured_photo_url}}</td>
+    </tr>
+    </table>
+</div>
+</div>
+
+<!--discover new cusines-->
+<div ng-show="searchType == 1" style="width:800px; margin:0 auto; text-align: left;">
+    <div id="cuisineMainDiv">
+        <div angucomplete-alt id="discoverNewCuisines" placeholder="Insert cuisine..." selected-object="selectedObj" local-data="autoCompleteRes"
+             search-fields="entry_name" text-searching="Searching for results..." title-field="entry_name" minlength="1"
+             input-class="form-control form-control-small" input-changed="autoComplete" match-class="highlight">
+        </div>
+        <input type="submit" ng-click="submitDiscoverNewCuisine()" value="Search">
+    </div>
+    <div>
+        <br>
+        Cuisines found:
+        <table style="margin: 0 auto;">
+            <tr  style="text-align: center;" ng-repeat="cuisine in discoverNewCuisine">
+                <td>{{cuisine.cuisine_name}}</td>
+
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!--Unique ingredients of cuisine-->
+<div ng-show="searchType == 2" style="width:800px; margin:0 auto; text-align: left;">
+    <div id="uniqueIngredMainDiv">
+        <div angucomplete-alt id="uniqueIngred" placeholder="Insert ingredient..." selected-object="selectedObj" local-data="autoCompleteRes"
+             search-fields="entry_name" text-searching="Searching for results..." title-field="entry_name" minlength="1"
+             input-class="form-control form-control-small" input-changed="autoComplete" match-class="highlight">
+        </div>
+        <input type="submit" ng-click="submitUniqueIngredients()" value="Search">
+    </div>
+    <div>
+        <br>
+        Unique ingredients:
+        <table style="margin: 0 auto;">
+            <tr  style="text-align: center;" ng-repeat="ingred in uniqueIngredintsResult">
+                <td>{{ingred.ingredient}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+</div>
+<script src="{{ url_for('static', filename='fcController.js') }}"></script> 
+</body>
+</html>
