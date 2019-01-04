@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="{{ url_for('static', filename='angucomplete-alt.css') }}"/>
+<link rel="stylesheet" href="css/angucomplete-alt.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+<script src="js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angucomplete-alt/2.4.1/angucomplete-alt.min.js"></script>
 <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
@@ -18,7 +18,7 @@
     #map {
     }
     .marker {
-        background-image: url('{{ url_for('static', filename='resources/mapbox-icon.png') }}');
+        background-image: url('resources/mapbox-icon.png');
         background-size: cover;
         width: 50px;
         height: 50px;
@@ -39,7 +39,7 @@
     <meta charset="UTF-8">
 </head>
 <body ng-app="myApp" ng-controller="mainController">
-<div style="background-image: url('{{ url_for('static', filename='resources/food_table.jpg') }}'); height: 200px;">
+<div style="background-image: url('resources/food_table.jpg'); height: 200px;">
 </div>
 <div>
 <nav class="navbar navbar-inverse">
@@ -154,6 +154,6 @@
     </div>
 </div>
 </div>
-<script src="{{ url_for('static', filename='fcController.js') }}"></script> 
+<script src="./js/fcController.js"></script>
 </body>
 </html>

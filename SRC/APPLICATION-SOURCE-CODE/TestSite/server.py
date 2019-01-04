@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, request
 from db import Database
 import json
 from datetime import datetime, timedelta
@@ -18,7 +18,7 @@ def log_request():
 	
 @app.route('/')
 def index():
-    return render_template("TheFoodCourt.html")
+	return app.send_static_file('TheFoodCourt.html')
 
 
 @app.route('/ingredient_prefix/<string:prefix>')
