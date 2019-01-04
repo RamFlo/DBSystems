@@ -1,6 +1,6 @@
 import MySQLdb as mdb
 import sql_queries
-
+from log import Logger
 localhost_name = "mysqlsrv1.cs.tau.ac.il"
 username = "DbMysql04"
 password = "DbMysql04"
@@ -12,13 +12,14 @@ class Database:
         self.con = mdb.connect(localhost_name, username, password, db_name)
         self.con.set_character_set('utf8')
         self.cur = self.con.cursor()
+	self.logger = Logger().logger
 
     def run_sql_query(self, query):
         try:
             self.cur.execute(query)
             return self.cur.fetchall()
         except Exception as ex:
-            # TODO
+            self.logger.error("Failed at run_sql_query with query: %s" %query)
             return -1
 
     def find_ingredients_by_prefix(self, prefix):
@@ -32,7 +33,7 @@ class Database:
             self.cur.execute(sql_queries.find_ingredient_by_prefix, [prefix])
             return self.cur.fetchall()
         except Exception as ex:
-            # TODO: log exception here
+            self.logger.error("Failed at find_ingredients_by_prefix, prefix is: %s" %prefix)
             return -1
 
     def discover_new_cuisines_from_cuisine(self, cuisine_id):
@@ -45,7 +46,7 @@ class Database:
                              [cuisine_id])
             return self.cur.fetchall()
         except Exception as ex:
-            # TODO: log exception here
+            self.logger.error("Failed at discover_new_cuisines_from_cuisine, cuisine_idis: %s" %cuisine_id)
             return -1
 
     def get_cuisines(self):
@@ -53,7 +54,7 @@ class Database:
             self.cur.execute(sql_queries.get_cuisine_list)
             return self.cur.fetchall()
         except Exception as ex:
-            # TODO
+            self.logger.error("Failed at get_cuisines")
             return -1
 
     @staticmethod
