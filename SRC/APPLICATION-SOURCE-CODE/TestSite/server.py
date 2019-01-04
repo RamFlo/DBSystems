@@ -16,9 +16,8 @@ cuisine_discovery_cache_persistence = timedelta(days=1)
 def log_request():
     return  # TODO: add request logger
 	
-@app.route("/")
+@app.route('/')
 def index():
-        #return("Index str")
     return render_template("blabla.html")
 
 
