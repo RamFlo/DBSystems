@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from db import Database
 import json
 from datetime import datetime, timedelta
@@ -15,6 +15,11 @@ cuisine_discovery_cache_persistence = timedelta(days=1)
 @app.before_request
 def log_request():
     return  # TODO: add request logger
+	
+@app.route("/")
+def index():
+        #return("Index str")
+    return render_template("TheFoodCourt.html")
 
 
 @app.route('/ingredient_prefix/<string:prefix>')
