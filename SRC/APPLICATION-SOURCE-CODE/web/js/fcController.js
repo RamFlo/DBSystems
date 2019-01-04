@@ -1,6 +1,6 @@
 
 let app = angular.module('myApp', ["angucomplete-alt"]);
-app.controller('mainController', ['$scope', '$resource', function($scope, $resource) { //$resource /*, $sce, require  '$sce','require'*/
+app.controller('mainController', ['$scope', function($scope) { //$resource /*, $sce, require  '$sce','require'*/
 
     // let router = require('/:loc/:lag/location', {loc : '@loc', lag : '@lag'});
     //let autoCompleteRouter = require ('/:text/:type/autoComplete', {text : '@text', type : '@type'});
