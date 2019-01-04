@@ -2,7 +2,10 @@ import logging
 import logging.config
 
 class Logger:
-  def __init__(self,):
+  def __init__(self, t):
     logging.config.fileConfig('logging.conf')
-    self.logger = logging.getLogger("michaelsProject")
+    if (t == "error"):
+        self.logger = logging.getLogger("michaelsProjectError")
+    else:
+        self.logger = logging.getLogger("michaelsProject")
     

@@ -12,7 +12,7 @@ class Database:
         self.con = mdb.connect(localhost_name, username, password, db_name)
         self.con.set_character_set('utf8')
         self.cur = self.con.cursor()
-	self.logger = Logger().logger
+	self.logger = Logger("error").logger #errorLog
 
     def run_sql_query(self, query):
         try:
