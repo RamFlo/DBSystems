@@ -30,7 +30,7 @@ FROM   (SELECT Cuisines.cuisine_id,
                        LEFT JOIN IngredientsRecipes 
                               ON RecipesCuisines.recipe_id = 
                                  IngredientsRecipes.recipe_id 
-                WHERE  Cuisines.cuisine_id = %d 
+                WHERE  Cuisines.cuisine_id = %s 
                 GROUP  BY IngredientsRecipes.ingredient) AS commonIngredients 
                LEFT JOIN IngredientsRecipes 
                       ON commonIngredients.ingredient = 
@@ -40,7 +40,7 @@ FROM   (SELECT Cuisines.cuisine_id,
                          RecipesCuisines.recipe_id 
                LEFT JOIN Cuisines 
                       ON RecipesCuisines.cuisine_id = Cuisines.cuisine_id 
-        WHERE  Cuisines.cuisine_id <> %d 
+        WHERE  Cuisines.cuisine_id <> %s 
         GROUP  BY Cuisines.cuisine_id) AS cuisineToCuisine, 
        (SELECT cuisine_id, 
                Count(cuisine_id) AS receipe_weight 

@@ -46,7 +46,7 @@ class Database:
         """
         try :
             self.cur.execute(sql_queries.discover_new_cuisines_from_cuisine,
-                             [cuisine_id])
+                             [cuisine_id, cuisine_id])
             return self.get_query_result_as_json()
         except Exception as ex:
             self.logger.error("Failed at discover_new_cuisines_from_cuisine: %s" % ex)
