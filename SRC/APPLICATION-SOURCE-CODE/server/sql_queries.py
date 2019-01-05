@@ -59,8 +59,8 @@ FROM (%s) as source """
 
 order_by_and_limit = """
 SELECT *
-FROM (%s)
-ORDER BY %s
+FROM (%s) as order_by_and_limit
+ORDER BY order_by_and_limit.%s
 LIMIT %d
 """
 
@@ -70,7 +70,7 @@ SELECT Restaurants.*
 FROM Restaurants, RestaurantsCuisines, (SELECT RecipesCuisines.cuisine_id
                                         FROM IngredientsRecipes, RecipesCuisines, Cuisines
                                         WHERE RecipesCuisines.recipe_id = IngredientsRecipes.recipe_id
-                                                AND IngredientsRecipes.ingredient = %s
+                                                AND IngredientsRecipes.ingredient = '%s'
                                         GROUP BY RecipesCuisines.cuisine_id
                                         ORDER BY Count(RecipesCuisines.cuisine_id) DESC
                                         LIMIT 3) as CuisinesByIngredient

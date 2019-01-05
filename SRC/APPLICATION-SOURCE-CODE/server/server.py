@@ -1,9 +1,8 @@
-from flask import Flask
+from flask import Flask, request
 from db import Database
 from datetime import datetime, timedelta
 from log import Logger
 import sql_queries
-import request
 
 logger = Logger().logger 
 app = Flask(__name__)
@@ -61,6 +60,12 @@ def discover_new_cuisines(cuisine_id):
 
 @app.route('/restaurants/<ingredient>/')
 def query_restaurants(ingredient):
+    """
+    To query this method, use :
+    '/restaurants/<ingredient>/?key=value&key=value&...' where keys are optional
+    strings from ['loclat', 'loclng', 'price_category', 'online_delivery', 'min_review']
+    for example: '/restaurants/flour/?min_review=3.5&price_category=2'
+    """
     loclat, loclng = request.args.get('loclat'), request.args.get('loclng')
     price_category = request.args.get('price_category')
     online_delivery = request.args.get('online_delivery')
