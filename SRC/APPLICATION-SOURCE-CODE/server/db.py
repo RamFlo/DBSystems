@@ -1,6 +1,6 @@
 import MySQLdb as mdb
 import sql_queries
-import json
+import simplejson
 from log import Logger
 
 localhost_name = "mysqlsrv1.cs.tau.ac.il"
@@ -14,14 +14,14 @@ class Database:
         self.con = mdb.connect(localhost_name, username, password, db_name)
         self.con.set_character_set('utf8')
         self.cur = self.con.cursor()
-        self.logger = Logger("error").logger #errorLog
+        self.logger = Logger("error").logger
 
     def run_sql_query(self, query):
         try:
             self.cur.execute(query)
             return self.get_query_result_as_json()
         except Exception as ex:
-            self.logger.error("Failed at run_sql_query with query: %s" % ex)
+            self.logger.error("Failed at run_sql_query: %s" % ex)
             return -1
 
     def find_ingredients_by_prefix(self, prefix):
@@ -117,4 +117,4 @@ class Database:
         json_data = []
         for result in results:
             json_data += [dict(zip(column_headers, result))]
-        return json.dumps(json_data)
+        return simplejson.dumps(json_data)

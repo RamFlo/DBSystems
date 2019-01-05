@@ -1,6 +1,5 @@
 from flask import Flask
 from db import Database
-import json
 from datetime import datetime, timedelta
 from log import Logger
 logger = Logger().logger 
