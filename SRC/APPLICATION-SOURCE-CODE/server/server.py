@@ -2,7 +2,8 @@ from flask import Flask
 from db import Database
 import json
 from datetime import datetime, timedelta
-
+from log import Logger
+logger = Logger().logger 
 app = Flask(__name__)
 port_number = 40327
 
@@ -27,6 +28,7 @@ def get_ingredient_by_prefix(prefix):
     query_res = database.find_ingredients_by_prefix(prefix)
     if query_res == -1:
         return None
+    logger.info("GET get_ingredient_by_prefix query")
     return query_res
 
 
@@ -35,11 +37,13 @@ def get_cuisines():
     query_res = database.get_cuisines()
     if query_res == -1:
         return None
+    logger.info("GET get_cuisines query")
     return query_res
 
 
 @app.route('/discover_new_cuisines/<int:cuisine_id>')
 def discover_new_cuisines(cuisine_id):
+    logger.info("GET discover_new_cuisines query")
     if cuisine_id in cuisine_discovery_cache:
         insert_time, data = cuisine_discovery_cache[cuisine_id]
         if datetime.now() < insert_time + cuisine_discovery_cache_persistence:
@@ -50,6 +54,7 @@ def discover_new_cuisines(cuisine_id):
         return None
     cuisine_discovery_cache[cuisine_id] = (datetime.now(), query_res)
     return query_res
+
 
 
 if __name__ == '__main__':
