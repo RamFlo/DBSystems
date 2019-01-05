@@ -29,7 +29,7 @@ def get_ingredient_by_prefix(prefix):
     return json.dumps(query_res)
 
 
-@app.route('/get_cuisines', methods=['GET'])
+@app.route('/get_cuisines')
 def get_cuisines():
     query_res = database.get_cuisines()
     if query_res == -1:
