@@ -74,6 +74,8 @@ app.controller('mainController', ['$scope', function($scope) { //$resource /*, $
     $scope.submitDiscoverNewCuisine = function () {
       // discoverRouter.$get({}, function(res){});
         let a = $scope.currResturant;
+        const Url = 'http://delta-tomcat-vm.cs.tau.ac.il:40328/get_cuisines';
+        fetch(Url).then(data=>{return data.json()}).then(res=>{console.log(res)});
         $scope.discoverNewCuisine = [{cuisine_name : 'Italian'}, {cuisine_name : 'Italian'}, {cuisine_name : 'Italian'}];
     };
 
