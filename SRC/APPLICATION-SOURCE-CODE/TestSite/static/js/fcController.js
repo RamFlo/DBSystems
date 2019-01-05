@@ -1,12 +1,10 @@
 
 let app = angular.module('myApp', ["angucomplete-alt"]);
-app.controller('mainController', ['$scope','$resource', function($scope,$resource) { //$resource /*, $sce, require  '$sce','require'*/
+app.controller('mainController', ['$scope', function($scope) { //$resource /*, $sce, require  '$sce','require'*/
 
     // let router = require('/:loc/:lag/location', {loc : '@loc', lag : '@lag'});
     //let autoCompleteRouter = require ('/:text/:type/autoComplete', {text : '@text', type : '@type'});
-    //let ingredientRouter = require ('/:ingredient/:priceLevel/:delivery/autoComplete', {text : '@text', type : '@type'});\
-	
-	let testRouter = $resource('/get_cuisines');
+    //let ingredientRouter = require ('/:ingredient/:priceLevel/:delivery/autoComplete', {text : '@text', type : '@type'});
 
 
     // router.$get({loc : '128', lag : '189'}, function(res) {
@@ -76,7 +74,6 @@ app.controller('mainController', ['$scope','$resource', function($scope,$resourc
     $scope.submitDiscoverNewCuisine = function () {
       // discoverRouter.$get({}, function(res){});
         let a = $scope.currResturant;
-		
         $scope.discoverNewCuisine = [{cuisine_name : 'Italian'}, {cuisine_name : 'Italian'}, {cuisine_name : 'Italian'}];
     };
 
@@ -84,7 +81,7 @@ app.controller('mainController', ['$scope','$resource', function($scope,$resourc
     $scope.submitUniqueIngredients = function() {
         // uniqueIngredRouter.$get({}, function(res){});
         let a = $scope.currUniqueIngred;
-		testRouter.get(function(res){let cusinesRes = res;});
+
         $scope.uniqueIngredintsResult = [{ingredient : "apple"}, {ingredient : "banana"}];
     };
 
