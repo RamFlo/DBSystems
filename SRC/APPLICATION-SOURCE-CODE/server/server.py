@@ -17,12 +17,17 @@ def log_request():
     return  # TODO: add request logger
 
 
+@app.route('/')
+def index():
+    return app.send_static_file('TheFoodCourt.html')
+
+
 @app.route('/ingredient_prefix/<string:prefix>')
 def get_ingredient_by_prefix(prefix):
     query_res = database.find_ingredients_by_prefix(prefix)
     if query_res == -1:
         return None
-    return json.dumps(query_res)
+    return query_res
 
 
 @app.route('/get_cuisines')
@@ -30,7 +35,7 @@ def get_cuisines():
     query_res = database.get_cuisines()
     if query_res == -1:
         return None
-    return json.dumps(query_res)
+    return query_res
 
 
 @app.route('/discover_new_cuisines/<int:cuisine_id>')
@@ -43,9 +48,8 @@ def discover_new_cuisines(cuisine_id):
     query_res = database.discover_new_cuisines_from_cuisine(cuisine_id)
     if query_res == -1:
         return None
-    encoded_res = json.dumps(query_res)
-    cuisine_discovery_cache[cuisine_id] = (datetime.now(), encoded_res)
-    return encoded_res
+    cuisine_discovery_cache[cuisine_id] = (datetime.now(), query_res)
+    return query_res
 
 
 if __name__ == '__main__':

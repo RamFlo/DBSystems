@@ -1,5 +1,6 @@
 import MySQLdb as mdb
 import sql_queries
+import json
 
 localhost_name = "mysqlsrv1.cs.tau.ac.il"
 username = "DbMysql04"
@@ -16,7 +17,7 @@ class Database:
     def run_sql_query(self, query):
         try:
             self.cur.execute(query)
-            return self.cur.fetchall()
+            return self.get_query_result_as_json()
         except Exception as ex:
             # TODO
             return -1
@@ -30,7 +31,7 @@ class Database:
         prefix = "%s%%" % prefix
         try:
             self.cur.execute(sql_queries.find_ingredient_by_prefix, [prefix])
-            return self.cur.fetchall()
+            return self.get_query_result_as_json()
         except Exception as ex:
             # TODO: log exception here
             return -1
@@ -43,7 +44,7 @@ class Database:
         try :
             self.cur.execute(sql_queries.discover_new_cuisines_from_cuisine,
                              [cuisine_id])
-            return self.cur.fetchall()
+            return self.get_query_result_as_json()
         except Exception as ex:
             # TODO: log exception here
             return -1
@@ -51,7 +52,7 @@ class Database:
     def get_cuisines(self):
         try:
             self.cur.execute(sql_queries.get_cuisine_list)
-            return self.cur.fetchall()
+            return self.get_query_result_as_json()
         except Exception as ex:
             # TODO
             return -1
@@ -102,3 +103,15 @@ class Database:
                 query_prefix, establishment_id)
 
         return wrapped_query
+
+    def get_query_result_as_json(self):
+        """
+        :return: the last query results as a list of dictionaries,
+        each dictionary has the column name as keys and row values as values
+        """
+        column_headers = [x[0] for x in self.cur.description]
+        results = self.cur.fetchall()
+        json_data = []
+        for result in results:
+            json_data += [dict(zip(column_headers, result))]
+        return json.dumps(json_data)
