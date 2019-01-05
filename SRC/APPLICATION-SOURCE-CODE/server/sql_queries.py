@@ -1,6 +1,9 @@
 
-get_cuisine_list = """SELECT *
-                        FROM Cuisines"""
+get_cuisine_list = """
+SELECT DISTINCT Cuisines.cuisine_id, Cuisines.cuisine_name
+FROM Cuisines, RecipesCuisines
+WHERE Cuisines.cuisine_id = RecipesCuisines.cuisine_id
+"""
 
 
 find_ingredient_by_prefix = """SELECT ingredient 
