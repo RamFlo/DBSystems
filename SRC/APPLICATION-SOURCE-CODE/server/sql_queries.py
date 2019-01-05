@@ -55,3 +55,25 @@ restaurant_query_wrapper = """
 SELECT restaurant_name, lat, lng, price_category, agg_review, 
 has_online_delivery, featured_photo_url, establishment_id 
 FROM (%s) as source """
+
+
+order_by_and_limit = """
+SELECT *
+FROM (%s)
+ORDER BY %s
+LIMIT %d
+"""
+
+#  TODO: can replace with better inner query (using find cuisines by  ingredients)
+restaurants_by_cuisine = """
+SELECT Restaurants.*
+FROM Restaurants, RestaurantsCuisines, (SELECT RecipesCuisines.cuisine_id
+                                        FROM IngredientsRecipes, RecipesCuisines, Cuisines
+                                        WHERE RecipesCuisines.recipe_id = IngredientsRecipes.recipe_id
+                                                AND IngredientsRecipes.ingredient = %s
+                                        GROUP BY RecipesCuisines.cuisine_id
+                                        ORDER BY Count(RecipesCuisines.cuisine_id) DESC
+                                        LIMIT 3) as CuisinesByIngredient
+WHERE RestaurantsCuisines.cuisine_id = CuisinesByIngredient.cuisine_id
+		AND Restaurants.restaurant_id = RestaurantsCuisines.restaurant_id
+"""

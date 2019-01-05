@@ -91,21 +91,27 @@ class Database:
                              % (query_prefix, lng_range[0], lng_range[1])
             query_prefix = " AND"
         if price_category is not None:
-            wrapped_query += "%s source.price_category = %d" % (
+            wrapped_query += "%s source.price_category = %s" % (
                 query_prefix, price_category)
             query_prefix = " AND"
         if min_agg_review is not None:
-            wrapped_query += "%s source.agg_review >= %f" % (query_prefix, min_agg_review)
+            wrapped_query += "%s source.agg_review >= %s" % (query_prefix,
+                                                             min_agg_review)
             query_prefix = " AND"
         if online_delivery is not None:
-            wrapped_query += "%s source.has_online_delivery = %d" % (
+            wrapped_query += "%s source.has_online_delivery = %s" % (
                 query_prefix, online_delivery)
             query_prefix = " AND"
         if establishment_id is not None:
-            wrapped_query += "%s source.establishment_id = %d" % (
+            wrapped_query += "%s source.establishment_id = %s" % (
                 query_prefix, establishment_id)
 
         return wrapped_query
+
+    @staticmethod
+    def order_by_and_limit_query(base_query, order_by_condition, limit):
+        return sql_queries.order_by_and_limit % (base_query,
+                                                 order_by_condition, limit)
 
     def get_query_result_as_json(self):
         """
