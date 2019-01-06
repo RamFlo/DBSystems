@@ -77,3 +77,47 @@ FROM Restaurants, RestaurantsCuisines, (SELECT RecipesCuisines.cuisine_id
 WHERE RestaurantsCuisines.cuisine_id = CuisinesByIngredient.cuisine_id
 		AND Restaurants.restaurant_id = RestaurantsCuisines.restaurant_id
 """
+
+
+restaurant_by_taste = """
+SELECT Restaurants.*
+FROM Restaurants, RestaurantsCuisines,
+(SELECT cuisine_id
+FROM (SELECT RecipesCuisines.cuisine_id, (Count(RecipesCuisines.cuisine_id)/cnt) as weight
+        FROM Recipes, RecipesCuisines,
+			(SELECT RecipesCuisines.cuisine_id, Count(RecipesCuisines.cuisine_id) as cnt
+				FROM Recipes, RecipesCuisines
+				WHERE Recipes.recipe_id = RecipesCuisines.recipe_id
+				GROUP BY RecipesCuisines.cuisine_id
+			) as NumRecipesPerCuisine
+		WHERE saltiness BETWEEN %s
+				AND sweetness BETWEEN %s
+				AND sourness BETWEEN %s
+				AND bitterness BETWEEN %s
+				AND RecipesCuisines.recipe_id = Recipes.recipe_id
+				AND RecipesCuisines.cuisine_id = NumRecipesPerCuisine.cuisine_id
+		GROUP BY RecipesCuisines.cuisine_id
+		ORDER BY weight DESC) as MatchingTastes
+WHERE NOT EXISTS (
+SELECT *
+FROM (SELECT RecipesCuisines.cuisine_id, (Count(RecipesCuisines.cuisine_id)/cnt) as weight
+		FROM Recipes, RecipesCuisines,
+			(SELECT RecipesCuisines.cuisine_id, Count(RecipesCuisines.cuisine_id) as cnt
+				FROM Recipes, RecipesCuisines
+				WHERE Recipes.recipe_id = RecipesCuisines.recipe_id
+				GROUP BY RecipesCuisines.cuisine_id
+			) as NumRecipesPerCuisine
+		WHERE saltiness BETWEEN %s
+				AND sweetness BETWEEN %s
+				AND sourness BETWEEN %s
+				AND bitterness BETWEEN %s
+				AND RecipesCuisines.recipe_id = Recipes.recipe_id
+				AND RecipesCuisines.cuisine_id = NumRecipesPerCuisine.cuisine_id
+		GROUP BY RecipesCuisines.cuisine_id
+		ORDER BY weight DESC
+		LIMIT 5) as NotMatchingTastes
+WHERE MatchingTastes.cuisine_id = NotMatchingTastes.cuisine_id
+) LIMIT 3) AS CuisinesByTaste
+WHERE Restaurants.restaurant_id = RestaurantsCuisines.restaurant_id
+		AND RestaurantsCuisines.cuisine_id = CuisinesByTaste.cuisine_id
+"""
