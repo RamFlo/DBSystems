@@ -19,7 +19,7 @@ CREATE TABLE Restaurants (
 	lng DECIMAL(10, 8) NOT NULL,
 	price_category tinyint CHECK (price_category >= 1 AND price_category <=4),
 	agg_review float CHECK (agg_review >= 0.0 AND agg_review <= 5.0),
-	has_online_delivery bit,
+	has_online_delivery tinyint,
 	featured_photo_url nvarchar(2083),
 	establishment_id smallint unsigned,
 	PRIMARY KEY (restaurant_id),
@@ -59,11 +59,7 @@ CREATE TABLE IngredientsRecipes (
 	PRIMARY KEY (ingredient, recipe_id),
 	FOREIGN KEY (recipe_id) REFERENCES Recipes(recipe_id)
 );
-
-CREATE CLUSTERED INDEX ingredient_index
-	ON IngredientsRecipes(ingredient)
-	USING hash;
-
+	
 CREATE INDEX flavors_index
 	ON Recipes (saltiness, sweetness, sourness, bitterness);
 	
