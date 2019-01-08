@@ -159,7 +159,7 @@ def find_unique_ingredients_from_cuisine(cuisine_id):
     query_res = database.find_unique_ingredients_of_cuisine(cuisine_id_int, 500)
     if query_res == -1:
         return None
-    if len(simplejson.loads(query_res) == 0):  # try again with smaller filter
+    if len(simplejson.loads(query_res)) == 0:  # try again with smaller filter
         query_res = database.find_unique_ingredients_of_cuisine(cuisine_id_int,
                                                                 250)
         if query_res == -1:
