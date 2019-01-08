@@ -76,6 +76,9 @@ app.controller('mainController', ['$scope', function($scope) { //$resource /*, $
             ingredient: a
         };
         const othePram={
+            headers:{
+                "content-type":"application/json; charset=UTF-8"
+            },
             body:Data
         }
         fetch(Url,othePram)
