@@ -88,7 +88,8 @@ app.controller('mainController', ['$scope', function($scope) { //$resource /*, $
                 $scope.restFromIngred = res;
                 $(document).ready(function() {
                 $('restFromIngredTable').DataTable({
-                    "pageLength":10
+                    "pageLength":10,
+                    "lengthMenu": [ 10, 25, 50, 75, 100 ]
                 });
             } )})
             .catch(error=>console.log(error));
