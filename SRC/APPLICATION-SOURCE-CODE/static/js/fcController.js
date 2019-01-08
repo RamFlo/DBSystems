@@ -72,7 +72,7 @@ app.controller('mainController', ['$scope', function($scope) { //$resource /*, $
         let d = $scope.currentLocation;
         //example for result
         //$scope.restFromIngred = [{restaurant_name : 'ret1', cuisine : "Italian" ,agg_review : 3.2, lat : 42, lng : 39, price_category : 3, featured_photo_url : "url"}, {restaurant_name : 'ret1', agg_review : 3.2, lat : 142, lng : 152, price_category : 3, featured_photo_url : "url"}, {restaurant_name : 'ret1', agg_review : 3.2, lat : 142, lng : 152, price_category : 3, featured_photo_url : "url"}];
-        let test1 = this.searchStr;
+        let test1 = document.getElementById("discoverNewCuisines");
         let urlString = 'restaurants/'+a;
         fetch(urlString)
             .then(data=>{return data.json()})
