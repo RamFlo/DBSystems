@@ -11,6 +11,10 @@ app.controller('mainController', ['$scope', function($scope) { //$resource /*, $
     //
     // });
 
+    //delete later
+    //$scope.restFromIngred = [1,3,4];
+    //delete later
+
     $scope.currentLocation = 0;
 
     $scope.searchType = 0;
@@ -22,7 +26,6 @@ app.controller('mainController', ['$scope', function($scope) { //$resource /*, $
     $scope.decision = function (dec) {
         $scope.searchType = dec;
     };
-
 
 
     // Auto complete according to the search type and the input text
@@ -68,6 +71,11 @@ app.controller('mainController', ['$scope', function($scope) { //$resource /*, $
 
         //example for result
         $scope.restFromIngred = [{restaurant_name : 'ret1', cuisine : "Italian" ,agg_review : 3.2, lat : 42, lng : 39, price_category : 3, featured_photo_url : "url"}, {restaurant_name : 'ret1', agg_review : 3.2, lat : 142, lng : 152, price_category : 3, featured_photo_url : "url"}, {restaurant_name : 'ret1', agg_review : 3.2, lat : 142, lng : 152, price_category : 3, featured_photo_url : "url"}];
+
+        $(document).ready(function() {
+            $('restFromIngredTable').DataTable();
+        } );
+
     };
 
 

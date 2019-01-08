@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="static/css/angucomplete-alt.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script src="static/js/bootstrap.min.js"></script>
+<!--<script src="static/js/bootstrap.min.js"></script>-->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angucomplete-alt/2.4.1/angucomplete-alt.min.js"></script>
 <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
 <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
+
+<!--tableDataSet-->
+<script src='https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js'></script>
+<link type="text/css" href='https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css' rel='stylesheet' />
+
+
 <style>
     body {
         margin: 0;
@@ -42,20 +50,40 @@
 <div style="background-image: url('static/resources/food_table.JPG'); height: 200px;">
 </div>
 <div>
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand">The Food Court</a>
+<!--<nav class="navbar navbar-expand-sm bg-dark navbar-dark">-->
+    <!--<div class="container-fluid">-->
+        <!--<div class="navbar-header">-->
+            <!--<a class="navbar-brand">The Food Court</a>-->
+        <!--</div>-->
+        <!--<ul class="nav navbar-nav">-->
+            <!--<li class="active"><a href ng-click="decision(0)">Ingredient</a></li>-->
+            <!--<li class="active"><a href ng-click="decision(1)">Discover new cuisines</a></li>-->
+            <!--<li class="active"><a href ng-click="decision(2)">Unique ingredients of cuisine</a></li>-->
+            <!--<li class="active"><a href ng-click="decision(3)">Discover new cuisines</a></li>-->
+            <!--<li class="active"><a href ng-click="decision(4)">Discover new cuisines</a></li>-->
+        <!--</ul>-->
+    <!--</div>-->
+<!--</nav>-->
+
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="navbar-text">
+        <a class="navbar-brand">The Food Court</a>
         </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href ng-click="decision(0)">Ingredient</a></li>
-            <li class="active"><a href ng-click="decision(1)">Discover new cuisines</a></li>
-            <li class="active"><a href ng-click="decision(2)">Unique ingredients of cuisine</a></li>
-            <li class="active"><a href ng-click="decision(3)">Discover new cuisines</a></li>
-            <li class="active"><a href ng-click="decision(4)">Discover new cuisines</a></li>
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href ng-click="decision(0)">Ingredient</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href ng-click="decision(1)">Discover new cuisines</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href ng-click="decision(2)">Unique ingredients of cuisine</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href ng-click="decision(3)">Discover new cuisines</a>
+            </li>
         </ul>
-    </div>
-</nav>
+    </nav>
 
 <!--ingredient div-->
 <div ng-show="searchType == 0" style="width:800px; margin:0 auto; text-align: left;">
@@ -66,35 +94,55 @@
     </div>
         <p>Select price range: </p>
         <form id="restByIngredientPrice">
-            <label class="radio-inline">
-                <input ng-model="ingredPriceLevel" type="radio" name="priceRange" ng-value="0" checked>Unbounded
-            </label>
-            <label class="radio-inline">
-                <input ng-model="ingredPriceLevel" type="radio" name="priceRange" ng-value="1">$
-            </label>
-            <label class="radio-inline">
-                <input ng-model="ingredPriceLevel" type="radio" name="priceRange" ng-value="2">$$
-            </label>
-            <label class="radio-inline">
-                <input ng-model="ingredPriceLevel" type="radio" name="priceRange" ng-value="3">$$$
-            </label>
-            <label class="radio-inline">
-                <input ng-model="ingredPriceLevel" type="radio" name="priceRange" ng-value="4">$$$$
-            </label>
-            <br>
-            <div> Online delivery:
-            <label>
-                <input type="checkbox" ng-model="ingredDelivery">
-            </label>
-                <br>
-                <div> Search only around current location:
-                <label>
-                    <input type="checkbox" ng-model="currentLocation">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <!--<label class="radio-inline">-->
+            <!--<label class="btn btn-secondary btn-sm">-->
+
+            <!--<label class="btn btn-primary active">-->
+                <!--<input autocomplete="off" ng-model="ingredPriceLevel" type="radio" name="priceRange" ng-value="0" checked>Unbounded-->
+            <!--</label>-->
+                <!--<label class="btn btn-primary">-->
+                <!--<input autocomplete="off" ng-model="ingredPriceLevel" type="radio" name="priceRange" ng-value="1">$-->
+            <!--</label>-->
+                <!--<label class="btn btn-primary">-->
+                <!--<input autocomplete="off" ng-model="ingredPriceLevel" type="radio" name="priceRange" ng-value="2">$$-->
+            <!--</label>-->
+                <!--<label class="btn btn-primary">-->
+                <!--<input autocomplete="off" ng-model="ingredPriceLevel" type="radio" name="priceRange" ng-value="3">$$$-->
+            <!--</label>-->
+                <!--<label class="btn btn-primary">-->
+                <!--<input autocomplete="off" ng-model="ingredPriceLevel" type="radio" name="priceRange" ng-value="4">$$$$-->
+            <!--</label>-->
+
+
+                    <label class="btn btn-secondary active">
+                        <input ng-model="ingredPriceLevel" ng-value="0" type="radio" name="priceRange" id="option1" autocomplete="off" checked> Unbounded
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input ng-model="ingredPriceLevel" ng-value="1" type="radio" name="priceRange" id="option2" autocomplete="off"> $
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input ng-model="ingredPriceLevel" ng-value="2" type="radio" name="priceRange" id="option3" autocomplete="off"> $$
+                    </label>
+                <label class="btn btn-secondary">
+                    <input ng-model="ingredPriceLevel" ng-value="3" type="radio" name="priceRange" id="option4" autocomplete="off"> $$$
                 </label>
-                </div>
+                <label class="btn btn-secondary">
+                    <input ng-model="ingredPriceLevel" ng-value="4" type="radio" name="priceRange" id="option5" autocomplete="off"> $$$$
+                </label>
+            </div>
+            <div class="btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary">
+                    <input type="checkbox" autocomplete="off" ng-model="ingredDelivery"> Online delivery
+                </label>
+            </div>
+            <div class="btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary">
+                    <input type="checkbox" autocomplete="off" ng-model="currentLocation"> Search only around current location
+                </label>
             </div>
         </form>
-    <input type="submit" ng-click="submitIngredient()" value="Search">
+    <input class="btn btn-success" type="submit" ng-click="submitIngredient()" value="Search">
     </div>
 <div>
     <br>
@@ -102,14 +150,83 @@
     <div id='map' style="width: 600px; height: 500px;"></div>
 
     Restaurant found:
-    <table style="margin: 0 auto;">
-    <tr  style="text-align: center;" ng-repeat="rest in restFromIngred">
-    <td><a href ng-click="locateRestInMap(rest)">{{rest.restaurant_name}}</a> </td>
-        <td>{{rest.agg_review}}</td>
-        <td>{{rest.price_category}}</td>
-        <td>{{rest.featured_photo_url}}</td>
-    </tr>
+    <!--<table class="table table-sm table-dark" style="margin: 0 auto;">-->
+    <!--<tr  style="text-align: center;" ng-repeat="rest in restFromIngred">-->
+    <!--<td><a href ng-click="locateRestInMap(rest)">{{rest.restaurant_name}}</a> </td>-->
+        <!--<td>{{rest.agg_review}}</td>-->
+        <!--<td>{{rest.price_category}}</td>-->
+        <!--<td>{{rest.featured_photo_url}}</td>-->
+
+    <!--</tr>-->
+    <!--</table>-->
+
+    <table id="restFromIngredTable" class="display" style="margin: 0 auto;">
+        <thead>
+        <tr>
+            <th>Restaurant Name</th>
+            <th>Price Category</th>
+            <th>Rating</th>
+            <th>Show on map</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr  style="text-align: center;" ng-repeat="rest in restFromIngred">
+            <td>{{rest.restaurant_name}}</td>
+            <td>{{rest.price_category}}</td>
+            <td>{{rest.agg_review}}</td>
+            <td><a href ng-click="locateRestInMap(rest)">click here</a></td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <th>Restaurant Name</th>
+            <th>Price Category</th>
+            <th>Rating</th>
+            <th>Show on map</th>
+        </tr>
+        </tfoot>
     </table>
+
+    <!--delete later-->
+    <!--<table class="table table-bordered table-dark">-->
+        <!--<thead>-->
+        <!--<tr class="bg-info">-->
+            <!--<th scope="col">#</th>-->
+            <!--<th scope="col">First</th>-->
+            <!--<th scope="col">Last</th>-->
+            <!--<th scope="col">Handle</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody>-->
+        <!--<tr class="bg-info">-->
+            <!--<th scope="row">1</th>-->
+            <!--<td>Mark</td>-->
+            <!--<td>Otto</td>-->
+            <!--<td>@mdo</td>-->
+        <!--</tr>-->
+        <!--<tr class="bg-info">-->
+            <!--<th scope="row">2</th>-->
+            <!--<td>Jacob</td>-->
+            <!--<td>Thornton</td>-->
+            <!--<td>@fat</td>-->
+        <!--</tr>-->
+        <!--<tr class="bg-info">-->
+            <!--<th scope="row">3</th>-->
+            <!--<td colspan="2">Larry the Bird</td>-->
+            <!--<td>@twitter</td>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+    <!--</table>-->
+
+
+
+
+
+    <!--<div class="custom-control custom-radio custom-control-inline">-->
+        <!--<input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">-->
+        <!--<label class="custom-control-label" for="customRadioInline1">Toggle this custom radio</label>-->
+    <!--</div>-->
+    <!--delete later-->
 </div>
 </div>
 
@@ -120,7 +237,7 @@
              search-fields="entry_name" text-searching="Searching for results..." title-field="entry_name" minlength="1"
              input-class="form-control form-control-small" input-changed="autoComplete" match-class="highlight">
         </div>
-        <input type="submit" ng-click="submitDiscoverNewCuisine()" value="Search">
+        <input class="btn btn-success" type="submit" ng-click="submitDiscoverNewCuisine()" value="Search">
     </div>
     <div>
         <br>
@@ -141,7 +258,7 @@
              search-fields="entry_name" text-searching="Searching for results..." title-field="entry_name" minlength="1"
              input-class="form-control form-control-small" input-changed="autoComplete" match-class="highlight">
         </div>
-        <input type="submit" ng-click="submitUniqueIngredients()" value="Search">
+        <input class="btn btn-success" type="submit" ng-click="submitUniqueIngredients()" value="Search">
     </div>
     <div>
         <br>
@@ -154,6 +271,9 @@
     </div>
 </div>
 </div>
+
+
+
 <script src="static/js/fcController.js"></script>
 </body>
 </html>
