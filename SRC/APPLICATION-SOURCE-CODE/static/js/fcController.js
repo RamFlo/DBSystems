@@ -90,7 +90,10 @@ app.controller('mainController', ['$scope', function($scope) { //$resource /*, $
                     // lengthMenu: [ 10, 25, 50, 75, 100 ],
                     // dom: 'Bfrtip',
                     // buttons: [ 'pageLength' ]
-                    "lengthChange": false
+                    //"lengthChange": false
+                    "scrollY":        "200px",
+                    "scrollCollapse": true,
+                    "paging":         false
                 });
             } )})
             .catch(error=>console.log(error));
