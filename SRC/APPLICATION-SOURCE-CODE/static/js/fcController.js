@@ -70,11 +70,21 @@ app.controller('mainController', ['$scope', function($scope) { //$resource /*, $
 
 
         //example for result
-        $scope.restFromIngred = [{restaurant_name : 'ret1', cuisine : "Italian" ,agg_review : 3.2, lat : 42, lng : 39, price_category : 3, featured_photo_url : "url"}, {restaurant_name : 'ret1', agg_review : 3.2, lat : 142, lng : 152, price_category : 3, featured_photo_url : "url"}, {restaurant_name : 'ret1', agg_review : 3.2, lat : 142, lng : 152, price_category : 3, featured_photo_url : "url"}];
+        //$scope.restFromIngred = [{restaurant_name : 'ret1', cuisine : "Italian" ,agg_review : 3.2, lat : 42, lng : 39, price_category : 3, featured_photo_url : "url"}, {restaurant_name : 'ret1', agg_review : 3.2, lat : 142, lng : 152, price_category : 3, featured_photo_url : "url"}, {restaurant_name : 'ret1', agg_review : 3.2, lat : 142, lng : 152, price_category : 3, featured_photo_url : "url"}];
+        const Url = 'restaurants';
+        const Data={
+            ingredient: a
+        };
+        const othePram={
+            body:Data
+        }
+        fetch(Url,othePram)
+            .then(data=>{return data.json()})
+            .then(res=>{$(document).ready(function() {
+                $('restFromIngredTable').DataTable();
+            } )})
+            .catch(error=>console.log(error));
 
-        $(document).ready(function() {
-            $('restFromIngredTable').DataTable();
-        } );
 
     };
 
