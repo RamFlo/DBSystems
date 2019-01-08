@@ -71,7 +71,7 @@ def query_restaurants_by_ingredient(ingredient):
     price_category = request.args.get('price_category')
     online_delivery = request.args.get('online_delivery')
     min_review = request.args.get('min_review')
-    base_query = sql_queries.restaurants_by_cuisine % ingredient
+    base_query = sql_queries.restaurants_by_ingredient % ingredient
     if loclat != None and loclng != None:
         lat_range = [float(loclat) - geodist, float(loclat) + geodist]
         lng_range = [float(loclng) - geodist, float(loclng) + geodist]

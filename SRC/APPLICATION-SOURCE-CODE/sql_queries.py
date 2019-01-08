@@ -64,16 +64,20 @@ ORDER BY order_by_and_limit.%s
 LIMIT %d
 """
 
-#  TODO: can replace with better inner query (using find cuisines by  ingredients)
-restaurants_by_cuisine = """
+restaurants_by_ingredient = """
 SELECT Restaurants.*
-FROM Restaurants, RestaurantsCuisines, (SELECT RecipesCuisines.cuisine_id
-                                        FROM IngredientsRecipes, RecipesCuisines, Cuisines
-                                        WHERE RecipesCuisines.recipe_id = IngredientsRecipes.recipe_id
-                                                AND IngredientsRecipes.ingredient = '%s'
-                                        GROUP BY RecipesCuisines.cuisine_id
-                                        ORDER BY Count(RecipesCuisines.cuisine_id) DESC
-                                        LIMIT 3) as CuisinesByIngredient
+FROM Restaurants, RestaurantsCuisines, 
+	(SELECT RecipesCuisines.cuisine_id
+	FROM IngredientsRecipes, RecipesCuisines, Cuisines, 
+		(SELECT cuisine_id, Count(recipe_id) cuisine_recipe_cnt
+		FROM RecipesCuisines
+		GROUP BY cuisine_id) as CuisineRecipesCount
+	WHERE RecipesCuisines.recipe_id = IngredientsRecipes.recipe_id
+	      AND IngredientsRecipes.ingredient = %s
+	      AND CuisineRecipesCount.cuisine_id = RecipesCuisines.cuisine_id
+	GROUP BY RecipesCuisines.cuisine_id
+	ORDER BY Count(RecipesCuisines.cuisine_id)/cuisine_recipe_cnt DESC
+	LIMIT 3) as CuisinesByIngredient
 WHERE RestaurantsCuisines.cuisine_id = CuisinesByIngredient.cuisine_id
 		AND Restaurants.restaurant_id = RestaurantsCuisines.restaurant_id
 """
