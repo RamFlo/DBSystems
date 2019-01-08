@@ -12,7 +12,8 @@ port_number = 40327
 database = Database()
 
 cuisine_discovery_cache = {}
-cuisine_discovery_cache_persistence = timedelta(days=1)
+unique_ingredients_cache = {}
+cache_persistence_time = timedelta(days=1)
 
 geodist = 0.12  # used for restaurant geosearching - defines L1 radius
 
@@ -49,7 +50,7 @@ def discover_new_cuisines(cuisine_id):
     logger.info("GET discover_new_cuisines query")
     if cuisine_id in cuisine_discovery_cache:
         insert_time, data = cuisine_discovery_cache[cuisine_id]
-        if datetime.now() < insert_time + cuisine_discovery_cache_persistence:
+        if datetime.now() < insert_time + cache_persistence_time:
             return data
 
     query_res = database.discover_new_cuisines_from_cuisine(cuisine_id)
@@ -148,6 +149,11 @@ def get_taste_condition(value):
 
 @app.route('/unique_ingredients/<cuisine_id>')
 def find_unique_ingredients_from_cuisine(cuisine_id):
+    if cuisine_id in unique_ingredients_cache:
+        insert_time, data = unique_ingredients_cache[cuisine_id]
+        if datetime.now() < insert_time + cache_persistence_time:
+            return data
+
     try:
         cuisine_id_int = int(cuisine_id)
     except:
@@ -164,8 +170,10 @@ def find_unique_ingredients_from_cuisine(cuisine_id):
                                                                 250)
         if query_res == -1:
             return None
+        unique_ingredients_cache[cuisine_id] = (datetime.now(), query_res)
         return query_res
     else:
+        unique_ingredients_cache[cuisine_id] = (datetime.now(), query_res)
         return query_res
 
 
