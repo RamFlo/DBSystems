@@ -73,7 +73,7 @@ FROM Restaurants, RestaurantsCuisines,
 		FROM RecipesCuisines
 		GROUP BY cuisine_id) as CuisineRecipesCount
 	WHERE RecipesCuisines.recipe_id = IngredientsRecipes.recipe_id
-	      AND IngredientsRecipes.ingredient = %s
+	      AND IngredientsRecipes.ingredient = '%s'
 	      AND CuisineRecipesCount.cuisine_id = RecipesCuisines.cuisine_id
 	GROUP BY RecipesCuisines.cuisine_id
 	ORDER BY Count(RecipesCuisines.cuisine_id)/cuisine_recipe_cnt DESC
