@@ -35,16 +35,24 @@ app.controller('mainController', ['$scope', function($scope) { //$resource /*, $
       // })\
 
 
-        $scope.autoCompleteRes = [
-            {entry_name : 'gbc'},
-            {entry_name : 'jhg'},
-            {entry_name : 'acc'},
-            {entry_name : 'ahc'},
-            {entry_name : 'gbc'},
-            {entry_name : 'lui'},
-            {entry_name : '123'},
-            {entry_name : 'jhgr'},
-            ];
+        // $scope.autoCompleteRes = [
+        //     {entry_name : 'gbc'},
+        //     {entry_name : 'jhg'},
+        //     {entry_name : 'acc'},
+        //     {entry_name : 'ahc'},
+        //     {entry_name : 'gbc'},
+        //     {entry_name : 'lui'},
+        //     {entry_name : '123'},
+        //     {entry_name : 'jhgr'},
+        //     ];
+
+        let urlString = 'ingredient_prefix/'+this.searchStr;
+        fetch(urlString)
+            .then(data=>{return data.json()})
+            .then(res=>{
+                $scope.autoCompleteRes = res;
+            })
+            .catch(error=>console.log(error));
 
         if ($scope.searchType == 0) {
             $scope.currIngredient = this.searchStr;
@@ -72,26 +80,17 @@ app.controller('mainController', ['$scope', function($scope) { //$resource /*, $
         //example for result
         //$scope.restFromIngred = [{restaurant_name : 'ret1', cuisine : "Italian" ,agg_review : 3.2, lat : 42, lng : 39, price_category : 3, featured_photo_url : "url"}, {restaurant_name : 'ret1', agg_review : 3.2, lat : 142, lng : 152, price_category : 3, featured_photo_url : "url"}, {restaurant_name : 'ret1', agg_review : 3.2, lat : 142, lng : 152, price_category : 3, featured_photo_url : "url"}];
         let urlString = 'restaurants/'+a;
-        //Object.keys(params).forEach(key=>Url.searchParams.append(key,params[key]))
-        // const Data={
-        //     ingredient: a
-        // };
-        // const othePram={
-        //     headers:{
-        //         "content-type":"application/json; charset=UTF-8"
-        //     },
-        //     body:Data
-        // }
         fetch(urlString)
             .then(data=>{return data.json()})
             .then(res=>{
                 $scope.restFromIngred = res;
                 $(document).ready(function() {
                 $('restFromIngredTable').DataTable({
-                    pageLength:10,
-                    lengthMenu: [ 10, 25, 50, 75, 100 ],
-                    dom: 'Bfrtip',
-                    buttons: [ 'pageLength' ]
+                    // pageLength:10,
+                    // lengthMenu: [ 10, 25, 50, 75, 100 ],
+                    // dom: 'Bfrtip',
+                    // buttons: [ 'pageLength' ]
+                    "lengthChange": false
                 });
             } )})
             .catch(error=>console.log(error));
