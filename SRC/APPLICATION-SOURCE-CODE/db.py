@@ -60,6 +60,17 @@ class Database:
             self.logger.error("Failed at get_cuisines: " % ex)
             return -1
 
+    def find_unique_ingredients_of_cuisine(self, cuisine_id, num_to_filter):
+        query = sql_queries.find_unique_ingredients_of_cuisine % (
+            cuisine_id, cuisine_id, num_to_filter)
+        try:
+            self.cur.execute(query)
+            return self.get_query_result_as_json()
+        except Exception as ex:
+            self.logger.error("Failed at "
+                              "find_unique_ingredients_of_cusiines: " % ex)
+            return -1
+
     @staticmethod
     def restaurant_query_builder(base_query, lat_range=None, lng_range=None,
                                  price_category=None, min_agg_review=None,
@@ -124,3 +135,4 @@ class Database:
         for result in results:
             json_data += [dict(zip(column_headers, result))]
         return simplejson.dumps(json_data)
+

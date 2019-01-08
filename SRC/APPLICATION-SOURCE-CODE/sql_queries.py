@@ -121,3 +121,26 @@ WHERE MatchingTastes.cuisine_id = NotMatchingTastes.cuisine_id
 WHERE Restaurants.restaurant_id = RestaurantsCuisines.restaurant_id
 		AND RestaurantsCuisines.cuisine_id = CuisinesByTaste.cuisine_id
 """
+
+
+find_unique_ingredients_of_cuisine = """
+SELECT *
+FROM (SELECT ingredient, Count(ingredient)
+		FROM IngredientsRecipes, RecipesCuisines
+		WHERE IngredientsRecipes.recipe_id = RecipesCuisines.recipe_id
+				AND RecipesCuisines.cuisine_id = %d
+		GROUP BY ingredient
+		ORDER BY Count(ingredient) DESC) AS IngredientsOfCuisine
+WHERE NOT EXISTS (
+SELECT *
+FROM (SELECT ingredient
+		FROM IngredientsRecipes, RecipesCuisines
+		WHERE IngredientsRecipes.recipe_id = RecipesCuisines.recipe_id
+				AND RecipesCuisines.cuisine_id <> %d
+		GROUP BY ingredient
+		ORDER BY Count(ingredient) DESC
+		LIMIT %d) as IngredientsOfOtherCuisines
+WHERE IngredientsOfOtherCuisines.ingredient = IngredientsOfCuisine.ingredient
+)
+LIMIT 5
+"""

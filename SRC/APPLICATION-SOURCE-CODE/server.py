@@ -3,6 +3,7 @@ from db import Database
 from datetime import datetime, timedelta
 from log import Logger
 import sql_queries
+import simplejson
 
 logger = Logger().logger 
 app = Flask(__name__)
@@ -143,6 +144,29 @@ def get_taste_condition(value):
         return "0.6 AND 1"
     else:
         return "0.0 AND 0.4"
+
+
+@app.route('/unique_ingredients/<cuisine_id>')
+def find_unique_ingredients_from_cuisine(cuisine_id):
+    try:
+        cuisine_id_int = int(cuisine_id)
+    except:
+        logger.error("Error translating cuisine_id to int in "
+                     "find_unique_ingredients_from_cuisine, passed value: "
+                     "%s" % cuisine_id)
+        return None
+
+    query_res = database.find_unique_ingredients_of_cuisine(cuisine_id_int, 500)
+    if query_res == -1:
+        return None
+    if len(simplejson.loads(query_res) == 0):  # try again with smaller filter
+        query_res = database.find_unique_ingredients_of_cuisine(cuisine_id_int,
+                                                                250)
+        if query_res == -1:
+            return None
+        return query_res
+    else:
+        return query_res
 
 
 if __name__ == '__main__':
