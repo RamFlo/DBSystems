@@ -68,6 +68,7 @@ def query_restaurants_by_ingredient(ingredient):
     strings from ['loclat', 'loclng', 'price_category', 'online_delivery', 'min_review']
     for example: '/restaurants/flour/?min_review=3.5&price_category=2'
     """
+    logger.info("GET query_restaurants_by_ingredient query")
     loclat, loclng = request.args.get('loclat'), request.args.get('loclng')
     price_category = request.args.get('price_category')
     online_delivery = request.args.get('online_delivery')
@@ -101,6 +102,7 @@ def query_restaurants_by_taste(saltiness, sweetness, sourness, bitterness):
     and tastes (e.g. 'saltiness') are either 0 or 1
     for example: '/restaurants/0/1/0/1/?min_review=3.5&price_category=2'
     """
+    logger.info("GET query_restaurants_by_taste query")
     try:
         saltiness, sweetness, sourness, bitterness = int(saltiness), \
                                                      int(sweetness), \
@@ -149,6 +151,7 @@ def get_taste_condition(value):
 
 @app.route('/unique_ingredients/<cuisine_id>')
 def find_unique_ingredients_from_cuisine(cuisine_id):
+    logger.info("GET find_unique_ingredients_from_cuisine query")
     if cuisine_id in unique_ingredients_cache:
         insert_time, data = unique_ingredients_cache[cuisine_id]
         if datetime.now() < insert_time + cache_persistence_time:
