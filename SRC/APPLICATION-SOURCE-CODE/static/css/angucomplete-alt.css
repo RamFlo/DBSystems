@@ -15,6 +15,10 @@
     /*top: 32px;
     left: 0px;
     */
+
+    overflow-y: auto;
+    max-height: 200px;
+
     margin-top: -6px;
     background-color: #ffffff;
 }
