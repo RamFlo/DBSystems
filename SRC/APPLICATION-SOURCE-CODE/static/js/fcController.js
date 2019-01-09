@@ -28,6 +28,11 @@ app.controller('mainController', ['$scope', function($scope) { //$resource /*, $
     };
 
 
+    $rootScope.parseInput = function(str) {
+        let emptyStr="";
+        return emptyStr;
+    }
+
     // Auto complete according to the search type and the input text
     $scope.autoComplete = function(/*text*/) {
       //   autoCompleteRouter.$get({text : text, this.searchStr : $scope.searchType}, function(res) {
