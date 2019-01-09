@@ -22,6 +22,10 @@ app.controller('mainController', ['$scope','$rootScope', function($scope,$rootSc
     $scope.ingredPriceLevel = 0;
     $scope.ingredDelivery = 0;
 
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
     // Determine the view for each query
     $scope.decision = function (dec) {
         $scope.searchType = dec;
@@ -50,6 +54,8 @@ app.controller('mainController', ['$scope','$rootScope', function($scope,$rootSc
         //     {entry_name : '123'},
         //     {entry_name : 'jhgr'},
         //     ];
+
+        sleep(1000);
 
         let searchStrIng = document.getElementById("ingredient_value").value;
         // let urlString = 'ingredient_prefix/'+this.searchStr;
