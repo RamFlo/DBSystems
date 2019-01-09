@@ -51,7 +51,9 @@ app.controller('mainController', ['$scope','$rootScope', function($scope,$rootSc
         //     {entry_name : 'jhgr'},
         //     ];
 
-        let urlString = 'ingredient_prefix/'+this.searchStr;
+        let searchStrIng = document.getElementById("ingredient_value").value;
+        // let urlString = 'ingredient_prefix/'+this.searchStr;
+        let urlString = 'ingredient_prefix/'+searchStrIng;
         fetch(urlString)
             .then(data=>{return data.json()})
             .then(res=>{
