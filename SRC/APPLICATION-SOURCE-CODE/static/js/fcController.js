@@ -37,6 +37,30 @@ app.controller('mainController', ['$scope','$rootScope', function($scope,$rootSc
         return emptyStr;
     }
 
+    $scope.searchAPI = function(userInputString, timeoutPromise) {
+        console.log("searching for: "+userInputString);
+        let urlString = 'ingredient_prefix/'+userInputString;
+        fetch(urlString)
+            .then(data=>{return data.json()})
+            .then(res=>{
+                return res;
+            })
+            .catch(error=>console.log(error));
+
+        // if ($scope.searchType == 0) {
+        //     $scope.currIngredient = this.searchStr;
+        // }
+        // else if ($scope.searchType == 1) {
+        //     $scope.currResturant = this.searchStr;
+        // }
+        // else if ($scope.searchType == 2) {
+        //     $scope.currUniqueIngred = this.searchStr;
+        // }
+        //
+        //
+        // return $http.post('/yourownapi/', {q: userInputString}, {timeout: timeoutPromise});
+    }
+
     // Auto complete according to the search type and the input text
     $scope.autoComplete = function(/*text*/) {
       //   autoCompleteRouter.$get({text : text, this.searchStr : $scope.searchType}, function(res) {
