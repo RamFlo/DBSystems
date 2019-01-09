@@ -149,3 +149,38 @@ WHERE IngredientsOfOtherCuisines.ingredient = IngredientsOfCuisine.ingredient
 )
 LIMIT 5
 """
+
+set_up_new_franchise = """
+SELECT restaurant_name
+FROM (SELECT Restaurants.*, RestaurantsCuisines.cuisine_id
+		FROM Restaurants, RestaurantsCuisines
+		WHERE EXISTS (
+		SELECT *
+		FROM (SELECT *
+				FROM (SELECT restaurant_name
+						FROM Restaurants
+						GROUP BY restaurant_name
+						HAVING Count(restaurant_name) > 10) AS Franchises
+				WHERE NOT EXISTS (
+				SELECT *
+				FROM (SELECT restaurant_name
+						FROM Restaurants
+						WHERE lat BETWEEN %f AND %f
+								AND lng BETWEEN %f AND %f) AS LocationRestaurants
+				WHERE Franchises.restaurant_name = LocationRestaurants.restaurant_name
+				)) AS FranchisesNotInLocation
+		WHERE Restaurants.restaurant_name = FranchisesNotInLocation.restaurant_name
+		) AND Restaurants.restaurant_id = RestaurantsCuisines.restaurant_id) AS OptionalFranchises
+WHERE NOT EXISTS (
+SELECT *
+FROM (SELECT cuisine_id
+		FROM Restaurants, RestaurantsCuisines
+		WHERE lat BETWEEN %f AND %f
+				AND lng BETWEEN %f AND %f
+				AND Restaurants.restaurant_id = RestaurantsCuisines.restaurant_id
+		GROUP BY cuisine_id
+		ORDER BY Count(cuisine_id) DESC
+		LIMIT 15) AS CuisinesInLocation
+WHERE CuisinesInLocation.cuisine_id = OptionalFranchises.cuisine_id)
+GROUP BY restaurant_name
+"""

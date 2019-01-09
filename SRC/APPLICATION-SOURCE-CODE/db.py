@@ -57,7 +57,7 @@ class Database:
             self.cur.execute(sql_queries.get_cuisine_list)
             return self.get_query_result_as_json()
         except Exception as ex:
-            self.logger.error("Failed at get_cuisines: " % ex)
+            self.logger.error("Failed at get_cuisines: %s" % ex)
             return -1
 
     def find_unique_ingredients_of_cuisine(self, cuisine_id, num_to_filter):
@@ -68,7 +68,23 @@ class Database:
             return self.get_query_result_as_json()
         except Exception as ex:
             self.logger.error("Failed at "
-                              "find_unique_ingredients_of_cusiines: " % ex)
+                              "find_unique_ingredients_of_cuisines: %s" % ex)
+            return -1
+
+    def set_up_new_franchise(self, latloc, lngloc, l1distance):
+        query = sql_queries.set_up_new_franchise % (latloc-l1distance,
+                                                    latloc + l1distance,
+                                                    lngloc - l1distance,
+                                                    lngloc + l1distance,
+                                                    latloc-l1distance,
+                                                    latloc + l1distance,
+                                                    lngloc - l1distance,
+                                                    lngloc + l1distance)
+        try:
+            self.cur.execute(query)
+            return self.get_query_result_as_json()
+        except Exception as ex:
+            self.logger.error("Failed at set_up_new_franchise: %s" % ex)
             return -1
 
     @staticmethod

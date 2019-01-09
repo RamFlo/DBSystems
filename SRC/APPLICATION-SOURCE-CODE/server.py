@@ -180,5 +180,21 @@ def find_unique_ingredients_from_cuisine(cuisine_id):
         return query_res
 
 
+@app.route('/new_franchise/<lat>/<lng>')
+def set_up_new_franchise(lat, lng):
+    try:
+        lat, lng = float(lat), float(lng)
+    except:
+        logger.error("Error translating location to floats in "
+                     "set_up_new_franchise, passed values: "
+                     "lat: %s, lng: %s" % (lat, lng))
+
+    query_res = database.set_up_new_franchise(lat, lng, 0.008)
+    if query_res == -1:
+        return None
+    return query_res
+
+
+
 if __name__ == '__main__':
     app.run(port=port_number)
