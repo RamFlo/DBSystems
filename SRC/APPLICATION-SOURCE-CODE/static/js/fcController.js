@@ -36,18 +36,33 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
     $scope.searchBlaRes = {};
 
     $scope.searchBla= function (userInputString, timeoutPromise) {
-        return $timeout(function () {
-            let queryRes = [{ "id": "1" }, { "id": "2" }, { "id": "3" }];
-            console.log("searching for: "+userInputString);
-            let urlString = 'ingredient_prefix/'+userInputString;
-            fetch(urlString)
-                .then(data=>{return data.json()})
-                .then(res=>{
-                    $scope.searchBlaRes =  res;
+        return $timeout(async function () {
+            console.log("searching for: " + userInputString);
+            let urlString = 'ingredient_prefix/' + userInputString;
+            await fetch(urlString)
+                .then(data => {
+                    return data.json()
                 })
-                .catch(error=>console.log(error));
+                .then(res => {
+                    $scope.searchBlaRes = res;
+                })
+                .catch(error => console.log(error));
             return {"data": $scope.searchBlaRes};
         }, 1000);};
+
+    // $scope.searchBla= function (userInputString, timeoutPromise) {
+    //     return $timeout(function () {
+    //         let queryRes = [{ "id": "1" }, { "id": "2" }, { "id": "3" }];
+    //         console.log("searching for: "+userInputString);
+    //         let urlString = 'ingredient_prefix/'+userInputString;
+    //         fetch(urlString)
+    //             .then(data=>{return data.json()})
+    //             .then(res=>{
+    //                 $scope.searchBlaRes =  res;
+    //             })
+    //             .catch(error=>console.log(error));
+    //         return {"data": $scope.searchBlaRes};
+    //     }, 1000);};
 
     $scope.searchAPI = function(userInputString, timeoutPromise) {
         console.log("searching for: "+userInputString);
