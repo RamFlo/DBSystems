@@ -55,9 +55,10 @@ app.controller('mainController', ['$scope','$rootScope', function($scope,$rootSc
         //     {entry_name : 'jhgr'},
         //     ];
 
-        sleep(1000);
+        //await sleep(1000);
 
         let searchStrIng = document.getElementById("ingredient_value").value;
+        console.log("searching for: "+searchStrIng);
         // let urlString = 'ingredient_prefix/'+this.searchStr;
         let urlString = 'ingredient_prefix/'+searchStrIng;
         fetch(urlString)
