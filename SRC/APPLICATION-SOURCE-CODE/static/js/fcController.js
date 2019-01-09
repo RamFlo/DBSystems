@@ -56,7 +56,7 @@ app.controller('mainController', ['$scope','$rootScope', function($scope,$rootSc
         //     ];
 
         //await sleep(1000);
-        $scope.autoCompleteRes = null;
+        $scope.autoCompleteRes = "";
 
         let searchStrIng = document.getElementById("ingredient_value").value;
         console.log("searching for: "+searchStrIng);
