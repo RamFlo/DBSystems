@@ -99,6 +99,16 @@
              search-fields="ingredient" text-searching="Searching for results..." title-field="ingredient" minlength="1"
              input-class="form-control form-control-small" match-class="highlight" parse-input="parseInput" >
         </div>
+        <div angucomplete-alt
+             id="input-name"
+             placeholder="Name"
+             pause="50"
+             search-fields="name"
+             remote-url-handler="searchAPI"
+             title-field="name"
+             minlength="3"
+             match-class="angucomplete-match">
+        </div>
         <p>Select price range: </p>
         <form id="restByIngredientPrice">
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
