@@ -27,7 +27,7 @@ def index():
     return app.send_static_file('TheFoodCourt.html')
 
 
-@app.route('/ingredient_prefix/<string:prefix>')
+@app.route('/ingredient_prefix/<string:prefix>', methods=['GET'])
 def get_ingredient_by_prefix(prefix):
     query_res = database.find_ingredients_by_prefix(prefix)
     if query_res == -1:
