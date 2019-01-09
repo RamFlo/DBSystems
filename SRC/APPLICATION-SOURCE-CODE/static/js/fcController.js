@@ -22,10 +22,6 @@ app.controller('mainController', ['$scope','$rootScope', function($scope,$rootSc
     $scope.ingredPriceLevel = 0;
     $scope.ingredDelivery = 0;
 
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
     // Determine the view for each query
     $scope.decision = function (dec) {
         $scope.searchType = dec;
@@ -35,7 +31,7 @@ app.controller('mainController', ['$scope','$rootScope', function($scope,$rootSc
     $rootScope.parseInput = function(str) {
         let emptyStr="";
         return emptyStr;
-    }
+    };
 
     $scope.searchAPI = function(userInputString, timeoutPromise) {
         console.log("searching for: "+userInputString);
