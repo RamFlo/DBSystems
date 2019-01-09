@@ -92,30 +92,20 @@ class Database:
         """
         wrapped_query = sql_queries.restaurant_query_wrapper % base_query
 
-        query_prefix = " WHERE"
         if lat_range is not None:
-            wrapped_query += "%s %f <= source.lat AND source.lat <= %f" \
-                             % (query_prefix, lat_range[0], lat_range[1])
-            query_prefix = " AND"
+            wrapped_query += " AND %f <= source.lat AND source.lat <= %f" \
+                             % (lat_range[0], lat_range[1])
         if lng_range is not None:
-            wrapped_query += "%s %f <= source.lng AND source.lng <= %f" \
-                             % (query_prefix, lng_range[0], lng_range[1])
-            query_prefix = " AND"
+            wrapped_query += " AND %f <= source.lng AND source.lng <= %f" \
+                             % (lng_range[0], lng_range[1])
         if price_category is not None:
-            wrapped_query += "%s source.price_category = %s" % (
-                query_prefix, price_category)
-            query_prefix = " AND"
+            wrapped_query += " AND source.price_category = %s" % (price_category)
         if min_agg_review is not None:
-            wrapped_query += "%s source.agg_review >= %s" % (query_prefix,
-                                                             min_agg_review)
-            query_prefix = " AND"
+            wrapped_query += " AND source.agg_review >= %s" % (min_agg_review)
         if online_delivery is not None:
-            wrapped_query += "%s source.has_online_delivery = %s" % (
-                query_prefix, online_delivery)
-            query_prefix = " AND"
+            wrapped_query += " AND source.has_online_delivery = %s" % (online_delivery)
         if establishment_id is not None:
-            wrapped_query += "%s source.establishment_id = %s" % (
-                query_prefix, establishment_id)
+            wrapped_query += " AND source.establishment_id = %s" % (establishment_id)
 
         return wrapped_query
 
