@@ -42,10 +42,9 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
                 .then(data=>{return data.json()})
                 .then(res=>{
                     queryRes =  res;
+                    return {"data": queryRes};
                 })
                 .catch(error=>console.log(error));
-
-            return {"data": queryRes};
         }, 1000);};
 
     $scope.searchAPI = function(userInputString, timeoutPromise) {
