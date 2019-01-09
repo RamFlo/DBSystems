@@ -59,7 +59,7 @@ app.controller('mainController', ['$scope','$rootScope', function($scope,$rootSc
         //
         //
         // return $http.post('/yourownapi/', {q: userInputString}, {timeout: timeoutPromise});
-    }
+    };
 
     // Auto complete according to the search type and the input text
     $scope.autoComplete = function(/*text*/) {
