@@ -33,6 +33,8 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
         return emptyStr;
     };
 
+    $scope.searchBlaRes = {};
+
     $scope.searchBla= function (userInputString, timeoutPromise) {
         return $timeout(function () {
             let queryRes = [{ "id": "1" }, { "id": "2" }, { "id": "3" }];
@@ -41,10 +43,10 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
             fetch(urlString)
                 .then(data=>{return data.json()})
                 .then(res=>{
-                    queryRes =  res;
-                    return {"data": queryRes};
+                    $scope.searchBlaRes =  res;
                 })
                 .catch(error=>console.log(error));
+            return {"data": $scope.searchBlaRes};
         }, 1000);};
 
     $scope.searchAPI = function(userInputString, timeoutPromise) {
