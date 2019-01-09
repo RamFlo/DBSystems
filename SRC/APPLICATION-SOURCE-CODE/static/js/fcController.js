@@ -35,7 +35,17 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
 
     $scope.searchBla= function (userInputString, timeoutPromise) {
         return $timeout(function () {
-            return {"data": [{ "id": "1" }, { "id": "2" }, { "id": "3" }]};
+            let queryRes = [{ "id": "1" }, { "id": "2" }, { "id": "3" }];
+            console.log("searching for: "+userInputString);
+            let urlString = 'ingredient_prefix/'+userInputString;
+            fetch(urlString)
+                .then(data=>{return data.json()})
+                .then(res=>{
+                    queryRes =  res;
+                })
+                .catch(error=>console.log(error));
+
+            return {"data": queryRes};
         }, 1000);};
 
     $scope.searchAPI = function(userInputString, timeoutPromise) {
