@@ -57,7 +57,34 @@ class Database:
             self.cur.execute(sql_queries.get_cuisine_list)
             return self.get_query_result_as_json()
         except Exception as ex:
-            self.logger.error("Failed at get_cuisines: " % ex)
+            self.logger.error("Failed at get_cuisines: %s" % ex)
+            return -1
+
+    def find_unique_ingredients_of_cuisine(self, cuisine_id, num_to_filter):
+        query = sql_queries.find_unique_ingredients_of_cuisine % (
+            cuisine_id, cuisine_id, num_to_filter)
+        try:
+            self.cur.execute(query)
+            return self.get_query_result_as_json()
+        except Exception as ex:
+            self.logger.error("Failed at "
+                              "find_unique_ingredients_of_cuisines: %s" % ex)
+            return -1
+
+    def set_up_new_franchise(self, latloc, lngloc, l1distance):
+        query = sql_queries.set_up_new_franchise % (latloc-l1distance,
+                                                    latloc + l1distance,
+                                                    lngloc - l1distance,
+                                                    lngloc + l1distance,
+                                                    latloc-l1distance,
+                                                    latloc + l1distance,
+                                                    lngloc - l1distance,
+                                                    lngloc + l1distance)
+        try:
+            self.cur.execute(query)
+            return self.get_query_result_as_json()
+        except Exception as ex:
+            self.logger.error("Failed at set_up_new_franchise: %s" % ex)
             return -1
 
     @staticmethod
@@ -81,30 +108,20 @@ class Database:
         """
         wrapped_query = sql_queries.restaurant_query_wrapper % base_query
 
-        query_prefix = " WHERE"
         if lat_range is not None:
-            wrapped_query += "%s %f <= source.lat AND source.lat <= %f" \
-                             % (query_prefix, lat_range[0], lat_range[1])
-            query_prefix = " AND"
+            wrapped_query += " AND %f <= source.lat AND source.lat <= %f" \
+                             % (lat_range[0], lat_range[1])
         if lng_range is not None:
-            wrapped_query += "%s %f <= source.lng AND source.lng <= %f" \
-                             % (query_prefix, lng_range[0], lng_range[1])
-            query_prefix = " AND"
+            wrapped_query += " AND %f <= source.lng AND source.lng <= %f" \
+                             % (lng_range[0], lng_range[1])
         if price_category is not None:
-            wrapped_query += "%s source.price_category = %s" % (
-                query_prefix, price_category)
-            query_prefix = " AND"
+            wrapped_query += " AND source.price_category = %s" % (price_category)
         if min_agg_review is not None:
-            wrapped_query += "%s source.agg_review >= %s" % (query_prefix,
-                                                             min_agg_review)
-            query_prefix = " AND"
+            wrapped_query += " AND source.agg_review >= %s" % (min_agg_review)
         if online_delivery is not None:
-            wrapped_query += "%s source.has_online_delivery = %s" % (
-                query_prefix, online_delivery)
-            query_prefix = " AND"
+            wrapped_query += " AND source.has_online_delivery = %s" % (online_delivery)
         if establishment_id is not None:
-            wrapped_query += "%s source.establishment_id = %s" % (
-                query_prefix, establishment_id)
+            wrapped_query += " AND source.establishment_id = %s" % (establishment_id)
 
         return wrapped_query
 
@@ -124,3 +141,4 @@ class Database:
         for result in results:
             json_data += [dict(zip(column_headers, result))]
         return simplejson.dumps(json_data)
+
