@@ -33,6 +33,11 @@ app.controller('mainController', ['$scope','$rootScope', function($scope,$rootSc
         return emptyStr;
     };
 
+    $scope.searchBla= function (userInputString, timeoutPromise) {
+        return $timeout(function () {
+            return {"data": [{ "id": "1" }, { "id": "2" }, { "id": "3" }]};
+        }, 1000);};
+
     $scope.searchAPI = function(userInputString, timeoutPromise) {
         console.log("searching for: "+userInputString);
         let urlString = 'ingredient_prefix/'+userInputString;
