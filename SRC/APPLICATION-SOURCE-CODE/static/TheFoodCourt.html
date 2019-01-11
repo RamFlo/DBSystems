@@ -8,7 +8,6 @@
 <!--<script src="static/js/bootstrap.min.js"></script>-->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angucomplete-alt/2.4.1/angucomplete-alt.min.js"></script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angucomplete-alt/3.0.0/angucomplete-alt.min.js"></script>
 <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
 <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
@@ -16,6 +15,8 @@
 <!--tableDataSet-->
 <script src='https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js'></script>
 <script src='https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js'></script>
+<script src='static/js/angular-datatables.min.js'></script>
+<script src='js/angular-datatables.min.js'></script>
 <!--<link type="text/css" href='https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css' rel='stylesheet' />-->
 <link type="text/css" href='https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css' rel='stylesheet' />
 
@@ -164,7 +165,7 @@
     <!--</tr>-->
     <!--</table>-->
 
-    <table id="restFromIngredTable" class="table table-striped table-bordered" style="margin: 0 auto;">
+    <table datatable="ng" id="restFromIngredTable" class="table table-striped table-bordered" style="margin: 0 auto;">
         <thead>
         <tr>
             <th>Restaurant Name</th>
