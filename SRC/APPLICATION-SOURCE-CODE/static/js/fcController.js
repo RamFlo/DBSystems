@@ -50,20 +50,6 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
             return {"data": $scope.searchBlaRes};
         }, 1000);};
 
-    // $scope.searchBla= function (userInputString, timeoutPromise) {
-    //     return $timeout(function () {
-    //         let queryRes = [{ "id": "1" }, { "id": "2" }, { "id": "3" }];
-    //         console.log("searching for: "+userInputString);
-    //         let urlString = 'ingredient_prefix/'+userInputString;
-    //         fetch(urlString)
-    //             .then(data=>{return data.json()})
-    //             .then(res=>{
-    //                 $scope.searchBlaRes =  res;
-    //             })
-    //             .catch(error=>console.log(error));
-    //         return {"data": $scope.searchBlaRes};
-    //     }, 1000);};
-
     $scope.searchAPI = function(userInputString, timeoutPromise) {
         console.log("searching for: "+userInputString);
         let urlString = 'ingredient_prefix/'+userInputString;
@@ -90,24 +76,6 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
 
     // Auto complete according to the search type and the input text
     $scope.autoComplete = function(/*text*/) {
-      //   autoCompleteRouter.$get({text : text, this.searchStr : $scope.searchType}, function(res) {
-      //
-      // })\
-
-
-        // $scope.autoCompleteRes = [
-        //     {entry_name : 'gbc'},
-        //     {entry_name : 'jhg'},
-        //     {entry_name : 'acc'},
-        //     {entry_name : 'ahc'},
-        //     {entry_name : 'gbc'},
-        //     {entry_name : 'lui'},
-        //     {entry_name : '123'},
-        //     {entry_name : 'jhgr'},
-        //     ];
-
-        //await sleep(1000);
-        //$scope.autoCompleteRes = "";
 
         let searchStrIng = document.getElementById("ingredient_value").value;
         console.log("searching for: "+searchStrIng);
