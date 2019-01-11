@@ -1,5 +1,15 @@
 
 let app = angular.module('myApp', ["angucomplete-alt"]);
+app.directive("tablePostRepeatDirective",function(){
+    return function(scope, element, attrs) {
+        if (scope.$last){
+            // iteration is complete, do whatever post-processing
+            // is necessary
+            // element.parent().css('border', '1px solid black');
+            scope.initRestDataTable();
+        }
+    };
+});
 app.controller('mainController', ['$scope','$rootScope','$timeout', function($scope,$rootScope,$timeout) { //$resource /*, $sce, require  '$sce','require'*/
 
     // let router = require('/:loc/:lag/location', {loc : '@loc', lag : '@lag'});
@@ -33,9 +43,9 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
         return emptyStr;
     };
 
-    $scope.searchBlaRes = {};
+    $scope.searchIngRes = {};
 
-    $scope.searchBla= function (userInputString, timeoutPromise) {
+    $scope.autocompleteIngHandler= function (userInputString, timeoutPromise) {
         return $timeout(async function () {
             console.log("searching for: " + userInputString);
             let urlString = 'ingredient_prefix/' + userInputString;
@@ -44,10 +54,10 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
                     return data.json()
                 })
                 .then(res => {
-                    $scope.searchBlaRes = res;
+                    $scope.searchIngRes = res;
                 })
                 .catch(error => console.log(error));
-            return {"data": $scope.searchBlaRes};
+            return {"data": $scope.searchIngRes};
         }, 1000);};
 
     $scope.searchAPI = function(userInputString, timeoutPromise) {
@@ -112,21 +122,23 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
             .then(data=>{return data.json()})
             .then(res=>{
                 $scope.restFromIngred = res;
-                $(document).ready(function() {
-                $('restFromIngredTable').DataTable({
-                    // pageLength:10,
-                    // lengthMenu: [ 10, 25, 50, 75, 100 ],
-                    // dom: 'Bfrtip',
-                    // buttons: [ 'pageLength' ]
-                    //"lengthChange": false
-                    "scrollY":        "200px",
-                    "scrollCollapse": true,
-                    "paging":         false
-                });
-            } )})
+                })
             .catch(error=>console.log(error));
+    };
 
-
+    $scope.initRestDataTable = function() {
+        $(document).ready(function() {
+            $('restFromIngredTable').DataTable({
+                // pageLength:10,
+                // lengthMenu: [ 10, 25, 50, 75, 100 ],
+                // dom: 'Bfrtip',
+                // buttons: [ 'pageLength' ]
+                //"lengthChange": false
+                "scrollY":        "200px",
+                "scrollCollapse": true,
+                "paging":         false
+            });
+        } )
     };
 
 
