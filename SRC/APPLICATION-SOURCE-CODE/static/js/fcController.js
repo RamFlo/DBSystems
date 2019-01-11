@@ -12,19 +12,6 @@ let app = angular.module('myApp', ["angucomplete-alt",'datatables']);
 // });
 app.controller('mainController', ['$scope','$rootScope','$timeout', function($scope,$rootScope,$timeout) { //$resource /*, $sce, require  '$sce','require'*/
 
-    // let router = require('/:loc/:lag/location', {loc : '@loc', lag : '@lag'});
-    //let autoCompleteRouter = require ('/:text/:type/autoComplete', {text : '@text', type : '@type'});
-    //let ingredientRouter = require ('/:ingredient/:priceLevel/:delivery/autoComplete', {text : '@text', type : '@type'});
-
-
-    // router.$get({loc : '128', lag : '189'}, function(res) {
-    //
-    // });
-
-    //delete later
-    //$scope.restFromIngred = [1,3,4];
-    //delete later
-
     $scope.currentLocation = 0;
 
     $scope.searchType = 0;
@@ -60,29 +47,29 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
             return {"data": $scope.searchIngRes};
         }, 1000);};
 
-    $scope.searchAPI = function(userInputString, timeoutPromise) {
-        console.log("searching for: "+userInputString);
-        let urlString = 'ingredient_prefix/'+userInputString;
-        fetch(urlString)
-            .then(data=>{return data.json()})
-            .then(res=>{
-                return res;
-            })
-            .catch(error=>console.log(error));
-
-        // if ($scope.searchType == 0) {
-        //     $scope.currIngredient = this.searchStr;
-        // }
-        // else if ($scope.searchType == 1) {
-        //     $scope.currResturant = this.searchStr;
-        // }
-        // else if ($scope.searchType == 2) {
-        //     $scope.currUniqueIngred = this.searchStr;
-        // }
-        //
-        //
-        // return $http.post('/yourownapi/', {q: userInputString}, {timeout: timeoutPromise});
-    };
+    // $scope.searchAPI = function(userInputString, timeoutPromise) {
+    //     console.log("searching for: "+userInputString);
+    //     let urlString = 'ingredient_prefix/'+userInputString;
+    //     fetch(urlString)
+    //         .then(data=>{return data.json()})
+    //         .then(res=>{
+    //             return res;
+    //         })
+    //         .catch(error=>console.log(error));
+    //
+    //     if ($scope.searchType == 0) {
+    //         $scope.currIngredient = this.searchStr;
+    //     }
+    //     else if ($scope.searchType == 1) {
+    //         $scope.currResturant = this.searchStr;
+    //     }
+    //     else if ($scope.searchType == 2) {
+    //         $scope.currUniqueIngred = this.searchStr;
+    //     }
+    //
+    //
+    //     return $http.post('/yourownapi/', {q: userInputString}, {timeout: timeoutPromise});
+    // };
 
     // Auto complete according to the search type and the input text
     $scope.autoComplete = function(/*text*/) {
@@ -126,21 +113,26 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
             .catch(error=>console.log(error));
     };
 
-    $scope.initRestDataTable = function() {
-        $(document).ready(function() {
-            $('restFromIngredTable').DataTable({
-                // pageLength:10,
-                // lengthMenu: [ 10, 25, 50, 75, 100 ],
-                // dom: 'Bfrtip',
-                // buttons: [ 'pageLength' ]
-                //"lengthChange": false
-                "scrollY":        "200px",
-                "scrollCollapse": true,
-                "paging":         false
-            });
-        } )
-    };
+    // $scope.initRestDataTable = function() {
+    //     $(document).ready(function() {
+    //         $('restFromIngredTable').DataTable({
+    //             // pageLength:10,
+    //             // lengthMenu: [ 10, 25, 50, 75, 100 ],
+    //             // dom: 'Bfrtip',
+    //             // buttons: [ 'pageLength' ]
+    //             //"lengthChange": false
+    //             "scrollY":        "200px",
+    //             "scrollCollapse": true,
+    //             "paging":         false
+    //         });
+    //     } )
+    // };
 
+
+    $scope.populateCuisineList = function () {
+        const Url2 = 'get_cuisines';
+        fetch(Url2).then(data=>{return data.json()}).then(res=>{$scope.discoverNewCuisine = res});
+    };
 
     $scope.submitDiscoverNewCuisine = function () {
       // discoverRouter.$get({}, function(res){});

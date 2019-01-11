@@ -73,7 +73,7 @@
         <a class="navbar-brand">The Food Court</a>
         </div>
         <ul class="navbar-nav">
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href ng-click="decision(0)">Ingredient</a>
             </li>
             <li class="nav-item">
@@ -99,24 +99,7 @@
         <p>Select price range: </p>
         <form id="restByIngredientPrice">
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <!--<label class="radio-inline">-->
-            <!--<label class="btn btn-secondary btn-sm">-->
 
-            <!--<label class="btn btn-primary active">-->
-                <!--<input autocomplete="off" ng-model="ingredPriceLevel" type="radio" name="priceRange" ng-value="0" checked>Unbounded-->
-            <!--</label>-->
-                <!--<label class="btn btn-primary">-->
-                <!--<input autocomplete="off" ng-model="ingredPriceLevel" type="radio" name="priceRange" ng-value="1">$-->
-            <!--</label>-->
-                <!--<label class="btn btn-primary">-->
-                <!--<input autocomplete="off" ng-model="ingredPriceLevel" type="radio" name="priceRange" ng-value="2">$$-->
-            <!--</label>-->
-                <!--<label class="btn btn-primary">-->
-                <!--<input autocomplete="off" ng-model="ingredPriceLevel" type="radio" name="priceRange" ng-value="3">$$$-->
-            <!--</label>-->
-                <!--<label class="btn btn-primary">-->
-                <!--<input autocomplete="off" ng-model="ingredPriceLevel" type="radio" name="priceRange" ng-value="4">$$$$-->
-            <!--</label>-->
 
 
                     <label class="btn btn-secondary active">
@@ -153,16 +136,8 @@
     <!--map-->
     <div id='map' style="width: 600px; height: 500px;"></div>
 
-    Restaurant found:
-    <!--<table class="table table-sm table-dark" style="margin: 0 auto;">-->
-    <!--<tr  style="text-align: center;" ng-repeat="rest in restFromIngred">-->
-    <!--<td><a href ng-click="locateRestInMap(rest)">{{rest.restaurant_name}}</a> </td>-->
-        <!--<td>{{rest.agg_review}}</td>-->
-        <!--<td>{{rest.price_category}}</td>-->
-        <!--<td>{{rest.featured_photo_url}}</td>-->
+    Restaurants found:
 
-    <!--</tr>-->
-    <!--</table>-->
 
     <table datatable="ng" id="restFromIngredTable" class="table table-striped table-bordered" style="margin: 0 auto;">
         <thead>
@@ -191,58 +166,16 @@
         </tfoot>
     </table>
 
-    <!--delete later-->
-    <!--<table class="table table-bordered table-dark">-->
-        <!--<thead>-->
-        <!--<tr class="bg-info">-->
-            <!--<th scope="col">#</th>-->
-            <!--<th scope="col">First</th>-->
-            <!--<th scope="col">Last</th>-->
-            <!--<th scope="col">Handle</th>-->
-        <!--</tr>-->
-        <!--</thead>-->
-        <!--<tbody>-->
-        <!--<tr class="bg-info">-->
-            <!--<th scope="row">1</th>-->
-            <!--<td>Mark</td>-->
-            <!--<td>Otto</td>-->
-            <!--<td>@mdo</td>-->
-        <!--</tr>-->
-        <!--<tr class="bg-info">-->
-            <!--<th scope="row">2</th>-->
-            <!--<td>Jacob</td>-->
-            <!--<td>Thornton</td>-->
-            <!--<td>@fat</td>-->
-        <!--</tr>-->
-        <!--<tr class="bg-info">-->
-            <!--<th scope="row">3</th>-->
-            <!--<td colspan="2">Larry the Bird</td>-->
-            <!--<td>@twitter</td>-->
-        <!--</tr>-->
-        <!--</tbody>-->
-    <!--</table>-->
-
-
-
-
-
-    <!--<div class="custom-control custom-radio custom-control-inline">-->
-        <!--<input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">-->
-        <!--<label class="custom-control-label" for="customRadioInline1">Toggle this custom radio</label>-->
-    <!--</div>-->
-    <!--delete later-->
 </div>
 </div>
 
 <!--discover new cusines-->
 <div ng-show="searchType == 1" style="width:800px; margin:0 auto; text-align: left;">
     <div id="cuisineMainDiv">
-        <div angucomplete-alt id="discoverNewCuisines" placeholder="Insert cuisine..." selected-object="selectedObj" local-data="autoCompleteRes"
-             search-fields="entry_name" text-searching="Searching for results..." title-field="entry_name" minlength="1"
+        <div angucomplete-alt id="discoverNewCuisines" placeholder="Insert cuisine..." selected-object="selectedObj" local-data="discoverNewCuisine"
+             search-fields="cuisine_name" text-searching="Searching for results..." title-field="cuisine_name" minlength="0"
              input-class="form-control form-control-small" input-changed="autoComplete" match-class="highlight">
         </div>
-        <input class="btn btn-success" type="submit" ng-click="submitDiscoverNewCuisine()" value="Search">
-    </div>
     <div>
         <br>
         Cuisines found:
