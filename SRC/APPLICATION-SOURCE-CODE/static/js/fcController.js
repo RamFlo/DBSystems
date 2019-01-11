@@ -1,15 +1,15 @@
 
-let app = angular.module('myApp', ["angucomplete-alt"]);
-app.directive("tablePostRepeatDirective",function(){
-    return function(scope, element, attrs) {
-        if (scope.$last){
-            // iteration is complete, do whatever post-processing
-            // is necessary
-            // element.parent().css('border', '1px solid black');
-            scope.initRestDataTable();
-        }
-    };
-});
+let app = angular.module('myApp', ["angucomplete-alt",'datatables']);
+// app.directive("tablePostRepeatDirective",function(){
+//     return function(scope, element, attrs) {
+//         if (scope.$last){
+//             // iteration is complete, do whatever post-processing
+//             // is necessary
+//             // element.parent().css('border', '1px solid black');
+//             scope.initRestDataTable();
+//         }
+//     };
+// });
 app.controller('mainController', ['$scope','$rootScope','$timeout', function($scope,$rootScope,$timeout) { //$resource /*, $sce, require  '$sce','require'*/
 
     // let router = require('/:loc/:lag/location', {loc : '@loc', lag : '@lag'});
