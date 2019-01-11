@@ -129,7 +129,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
     // };
 
 
-    $scope.populateCuisineList = function () {
+    let populateCuisineList = function () {
         const Url2 = 'get_cuisines';
         fetch(Url2).then(data=>{return data.json()}).then(res=>{$scope.discoverNewCuisine = res});
     };
@@ -142,6 +142,8 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
         //$scope.discoverNewCuisine = [{cuisine_name : 'Italian'}, {cuisine_name : 'Italian'}, {cuisine_name : 'Italian'}];
 
     };
+
+    populateCuisineList();
 
 
     $scope.submitUniqueIngredients = function() {
