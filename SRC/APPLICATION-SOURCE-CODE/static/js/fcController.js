@@ -72,18 +72,18 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
     // };
 
     // Auto complete according to the search type and the input text
-    $scope.autoComplete = function(/*text*/) {
+    $scope.changeSearchType = function(/*text*/) {
 
-        let searchStrIng = document.getElementById("ingredient_value").value;
-        console.log("searching for: "+searchStrIng);
-        // let urlString = 'ingredient_prefix/'+this.searchStr;
-        let urlString = 'ingredient_prefix/'+searchStrIng;
-        fetch(urlString)
-            .then(data=>{return data.json()})
-            .then(res=>{
-                $scope.autoCompleteRes = res;
-            })
-            .catch(error=>console.log(error));
+        // let searchStrIng = document.getElementById("ingredient_value").value;
+        // console.log("searching for: "+searchStrIng);
+        // // let urlString = 'ingredient_prefix/'+this.searchStr;
+        // let urlString = 'ingredient_prefix/'+searchStrIng;
+        // fetch(urlString)
+        //     .then(data=>{return data.json()})
+        //     .then(res=>{
+        //         $scope.autoCompleteRes = res;
+        //     })
+        //     .catch(error=>console.log(error));
 
         if ($scope.searchType == 0) {
             $scope.currIngredient = this.searchStr;
