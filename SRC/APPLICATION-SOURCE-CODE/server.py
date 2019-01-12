@@ -17,10 +17,6 @@ cache_persistence_time = timedelta(days=1)
 
 geodist = 0.12  # used for restaurant geosearching - defines L1 radius
 
-@app.before_request
-def log_request():
-    return  # TODO: add request logger
-
 
 @app.route('/')
 def index():
@@ -75,8 +71,14 @@ def query_restaurants_by_ingredient(ingredient):
     min_review = request.args.get('min_review')
     base_query = sql_queries.restaurants_by_ingredient % ingredient
     if loclat != None and loclng != None:
-        lat_range = [float(loclat) - geodist, float(loclat) + geodist]
-        lng_range = [float(loclng) - geodist, float(loclng) + geodist]
+        try:
+            lat_range = [float(loclat) - geodist, float(loclat) + geodist]
+            lng_range = [float(loclng) - geodist, float(loclng) + geodist]
+        except:
+            logger.error("Error translating location to floats in "
+                     "query_restaurants_by_ingredient, passed values: "
+                     "%s, %s" % (loclat, loclng))
+            return None
     else:
         lat_range = None
         lng_range = None
@@ -84,6 +86,11 @@ def query_restaurants_by_ingredient(ingredient):
                                                        lat_range, lng_range,
                                                        price_category,
                                                        min_review, online_delivery)
+    if filtered_query == -1:
+        logger.error("Restaurant query builder failed to process inputs for "
+                     "query_restaurants_by_ingredient: %s, %s, %s" %
+                     (price_category,
+                     min, online_delivery))
     limited_query = database.order_by_and_limit_query(filtered_query,
                                                     "agg_review DESC", 20)
     query_res = database.run_sql_query(limited_query)
@@ -108,6 +115,9 @@ def query_restaurants_by_taste(saltiness, sweetness, sourness, bitterness):
                                                      int(sweetness), \
                                                      int(sourness), int(bitterness)
     except:
+        logger.error("Error translating flavors to int in "
+                     "query_restaurants_by_taste, passed values: "
+                     "%s/%s/%s/%s" % (saltiness, sweetness, sourness, bitterness))
         return None
 
     restaurant_query = sql_queries.restaurant_by_taste % (
@@ -125,8 +135,14 @@ def query_restaurants_by_taste(saltiness, sweetness, sourness, bitterness):
     online_delivery = request.args.get('online_delivery')
     min_review = request.args.get('min_review')
     if loclat != None and loclng != None:
-        lat_range = [float(loclat) - geodist, float(loclat) + geodist]
-        lng_range = [float(loclng) - geodist, float(loclng) + geodist]
+        try:
+            lat_range = [float(loclat) - geodist, float(loclat) + geodist]
+            lng_range = [float(loclng) - geodist, float(loclng) + geodist]
+        except:
+            logger.error("Error translating location to floats in "
+                     "query_restaurants_by_taste, passed values: "
+                     "%s, %s" % (loclat, loclng))
+            return None
     else:
         lat_range = None
         lng_range = None
@@ -134,6 +150,11 @@ def query_restaurants_by_taste(saltiness, sweetness, sourness, bitterness):
                                                        lat_range, lng_range,
                                                        price_category,
                                                        min_review, online_delivery)
+    if filtered_query == -1:
+        logger.error("Restaurant query builder failed to process inputs for "
+                     "query_restaurants_by_taste: %s, %s, %s" %
+                     (price_category,
+                     min, online_delivery))
     limited_query = database.order_by_and_limit_query(filtered_query,
                                                     "agg_review DESC", 20)
     query_res = database.run_sql_query(limited_query)

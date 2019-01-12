@@ -125,12 +125,28 @@ class Database:
             wrapped_query += " AND %f <= source.lng AND source.lng <= %f" \
                              % (lng_range[0], lng_range[1])
         if price_category is not None:
+            try:
+                int(price_category)
+            except:
+                return -1
             wrapped_query += " AND source.price_category = %s" % (price_category)
         if min_agg_review is not None:
+            try:
+                float(min_agg_review)
+            except:
+                return -1
             wrapped_query += " AND source.agg_review >= %s" % (min_agg_review)
         if online_delivery is not None:
+            try:
+                int(online_delivery)
+            except:
+                return -1
             wrapped_query += " AND source.has_online_delivery = %s" % (online_delivery)
         if establishment_id is not None:
+            try:
+                int(establishment_id)
+            except:
+                return -1
             wrapped_query += " AND source.establishment_id = %s" % (establishment_id)
 
         return wrapped_query
