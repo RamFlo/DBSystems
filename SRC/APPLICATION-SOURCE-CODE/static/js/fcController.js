@@ -109,6 +109,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
             .then(data=>{return data.json()})
             .then(res=>{
                 $scope.restFromIngred = res;
+                $scope.$apply();
                 })
             .catch(error=>console.log(error));
     };
