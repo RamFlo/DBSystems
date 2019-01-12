@@ -109,6 +109,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
             .then(data=>{return data.json()})
             .then(res=>{
                 $scope.restFromIngred = res;
+                $scope.$apply();
                 })
             .catch(error=>console.log(error));
     };
@@ -136,10 +137,13 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
 
     $scope.newCuisines = {};
     $scope.showNewCuisinesTable = 0;
+    $scope.newCuisinesLoading = 0;
     $scope.submitDiscoverNewCuisine = function () {
-        const Url = 'discover_new_cuisines/'+ document.getElementById("discoverNewCuisineBaseSelect").value;;
-        fetch(Url).then(data=>{return data.json()}).then(res=>{$scope.newCuisines = res});
+        $scope.newCuisinesLoading = 1;
         $scope.showNewCuisinesTable = 1;
+        const Url = 'discover_new_cuisines/'+ document.getElementById("discoverNewCuisineBaseSelect").value;;
+        fetch(Url).then(data=>{return data.json()}).then(res=>{$scope.newCuisines = res; $scope.newCuisinesLoading = 0; $scope.$apply();});
+
     };
 
     populateCuisineList();
