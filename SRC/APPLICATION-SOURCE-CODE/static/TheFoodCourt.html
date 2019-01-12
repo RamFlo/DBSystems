@@ -52,7 +52,7 @@
 <body ng-app="myApp" ng-controller="mainController">
 <div style="background-image: url('static/resources/food_table.JPG'); height: 200px;">
 </div>
-<div style="background-image: url('static/resources/food_bg.jpg');>
+<div>
 <!--<nav class="navbar navbar-expand-sm bg-dark navbar-dark">-->
     <!--<div class="container-fluid">-->
         <!--<div class="navbar-header">-->
@@ -175,7 +175,15 @@
         <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="discoverNewCuisineBaseSelect">
             <option ng-repeat="cuisine in discoverNewCuisine" value="{{cuisine.cuisine_id}}">{{cuisine.cuisine_name}}</option>
         </select>
-        <input class="btn btn-success" type="submit" ng-click="submitDiscoverNewCuisine()" value="Search">
+        <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="DiscoverSimilarCuisinesRad" name="cuisineChoiceRadios" checked>
+            <label class="custom-control-label" for="DiscoverSimilarCuisinesRad">Discover similar cuisines</label>
+        </div>
+        <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="ShowCuisineIngRad" name="cuisineChoiceRadios">
+            <label class="custom-control-label" for="ShowCuisineIngRad">Show cuisine's unique ingredients</label>
+        </div>
+        <input class="btn btn-success" type="submit" ng-click="submitDiscoverNewCuisine()" value="Submit">
         <div>
             <div ng-show="newCuisinesLoading == 1">Loading...</div>
         <br>
