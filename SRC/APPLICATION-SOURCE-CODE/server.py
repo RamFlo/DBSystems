@@ -27,7 +27,7 @@ def index():
 def get_ingredient_by_prefix(prefix):
     query_res = database.find_ingredients_by_prefix(prefix)
     if query_res == -1:
-        return None
+        return "[]"
     logger.info("GET get_ingredient_by_prefix query")
     return query_res
 
@@ -36,7 +36,7 @@ def get_ingredient_by_prefix(prefix):
 def get_cuisines():
     query_res = database.get_cuisines()
     if query_res == -1:
-        return None
+        return "[]"
     logger.info("GET get_cuisines query")
     return query_res
 
@@ -51,7 +51,7 @@ def discover_new_cuisines(cuisine_id):
 
     query_res = database.discover_new_cuisines_from_cuisine(cuisine_id)
     if query_res == -1:
-        return None
+        return "[]"
     cuisine_discovery_cache[cuisine_id] = (datetime.now(), query_res)
     return query_res
 
@@ -78,7 +78,7 @@ def query_restaurants_by_ingredient(ingredient):
             logger.error("Error translating location to floats in "
                      "query_restaurants_by_ingredient, passed values: "
                      "%s, %s" % (loclat, loclng))
-            return None
+            return "[]"
     else:
         lat_range = None
         lng_range = None
@@ -95,7 +95,7 @@ def query_restaurants_by_ingredient(ingredient):
                                                     "agg_review DESC", 20)
     query_res = database.run_sql_query(limited_query)
     if query_res == -1:
-        return None
+        return "[]"
     return query_res
 
 
@@ -118,7 +118,7 @@ def query_restaurants_by_taste(saltiness, sweetness, sourness, bitterness):
         logger.error("Error translating flavors to int in "
                      "query_restaurants_by_taste, passed values: "
                      "%s/%s/%s/%s" % (saltiness, sweetness, sourness, bitterness))
-        return None
+        return "[]"
 
     restaurant_query = sql_queries.restaurant_by_taste % (
         get_taste_condition(saltiness),
@@ -142,7 +142,7 @@ def query_restaurants_by_taste(saltiness, sweetness, sourness, bitterness):
             logger.error("Error translating location to floats in "
                      "query_restaurants_by_taste, passed values: "
                      "%s, %s" % (loclat, loclng))
-            return None
+            return "[]"
     else:
         lat_range = None
         lng_range = None
@@ -159,7 +159,7 @@ def query_restaurants_by_taste(saltiness, sweetness, sourness, bitterness):
                                                     "agg_review DESC", 20)
     query_res = database.run_sql_query(limited_query)
     if query_res == -1:
-        return None
+        return "[]"
     return query_res
 
 
@@ -184,16 +184,16 @@ def find_unique_ingredients_from_cuisine(cuisine_id):
         logger.error("Error translating cuisine_id to int in "
                      "find_unique_ingredients_from_cuisine, passed value: "
                      "%s" % cuisine_id)
-        return None
+        return "[]"
 
     query_res = database.find_unique_ingredients_of_cuisine(cuisine_id_int, 500)
     if query_res == -1:
-        return None
+        return "[]"
     if len(simplejson.loads(query_res)) == 0:  # try again with smaller filter
         query_res = database.find_unique_ingredients_of_cuisine(cuisine_id_int,
                                                                 250)
         if query_res == -1:
-            return None
+            return "[]"
         unique_ingredients_cache[cuisine_id] = (datetime.now(), query_res)
         return query_res
     else:
@@ -212,7 +212,7 @@ def set_up_new_franchise(lat, lng):
 
     query_res = database.set_up_new_franchise(lat, lng, 0.015)
     if query_res == -1:
-        return None
+        return "[]"
     return query_res
 
 
@@ -220,7 +220,7 @@ def set_up_new_franchise(lat, lng):
 def get_common_ingredients_with(ingredient):
     result = database.query_common_ingredients_with(ingredient)
     if result == -1:
-        return None
+        return "[]"
     else:
         return result
 
