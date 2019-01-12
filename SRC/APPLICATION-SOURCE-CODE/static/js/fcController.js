@@ -141,7 +141,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
         $scope.newCuisinesLoading = 1;
         $scope.showNewCuisinesTable = 1;
         const Url = 'discover_new_cuisines/'+ document.getElementById("discoverNewCuisineBaseSelect").value;;
-        fetch(Url).then(data=>{return data.json()}).then(res=>{$scope.newCuisines = res; $scope.newCuisinesLoading = 0;});
+        fetch(Url).then(data=>{return data.json()}).then(res=>{$scope.newCuisines = res; $scope.newCuisinesLoading = 0; $scope.$apply();});
 
     };
 
