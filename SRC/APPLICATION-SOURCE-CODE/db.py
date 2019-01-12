@@ -52,6 +52,16 @@ class Database:
             self.logger.error("Failed at discover_new_cuisines_from_cuisine: %s" % ex)
             return -1
 
+    def query_common_ingredients_with(self, ingredient):
+        try:
+            self.cur.execute(sql_queries.get_common_ingredients_with,
+                             [ingredient, ingredient])
+            return self.get_query_result_as_json()
+        except Exception as ex:
+            self.logger.error("Failed at query_common_ingredients_with: %s"
+                              % ex)
+            return -1
+
     def get_cuisines(self):
         try:
             self.cur.execute(sql_queries.get_cuisine_list)
@@ -115,12 +125,28 @@ class Database:
             wrapped_query += " AND %f <= source.lng AND source.lng <= %f" \
                              % (lng_range[0], lng_range[1])
         if price_category is not None:
+            try:
+                int(price_category)
+            except:
+                return -1
             wrapped_query += " AND source.price_category = %s" % (price_category)
         if min_agg_review is not None:
+            try:
+                float(min_agg_review)
+            except:
+                return -1
             wrapped_query += " AND source.agg_review >= %s" % (min_agg_review)
         if online_delivery is not None:
+            try:
+                int(online_delivery)
+            except:
+                return -1
             wrapped_query += " AND source.has_online_delivery = %s" % (online_delivery)
         if establishment_id is not None:
+            try:
+                int(establishment_id)
+            except:
+                return -1
             wrapped_query += " AND source.establishment_id = %s" % (establishment_id)
 
         return wrapped_query
@@ -141,4 +167,3 @@ class Database:
         for result in results:
             json_data += [dict(zip(column_headers, result))]
         return simplejson.dumps(json_data)
-

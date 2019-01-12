@@ -185,3 +185,18 @@ FROM (SELECT cuisine_id
 WHERE CuisinesInLocation.cuisine_id = OptionalFranchises.cuisine_id)
 GROUP BY restaurant_name
 """
+
+get_common_ingredients_with = """
+SELECT ingredient, Count(ingredient)
+FROM Recipes, IngredientsRecipes
+WHERE Recipes.recipe_id = IngredientsRecipes.recipe_id
+		AND EXISTS (SELECT RE.recipe_id
+						FROM Recipes as RE, IngredientsRecipes as IR
+						WHERE IR.ingredient = %s
+								AND RE.recipe_id = IR.recipe_id
+								AND Recipes.recipe_id = RE.recipe_id)
+		AND IngredientsRecipes.ingredient <> %s
+GROUP BY ingredient
+ORDER BY Count(ingredient) DESC
+LIMIT 10
+"""
