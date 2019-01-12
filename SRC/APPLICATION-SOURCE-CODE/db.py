@@ -52,6 +52,16 @@ class Database:
             self.logger.error("Failed at discover_new_cuisines_from_cuisine: %s" % ex)
             return -1
 
+    def query_common_ingredients_with(self, ingredient):
+        try:
+            self.cur.execute(sql_queries.get_common_ingredients_with,
+                             [ingredient])
+            return self.get_query_result_as_json()
+        except Exception as ex:
+            self.logger.error("Failed at query_common_ingredients_with: %s"
+                              % ex)
+            return -1
+
     def get_cuisines(self):
         try:
             self.cur.execute(sql_queries.get_cuisine_list)
@@ -141,4 +151,3 @@ class Database:
         for result in results:
             json_data += [dict(zip(column_headers, result))]
         return simplejson.dumps(json_data)
-

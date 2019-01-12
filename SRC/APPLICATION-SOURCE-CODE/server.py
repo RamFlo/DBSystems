@@ -195,6 +195,14 @@ def set_up_new_franchise(lat, lng):
     return query_res
 
 
+@app.route('/get_common_ingredients_with/<ingredient>')
+def get_common_ingredients_with(ingredient):
+    result = database.query_common_ingredients_with(ingredient)
+    if result == -1:
+        return None
+    else:
+        return result
+
 
 if __name__ == '__main__':
     app.run(port=port_number)
