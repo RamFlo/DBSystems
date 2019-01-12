@@ -134,13 +134,12 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
         fetch(Url2).then(data=>{return data.json()}).then(res=>{$scope.discoverNewCuisine = res});
     };
 
+    $scope.newCuisines = {};
+    $scope.showNewCuisinesTable = 0;
     $scope.submitDiscoverNewCuisine = function () {
-      // discoverRouter.$get({}, function(res){});
-        let a = $scope.currResturant;
-        const Url2 = 'get_cuisines';
-        fetch(Url2).then(data=>{return data.json()}).then(res=>{$scope.discoverNewCuisine = res});
-        //$scope.discoverNewCuisine = [{cuisine_name : 'Italian'}, {cuisine_name : 'Italian'}, {cuisine_name : 'Italian'}];
-
+        const Url = 'discover_new_cuisines/'+ document.getElementById("discoverNewCuisineBaseSelect").value;;
+        fetch(Url).then(data=>{return data.json()}).then(res=>{$scope.newCuisines = res});
+        $scope.showNewCuisinesTable = 1;
     };
 
     populateCuisineList();
