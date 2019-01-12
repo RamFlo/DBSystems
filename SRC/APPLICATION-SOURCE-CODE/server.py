@@ -189,7 +189,7 @@ def set_up_new_franchise(lat, lng):
                      "set_up_new_franchise, passed values: "
                      "lat: %s, lng: %s" % (lat, lng))
 
-    query_res = database.set_up_new_franchise(lat, lng, 0.008)
+    query_res = database.set_up_new_franchise(lat, lng, 0.015)
     if query_res == -1:
         return None
     return query_res
