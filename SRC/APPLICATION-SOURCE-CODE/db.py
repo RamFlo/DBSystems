@@ -55,7 +55,7 @@ class Database:
     def query_common_ingredients_with(self, ingredient):
         try:
             self.cur.execute(sql_queries.get_common_ingredients_with,
-                             [ingredient])
+                             [ingredient, ingredient])
             return self.get_query_result_as_json()
         except Exception as ex:
             self.logger.error("Failed at query_common_ingredients_with: %s"
