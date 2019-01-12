@@ -176,11 +176,11 @@
             <option ng-repeat="cuisine in discoverNewCuisine" value="{{cuisine.cuisine_id}}">{{cuisine.cuisine_name}}</option>
         </select>
         <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" id="DiscoverSimilarCuisinesRad" name="cuisineChoiceRadios" checked>
+            <input ng-model="cuisineSubmitChoice" ng-value="0" type="radio" class="custom-control-input" id="DiscoverSimilarCuisinesRad" name="cuisineChoiceRadios" checked>
             <label class="custom-control-label" for="DiscoverSimilarCuisinesRad">Discover similar cuisines</label>
         </div>
         <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" id="ShowCuisineIngRad" name="cuisineChoiceRadios">
+            <input ng-model="cuisineSubmitChoice" ng-value="1" type="radio" class="custom-control-input" id="ShowCuisineIngRad" name="cuisineChoiceRadios">
             <label class="custom-control-label" for="ShowCuisineIngRad">Show cuisine's unique ingredients</label>
         </div>
         <input class="btn btn-success" type="submit" ng-click="submitDiscoverNewCuisine()" value="Submit">
@@ -202,6 +202,21 @@
             </tr>
             </tbody>
         </table>
+
+            <table ng-show="showCuisineUniqueTable == 1" datatable="ng" id="CuisineUniqueTable" class="table table-striped table-bordered" style="margin: 0 auto;">
+                <thead>
+                <tr>
+                    <th>Ingredient</th>
+                    <th>Num. of occurrences</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr  style="text-align: center;" ng-repeat="ing in cuisineUniqueIng">
+                    <td>{{ing.ingredient}}</td>
+                    <td>{{ing.Count(ingredient)}}</td>
+                </tr>
+                </tbody>
+            </table>
     </div>
 </div>
 

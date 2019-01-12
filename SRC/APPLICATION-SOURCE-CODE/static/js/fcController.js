@@ -136,13 +136,25 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
     };
 
     $scope.newCuisines = {};
+    $scope.cuisineUniqueIng={};
     $scope.showNewCuisinesTable = 0;
+    $scope.showCuisineUniqueTable = 0;
     $scope.newCuisinesLoading = 0;
+    $scope.cuisineSubmitChoice = 0;
     $scope.submitDiscoverNewCuisine = function () {
+        let choice = document.getElementById("cuisineChoiceRadios")
         $scope.newCuisinesLoading = 1;
-        $scope.showNewCuisinesTable = 1;
-        const Url = 'discover_new_cuisines/'+ document.getElementById("discoverNewCuisineBaseSelect").value;;
-        fetch(Url).then(data=>{return data.json()}).then(res=>{$scope.newCuisines = res; $scope.newCuisinesLoading = 0; $scope.$apply();});
+        let Url="";
+        if ($scope.cuisineSubmitChoice == 0)
+            Url = 'discover_new_cuisines/'+ document.getElementById("discoverNewCuisineBaseSelect").value;
+        else
+            Url = 'unique_ingredients/'+ document.getElementById("discoverNewCuisineBaseSelect").value;
+        fetch(Url).then(data=>{return data.json()}).then(res=>{
+            if ($scope.cuisineSubmitChoice == 0) { $scope.showCuisineUniqueTable = 0; $scope.showNewCuisinesTable = 1; $scope.newCuisines = res; }
+            else {$scope.showCuisineUniqueTable = 1; $scope.showNewCuisinesTable = 0; $scope.cuisineUniqueIng = res;}
+            $scope.newCuisinesLoading = 0;
+            $scope.$apply();
+        });
 
     };
 
