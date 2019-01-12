@@ -17,10 +17,6 @@ cache_persistence_time = timedelta(days=1)
 
 geodist = 0.12  # used for restaurant geosearching - defines L1 radius
 
-@app.before_request
-def log_request():
-    return  # TODO: add request logger
-
 
 @app.route('/')
 def index():
@@ -31,7 +27,7 @@ def index():
 def get_ingredient_by_prefix(prefix):
     query_res = database.find_ingredients_by_prefix(prefix)
     if query_res == -1:
-        return None
+        return "[]"
     logger.info("GET get_ingredient_by_prefix query")
     return query_res
 
@@ -40,7 +36,7 @@ def get_ingredient_by_prefix(prefix):
 def get_cuisines():
     query_res = database.get_cuisines()
     if query_res == -1:
-        return None
+        return "[]"
     logger.info("GET get_cuisines query")
     return query_res
 
@@ -55,7 +51,7 @@ def discover_new_cuisines(cuisine_id):
 
     query_res = database.discover_new_cuisines_from_cuisine(cuisine_id)
     if query_res == -1:
-        return None
+        return "[]"
     cuisine_discovery_cache[cuisine_id] = (datetime.now(), query_res)
     return query_res
 
@@ -75,8 +71,14 @@ def query_restaurants_by_ingredient(ingredient):
     min_review = request.args.get('min_review')
     base_query = sql_queries.restaurants_by_ingredient % ingredient
     if loclat != None and loclng != None:
-        lat_range = [float(loclat) - geodist, float(loclat) + geodist]
-        lng_range = [float(loclng) - geodist, float(loclng) + geodist]
+        try:
+            lat_range = [float(loclat) - geodist, float(loclat) + geodist]
+            lng_range = [float(loclng) - geodist, float(loclng) + geodist]
+        except:
+            logger.error("Error translating location to floats in "
+                     "query_restaurants_by_ingredient, passed values: "
+                     "%s, %s" % (loclat, loclng))
+            return "[]"
     else:
         lat_range = None
         lng_range = None
@@ -84,11 +86,16 @@ def query_restaurants_by_ingredient(ingredient):
                                                        lat_range, lng_range,
                                                        price_category,
                                                        min_review, online_delivery)
+    if filtered_query == -1:
+        logger.error("Restaurant query builder failed to process inputs for "
+                     "query_restaurants_by_ingredient: %s, %s, %s" %
+                     (price_category,
+                     min, online_delivery))
     limited_query = database.order_by_and_limit_query(filtered_query,
                                                     "agg_review DESC", 20)
     query_res = database.run_sql_query(limited_query)
     if query_res == -1:
-        return None
+        return "[]"
     return query_res
 
 
@@ -108,7 +115,10 @@ def query_restaurants_by_taste(saltiness, sweetness, sourness, bitterness):
                                                      int(sweetness), \
                                                      int(sourness), int(bitterness)
     except:
-        return None
+        logger.error("Error translating flavors to int in "
+                     "query_restaurants_by_taste, passed values: "
+                     "%s/%s/%s/%s" % (saltiness, sweetness, sourness, bitterness))
+        return "[]"
 
     restaurant_query = sql_queries.restaurant_by_taste % (
         get_taste_condition(saltiness),
@@ -125,8 +135,14 @@ def query_restaurants_by_taste(saltiness, sweetness, sourness, bitterness):
     online_delivery = request.args.get('online_delivery')
     min_review = request.args.get('min_review')
     if loclat != None and loclng != None:
-        lat_range = [float(loclat) - geodist, float(loclat) + geodist]
-        lng_range = [float(loclng) - geodist, float(loclng) + geodist]
+        try:
+            lat_range = [float(loclat) - geodist, float(loclat) + geodist]
+            lng_range = [float(loclng) - geodist, float(loclng) + geodist]
+        except:
+            logger.error("Error translating location to floats in "
+                     "query_restaurants_by_taste, passed values: "
+                     "%s, %s" % (loclat, loclng))
+            return "[]"
     else:
         lat_range = None
         lng_range = None
@@ -134,11 +150,16 @@ def query_restaurants_by_taste(saltiness, sweetness, sourness, bitterness):
                                                        lat_range, lng_range,
                                                        price_category,
                                                        min_review, online_delivery)
+    if filtered_query == -1:
+        logger.error("Restaurant query builder failed to process inputs for "
+                     "query_restaurants_by_taste: %s, %s, %s" %
+                     (price_category,
+                     min, online_delivery))
     limited_query = database.order_by_and_limit_query(filtered_query,
                                                     "agg_review DESC", 20)
     query_res = database.run_sql_query(limited_query)
     if query_res == -1:
-        return None
+        return "[]"
     return query_res
 
 
@@ -163,16 +184,16 @@ def find_unique_ingredients_from_cuisine(cuisine_id):
         logger.error("Error translating cuisine_id to int in "
                      "find_unique_ingredients_from_cuisine, passed value: "
                      "%s" % cuisine_id)
-        return None
+        return "[]"
 
     query_res = database.find_unique_ingredients_of_cuisine(cuisine_id_int, 500)
     if query_res == -1:
-        return None
+        return "[]"
     if len(simplejson.loads(query_res)) == 0:  # try again with smaller filter
         query_res = database.find_unique_ingredients_of_cuisine(cuisine_id_int,
                                                                 250)
         if query_res == -1:
-            return None
+            return "[]"
         unique_ingredients_cache[cuisine_id] = (datetime.now(), query_res)
         return query_res
     else:
@@ -189,11 +210,19 @@ def set_up_new_franchise(lat, lng):
                      "set_up_new_franchise, passed values: "
                      "lat: %s, lng: %s" % (lat, lng))
 
-    query_res = database.set_up_new_franchise(lat, lng, 0.008)
+    query_res = database.set_up_new_franchise(lat, lng, 0.015)
     if query_res == -1:
-        return None
+        return "[]"
     return query_res
 
+
+@app.route('/get_common_ingredients_with/<ingredient>')
+def get_common_ingredients_with(ingredient):
+    result = database.query_common_ingredients_with(ingredient)
+    if result == -1:
+        return "[]"
+    else:
+        return result
 
 
 if __name__ == '__main__':
