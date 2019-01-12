@@ -188,7 +188,8 @@
             <div ng-show="newCuisinesLoading == 1">Loading...</div>
         <br>
 
-        <table ng-hide="showNewCuisinesTable == 0" datatable="ng" id="discoverNewCuisinesTable" class="table table-striped table-bordered" style="margin: 0 auto;">
+            <div ng-hide="showNewCuisinesTable == 0">
+        <table  datatable="ng" id="discoverNewCuisinesTable" class="table table-striped table-bordered" style="margin: 0 auto;">
             <thead>
             <tr>
                 <th>Cuisine Name</th>
@@ -202,8 +203,10 @@
             </tr>
             </tbody>
         </table>
+            </div>
 
-            <table ng-hide="showCuisineUniqueTable == 0" datatable="ng" id="CuisineUniqueTable" class="table table-striped table-bordered" style="margin: 0 auto;">
+            <div ng-hide="showCuisineUniqueTable == 0">
+            <table datatable="ng" id="CuisineUniqueTable" class="table table-striped table-bordered" style="margin: 0 auto;">
                 <thead>
                 <tr>
                     <th>Ingredient</th>
@@ -217,6 +220,7 @@
                 </tr>
                 </tbody>
             </table>
+            </div>
     </div>
 </div>
 
