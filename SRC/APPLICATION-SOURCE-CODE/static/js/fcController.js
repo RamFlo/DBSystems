@@ -150,8 +150,16 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
         else
             Url = 'unique_ingredients/'+ document.getElementById("discoverNewCuisineBaseSelect").value;
         fetch(Url).then(data=>{return data.json()}).then(res=>{
-            if ($scope.cuisineSubmitChoice == 0) { $scope.showCuisineUniqueTable = 0; $scope.showNewCuisinesTable = 1; $scope.newCuisines = res; }
-            else {$scope.showCuisineUniqueTable = 1; $scope.showNewCuisinesTable = 0; $scope.cuisineUniqueIng = res;}
+            if ($scope.cuisineSubmitChoice == 0) {
+                $scope.showCuisineUniqueTable = 0;
+                $scope.showNewCuisinesTable = 1;
+                $scope.newCuisines = res;
+            }
+            else {
+                $scope.showCuisineUniqueTable = 1;
+                $scope.showNewCuisinesTable = 0;
+                $scope.cuisineUniqueIng = res;
+            }
             $scope.newCuisinesLoading = 0;
             $scope.$apply();
         });

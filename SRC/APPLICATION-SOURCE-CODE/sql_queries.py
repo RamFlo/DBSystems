@@ -131,7 +131,7 @@ WHERE Restaurants.restaurant_id = RestaurantsCuisines.restaurant_id
 
 find_unique_ingredients_of_cuisine = """
 SELECT *
-FROM (SELECT ingredient, Count(ingredient)
+FROM (SELECT ingredient, Count(ingredient) AS ingcount
 		FROM IngredientsRecipes, RecipesCuisines
 		WHERE IngredientsRecipes.recipe_id = RecipesCuisines.recipe_id
 				AND RecipesCuisines.cuisine_id = %d
