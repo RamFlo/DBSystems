@@ -121,10 +121,14 @@
 </div>
 
     <br>
-    <!--map-->
-    <div ng-show="searchType == 0 || searchType == 1" id='map' style="width: 600px; height: 500px;"></div>
 
-    <div ng-show="searchType == 0">
+    <!--map-->
+    <div style="width:800px; margin:0 auto; text-align: left;">
+        <div ng-show="searchType == 0 || searchType == 2" id='map' style="width: 600px; height: 500px;"></div>
+    </div>
+
+
+    <div ng-show="searchType == 0" style="width:800px; margin:0 auto; text-align: left;">
 
 
         Restaurants found:
@@ -156,7 +160,6 @@
             </tr>
             </tfoot>
         </table>
-
     </div>
 
 <!--discover new cusines-->
