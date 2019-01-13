@@ -108,13 +108,13 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
             urlString += '/?';
         }
         if($scope.ingredPriceLevel != 0) {
-            urlString += 'price_category=' + $scope.ingredPriceLevel;
+            urlString += '&price_category=' + $scope.ingredPriceLevel;
         }
         if($scope.ingredDelivery != 0) {
             urlString += '&online_delivery=' + $scope.ingredDelivery;
         }
         if($scope.currentLocation.hasOwnProperty("lat")) {
-            urlString += ''
+            urlString += '&loclat=' + $scope.currentLocation.lat + '&loclng=' + $scope.currentLocation.lng;
         }
         fetch(urlString)
             .then(data=>{return data.json()})
