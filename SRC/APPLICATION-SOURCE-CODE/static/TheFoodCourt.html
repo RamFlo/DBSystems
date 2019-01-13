@@ -164,6 +164,7 @@
 
 <!--discover new cusines-->
 <div ng-show="searchType == 1" style="width:800px; margin:0 auto; text-align: left;">
+    <br>
     <div id="cuisineMainDiv">
         <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="discoverNewCuisineBaseSelect">
             <option ng-repeat="cuisine in discoverNewCuisine" value="{{cuisine.cuisine_id}}">{{cuisine.cuisine_name}}</option>
@@ -176,6 +177,7 @@
             <input ng-model="cuisineSubmitChoice" ng-value="1" type="radio" class="custom-control-input" id="ShowCuisineIngRad" name="cuisineChoiceRadios">
             <label class="custom-control-label" for="ShowCuisineIngRad">Show cuisine's unique ingredients</label>
         </div>
+        <br>
         <input class="btn btn-success" type="submit" ng-click="submitDiscoverNewCuisine()" value="Submit">
         <div>
             <div ng-show="newCuisinesLoading == 1">Loading...</div>
@@ -248,9 +250,6 @@
                 <div ng-show="newFranchiseLoading == 1">Loading...</div>
             </div>
             <div>
-                <br>
-                <!--map-->
-                <div id='mapFranchise' style="width: 600px; height: 500px;"></div>
 
                 Franchise found:
 

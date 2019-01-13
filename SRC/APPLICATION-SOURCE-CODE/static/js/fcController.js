@@ -101,10 +101,21 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
         let b = $scope.ingredPriceLevel;
         let c = $scope.ingredDelivery;
         let d = $scope.currentLocation;
-        //example for result
-        //$scope.restFromIngred = [{restaurant_name : 'ret1', cuisine : "Italian" ,agg_review : 3.2, lat : 42, lng : 39, price_category : 3, featured_photo_url : "url"}, {restaurant_name : 'ret1', agg_review : 3.2, lat : 142, lng : 152, price_category : 3, featured_photo_url : "url"}, {restaurant_name : 'ret1', agg_review : 3.2, lat : 142, lng : 152, price_category : 3, featured_photo_url : "url"}];
+
         let submittedIng = document.getElementById("ingredient_value").value;
         let urlString = 'restaurants/'+submittedIng;
+        if($scope.ingredDelivery != 0 || $scope.ingredPriceLevel != 0 || $scope.currentLocation.hasOwnProperty("lat")) {
+            urlString += '/?';
+        }
+        if($scope.ingredPriceLevel != 0) {
+            urlString += 'price_category=' + $scope.ingredPriceLevel;
+        }
+        if($scope.ingredDelivery != 0) {
+            urlString += '&online_delivery=' + $scope.ingredDelivery;
+        }
+        if($scope.currentLocation.hasOwnProperty("lat")) {
+            urlString += ''
+        }
         fetch(urlString)
             .then(data=>{return data.json()})
             .then(res=>{
@@ -221,10 +232,6 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
         });
         map.flyTo({center: [rest.lng, rest.lat] ,zoom : 14});
     };
-
-    let mapDiv = document.getElementById('map');
-    let mapDiv2 = document.getElementById('mapFranchise');
-    mapDiv2.innerHTML = mapDiv.innerHTML;
 
     $scope.getLocation = function() {
         $scope.newFranchiseLoading = 1;
