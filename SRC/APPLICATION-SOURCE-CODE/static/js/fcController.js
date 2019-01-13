@@ -236,6 +236,4 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
         });
     };
 
-
-
 }]);

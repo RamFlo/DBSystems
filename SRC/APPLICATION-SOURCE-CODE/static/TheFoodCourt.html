@@ -53,21 +53,6 @@
 <div style="background-image: url('static/resources/food_table.JPG'); height: 200px;">
 </div>
 <div>
-<!--<nav class="navbar navbar-expand-sm bg-dark navbar-dark">-->
-    <!--<div class="container-fluid">-->
-        <!--<div class="navbar-header">-->
-            <!--<a class="navbar-brand">The Food Court</a>-->
-        <!--</div>-->
-        <!--<ul class="nav navbar-nav">-->
-            <!--<li class="active"><a href ng-click="decision(0)">Ingredient</a></li>-->
-            <!--<li class="active"><a href ng-click="decision(1)">Discover new cuisines</a></li>-->
-            <!--<li class="active"><a href ng-click="decision(2)">Unique ingredients of cuisine</a></li>-->
-            <!--<li class="active"><a href ng-click="decision(3)">Discover new cuisines</a></li>-->
-            <!--<li class="active"><a href ng-click="decision(4)">Discover new cuisines</a></li>-->
-        <!--</ul>-->
-    <!--</div>-->
-<!--</nav>-->
-
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <div class="navbar-text">
         <a class="navbar-brand">The Food Court</a>
@@ -90,6 +75,7 @@
 
 <!--ingredient div-->
 <div ng-show="searchType == 0" style="width:800px; margin:0 auto; text-align: left;">
+    <br>
     <div id="ingredientMainDiv">
     <div angucomplete-alt id="ingredient" placeholder="Insert ingredient..." selected-object="selectedObj" text-searching="Searching for results..." remote-api-handler="autocompleteIngHandler"
          title-field="ingredient" minlength="1" input-class="form-control form-control-small" input-changed="autoComplete" match-class="highlight" parse-input="parseInput">
