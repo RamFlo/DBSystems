@@ -99,22 +99,26 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
     $scope.submitIngredient = function() {
         let a = $scope.currIngredient;
         let b = $scope.ingredPriceLevel;
-        let c = $scope.ingredDelivery;
-        let d = $scope.currentLocation;
+        let location;
 
         let submittedIng = document.getElementById("ingredient_value").value;
+        let ingredDelivery = document.getElementById("ingredDelivery").value;
+        let currentLocation = document.getElementById("currentLocation").value;
+        if (currentLocation) {
+            location = map.getCenter();
+        }
         let urlString = 'restaurants/'+submittedIng;
-        if($scope.ingredDelivery != 0 || $scope.ingredPriceLevel != 0 || $scope.currentLocation.hasOwnProperty("lat")) {
+        if(ingredDelivery != 0 || $scope.ingredPriceLevel != 0 || currentLocation.hasOwnProperty("lat")) {
             urlString += '/?';
         }
         if($scope.ingredPriceLevel != 0) {
             urlString += '&price_category=' + $scope.ingredPriceLevel;
         }
-        if($scope.ingredDelivery != 0) {
-            urlString += '&online_delivery=' + $scope.ingredDelivery;
+        if(ingredDelivery != 0) {
+            urlString += '&online_delivery=' + ingredDelivery;
         }
-        if($scope.currentLocation.hasOwnProperty("lat")) {
-            urlString += '&loclat=' + $scope.currentLocation.lat + '&loclng=' + $scope.currentLocation.lng;
+        if(currentLocation.hasOwnProperty("lat")) {
+            urlString += '&loclat=' + location.lat + '&loclng=' + location.lng;
         }
         fetch(urlString)
             .then(data=>{return data.json()})
