@@ -102,8 +102,8 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
         let location;
 
         let submittedIng = document.getElementById("ingredient_value").value;
-        let ingredDelivery = document.getElementById("ingredDelivery").value;
-        let currentLocation = document.getElementById("currentLocation").value;
+        let ingredDelivery = document.getElementById("ingredDelivery").checked;
+        let currentLocation = document.getElementById("currentLocation").checked;
         if (currentLocation) {
             location = map.getCenter();
         }
