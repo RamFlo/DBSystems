@@ -229,7 +229,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
     $scope.getLocation = function() {
         $scope.newFranchiseLoading = 1;
         let center = map.getCenter();
-        let Url='new_franchise/'+ center[0] + '/' + center[1];
+        let Url='new_franchise/'+ center.lat + '/' + center.lng;
         fetch(Url).then(data=>{
             return data.json()})
             .then(res=>{
