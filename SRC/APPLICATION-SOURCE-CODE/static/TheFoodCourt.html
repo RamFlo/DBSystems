@@ -59,16 +59,16 @@
         </div>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href ng-click="decision(0)">Ingredient</a>
+                <a class="nav-link" href ng-click="decision(0)">Ingredients</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href ng-click="decision(1)">Discover new cuisines</a>
+                <a class="nav-link" href ng-click="decision(1)">Cuisines</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href ng-click="decision(2)">Unique ingredients of cuisine</a>
+                <a class="nav-link" href ng-click="decision(2)">Best franchise location</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href ng-click="decision(3)">Discover new cuisines</a>
+                <a class="nav-link" href ng-click="decision(3)">Find restaurants by taste</a>
             </li>
         </ul>
     </nav>
@@ -220,24 +220,24 @@
 </div>
 
 <!--Unique ingredients of cuisine-->
-<div ng-show="searchType == 2" style="width:800px; margin:0 auto; text-align: left;">
-    <div id="uniqueIngredMainDiv">
-        <div angucomplete-alt id="uniqueIngred" placeholder="Insert ingredient..." selected-object="selectedObj" local-data="autoCompleteRes"
-             search-fields="entry_name" text-searching="Searching for results..." title-field="entry_name" minlength="1"
-             input-class="form-control form-control-small" match-class="highlight"> //input-changed="autoComplete"
-        </div>
-        <input class="btn btn-success" type="submit" ng-click="submitUniqueIngredients()" value="Search">
-    </div>
-    <div>
-        <br>
-        Unique ingredients:
-        <table style="margin: 0 auto;">
-            <tr  style="text-align: center;" ng-repeat="ingred in uniqueIngredintsResult">
-                <td>{{ingred.ingredient}}</td>
-            </tr>
-        </table>
-    </div>
-</div>
+<!--<div ng-show="searchType == 2" style="width:800px; margin:0 auto; text-align: left;">-->
+    <!--<div id="uniqueIngredMainDiv">-->
+        <!--<div angucomplete-alt id="uniqueIngred" placeholder="Insert ingredient..." selected-object="selectedObj" local-data="autoCompleteRes"-->
+             <!--search-fields="entry_name" text-searching="Searching for results..." title-field="entry_name" minlength="1"-->
+             <!--input-class="form-control form-control-small" match-class="highlight"> //input-changed="autoComplete"-->
+        <!--</div>-->
+        <!--<input class="btn btn-success" type="submit" ng-click="submitUniqueIngredients()" value="Search">-->
+    <!--</div>-->
+    <!--<div>-->
+        <!--<br>-->
+        <!--Unique ingredients:-->
+        <!--<table style="margin: 0 auto;">-->
+            <!--<tr  style="text-align: center;" ng-repeat="ingred in uniqueIngredintsResult">-->
+                <!--<td>{{ingred.ingredient}}</td>-->
+            <!--</tr>-->
+        <!--</table>-->
+    <!--</div>-->
+<!--</div>-->
 </div>
     <div>
         <!--new_franchise div-->
@@ -272,6 +272,66 @@
                     </tfoot>
                 </table>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-show="searchType == 3" style="width:800px; margin:0 auto; text-align: left;">
+    <div id="restByTasteDiv">
+        <div class="checkbox">
+            <label>
+                <input ng-model="saltToggleValue" id="saltToggle" type="checkbox" data-toggle="toggle" data-on="High" data-off="Low">
+                Saltiness
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input ng-model="sweetToggleValue" id="sweetToggle" type="checkbox" data-toggle="toggle" data-on="High" data-off="Low">
+                Sweetness
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input ng-model="sourToggleValue" id="sourToggle" type="checkbox" data-toggle="toggle" data-on="High" data-off="Low">
+                Sourness
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input ng-model="bitterToggleValue" id="bitterToggle" type="checkbox" data-toggle="toggle" data-on="High" data-off="Low">
+                Bitterness
+            </label>
+        </div>
+
+        <input class="btn btn-success" type="submit" ng-click="submitSearchRestByTaste()" value="Submit">
+        <div>
+            <div ng-show="restByTasteLoading == 1">Loading...</div>
+            <br>
+
+            <div ng-hide="restByTasteTableDivShow == 0">
+                <table datatable="ng" id="restFromTasteTable" class="table table-striped table-bordered" style="margin: 0 auto;">
+                    <thead>
+                    <tr>
+                        <th>Restaurant Name</th>
+                        <th>Establishment Name</th>
+                        <th>Price Category</th>
+                        <th>Rating</th>
+                        <th>Online Delivery</th>
+                        <th>Show on map</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr  style="text-align: center;" ng-repeat="rest in restsByTaste">
+                        <td>{{rest.restaurant_name}}</td>
+                        <td>{{rest.establishment_name}}</td>
+                        <td>{{rest.price_category}}</td>
+                        <td>{{rest.agg_review}}</td>
+                        <td>{{rest.has_online_delivery}}</td>
+                        <td><a href ng-click="locateRestInMap(rest)">click here</a></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

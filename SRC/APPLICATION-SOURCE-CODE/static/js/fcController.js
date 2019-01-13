@@ -251,4 +251,27 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
         });
     };
 
+
+    $scope.restsByTaste = {};
+    $scope.restByTasteTableDivShow = 0;
+    $scope.restByTasteLoading = 0;
+
+    $scope.saltToggleValue = 0;
+    $scope.sweetToggleValue = 0;
+    $scope.sourToggleValue = 0;
+    $scope.bitterToggleValue = 0;
+    $scope.submitSearchRestByTaste = function () {
+        $scope.restByTasteTableDivShow = 0;
+        $scope.restByTasteLoading = 1;
+        let Url="";
+        Url = 'restaurants/'+$scope.saltToggleValue+'/'+$scope.sweetToggleValue+'/'+$scope.sourToggleValue+'/'+$scope.bitterToggleValue;
+        fetch(Url).then(data=>{return data.json()}).then(res=> {
+            $scope.restByTasteTableDivShow = 1;
+            $scope.restsByTaste = res;
+            $scope.restByTasteLoading = 0;
+            $scope.$apply();
+        });
+
+    };
+
 }]);
