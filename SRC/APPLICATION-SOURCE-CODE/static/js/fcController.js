@@ -256,15 +256,18 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
     $scope.restByTasteTableDivShow = 0;
     $scope.restByTasteLoading = 0;
 
-    $scope.saltToggleValue = 0;
-    $scope.sweetToggleValue = 0;
-    $scope.sourToggleValue = 0;
-    $scope.bitterToggleValue = 0;
+    $scope.saltToggleValue = false;
+    $scope.sweetToggleValue = false;
+    $scope.sourToggleValue = false;
+    $scope.bitterToggleValue = false;
     $scope.submitSearchRestByTaste = function () {
         $scope.restByTasteTableDivShow = 0;
         $scope.restByTasteLoading = 1;
-        let Url="";
-        Url = 'restaurants/'+$scope.saltToggleValue+'/'+$scope.sweetToggleValue+'/'+$scope.sourToggleValue+'/'+$scope.bitterToggleValue;
+        let salt = $scope.saltToggleValue? 1:0;
+        let sweet = $scope.sweetToggleValue? 1:0;
+        let sour = $scope.sourToggleValue? 1:0;
+        let bitter = $scope.bitterToggleValue? 1:0;
+        let Url = 'restaurants/'+salt+'/'+sweet+'/'+sour+'/'+bitter;
         fetch(Url).then(data=>{return data.json()}).then(res=> {
             $scope.restByTasteTableDivShow = 1;
             $scope.restsByTaste = res;
