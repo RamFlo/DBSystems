@@ -141,6 +141,9 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
     $scope.showCuisineUniqueTable = 0;
     $scope.newCuisinesLoading = 0;
     $scope.cuisineSubmitChoice = 0;
+    $scope.showNewFranchiseTable = 0;
+    $scope.newFranchiseLoading = 0;
+
     $scope.submitDiscoverNewCuisine = function () {
         let choice = document.getElementById("cuisineChoiceRadios")
         $scope.newCuisinesLoading = 1;
@@ -217,6 +220,20 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
                 .addTo(map);
         });
         map.flyTo({center: [rest.lng, rest.lat] ,zoom : 14});
+    };
+
+    $scope.getLocation = function() {
+        $scope.newFranchiseLoading = 1;
+        let center = map.getCenter();
+        let Url='new_franchise/'+ center[0] + '/' + center[1];
+        fetch(Url).then(data=>{
+            return data.json()})
+            .then(res=>{
+                $scope.showNewFranchiseTable = 1;
+                $scope.newFranchiseArr = res;
+            $scope.newCuisinesLoading = 0;
+            $scope.$apply();
+        });
     };
 
 

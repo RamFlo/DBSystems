@@ -99,9 +99,6 @@
         <p>Select price range: </p>
         <form id="restByIngredientPrice">
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
-
-
-
                     <label class="btn btn-secondary active">
                         <input ng-model="ingredPriceLevel" ng-value="0" type="radio" name="priceRange" id="option1" autocomplete="off" checked> Unbounded
                     </label>
@@ -118,17 +115,20 @@
                     <input ng-model="ingredPriceLevel" ng-value="4" type="radio" name="priceRange" id="option5" autocomplete="off"> $$$$
                 </label>
             </div>
+            <br>
             <div class="btn-group-toggle" data-toggle="buttons">
                 <label class="btn btn-secondary">
                     <input type="checkbox" autocomplete="off" ng-model="ingredDelivery"> Online delivery
                 </label>
             </div>
+            <br>
             <div class="btn-group-toggle" data-toggle="buttons">
                 <label class="btn btn-secondary">
                     <input type="checkbox" autocomplete="off" ng-model="currentLocation"> Search only around current location
                 </label>
             </div>
         </form>
+        <br>
     <input class="btn btn-success" type="submit" ng-click="submitIngredient()" value="Search">
     </div>
 <div>
@@ -244,7 +244,46 @@
     </div>
 </div>
 </div>
+    <div>
+        <!--new_franchise div-->
+        <div ng-show="searchType == 2" style="width:800px; margin:0 auto; text-align: left;">
+            <div id="new_franchise">
+                <p>Locate the center of the map</p>
+                <br>
+                <input class="btn btn-success" type="submit" ng-click="getLocation()" value="Search">
+                <div ng-show="newFranchiseLoading == 1">Loading...</div>
+            </div>
+            <div>
+                <br>
+                <!--map-->
+                <div id='mapFranchise' style="width: 600px; height: 500px;"></div>
 
+                Franchise found:
+
+                <div ng-show="">
+                <table datatable="ng" id="newFranchiseTable" class="table table-striped table-bordered" style="margin: 0 auto;">
+                    <thead>
+                    <tr>
+                        <th>Restaurant Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr  style="text-align: center;" ng-repeat="franch in newFranchiseArr">
+                        <td>{{franch.restaurant_name}}</td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>Restaurant Name</th>
+                    </tr>
+                    </tfoot>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 
 <script src="static/js/fcController.js"></script>
