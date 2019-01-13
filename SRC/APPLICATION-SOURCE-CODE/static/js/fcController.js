@@ -222,6 +222,10 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
         map.flyTo({center: [rest.lng, rest.lat] ,zoom : 14});
     };
 
+    let mapDiv = document.getElementById('map');
+    let mapDiv2 = document.getElementById('mapFranchise');
+    mapDiv2.innerHTML = mapDiv.innerHTML;
+
     $scope.getLocation = function() {
         $scope.newFranchiseLoading = 1;
         let center = map.getCenter();
