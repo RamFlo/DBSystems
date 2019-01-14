@@ -148,7 +148,7 @@ FROM (SELECT ingredient
 		LIMIT %d) as IngredientsOfOtherCuisines
 WHERE IngredientsOfOtherCuisines.ingredient = IngredientsOfCuisine.ingredient
 )
-LIMIT 5
+LIMIT 10
 """
 
 set_up_new_franchise = """

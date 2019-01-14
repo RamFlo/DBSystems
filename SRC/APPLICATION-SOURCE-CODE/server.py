@@ -92,7 +92,7 @@ def query_restaurants_by_ingredient(ingredient):
                      (price_category,
                      min, online_delivery))
     limited_query = database.order_by_and_limit_query(filtered_query,
-                                                    "agg_review DESC", 20)
+                                                    "agg_review DESC", 200)
     query_res = database.run_sql_query(limited_query)
     if query_res == -1:
         return "[]"
