@@ -172,6 +172,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
                 $scope.showCuisineUniqueTable = 0;
                 $scope.showNewCuisinesTable = 1;
                 $scope.newCuisines = res;
+                $scope.newCusOptions = DTOptionsBuilder.newOptions().withOption('order',[]);
             }
             else {
                 $scope.showCuisineUniqueTable = 1;
@@ -185,8 +186,6 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
     };
 
     populateCuisineList();
-
-    $scope.newCusOptions = DTOptionsBuilder.newOptions().withOption('order',[]);
 
     // $scope.submitUniqueIngredients = function() {
     //     // uniqueIngredRouter.$get({}, function(res){});
