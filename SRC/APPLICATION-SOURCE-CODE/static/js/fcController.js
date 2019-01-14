@@ -186,7 +186,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
 
     populateCuisineList();
 
-    this.dtOptions = DTOptionsBuilder.newOptions().withOption('order',[]);
+    $scope.newCusOptions = DTOptionsBuilder.newOptions().withOption('order',[]);
 
     // $scope.submitUniqueIngredients = function() {
     //     // uniqueIngredRouter.$get({}, function(res){});
