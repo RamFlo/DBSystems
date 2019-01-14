@@ -10,7 +10,7 @@ let app = angular.module('myApp', ["angucomplete-alt",'datatables']);
 //         }
 //     };
 // });
-app.controller('mainController', ['$scope','$rootScope','$timeout', function($scope,$rootScope,$timeout,DTOptionsBuilder) { //$resource /*, $sce, require  '$sce','require'*/
+app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBuilder', function($scope,$rootScope,$timeout,DTOptionsBuilder) { //$resource /*, $sce, require  '$sce','require'*/
 
     $scope.currentLocation = 0;
 
