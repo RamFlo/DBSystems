@@ -195,7 +195,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr  style="text-align: center;" ng-repeat="cuisine in newCuisines | orderBy:'match_value'">
+            <tr  style="text-align: center;" ng-repeat="cuisine in newCuisines">
                 <td>{{cuisine.cuisine_name}}</td>
                 <td>{{cuisine.match_value}}</td>
             </tr>
@@ -212,7 +212,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr  style="text-align: center;" ng-repeat="ing in cuisineUniqueIng | orderBy:'ingcount'">
+                <tr  style="text-align: center;" ng-repeat="ing in cuisineUniqueIng">
                     <td>{{ing.ingredient}}</td>
                     <td>{{ing.ingcount}}</td>
                 </tr>
