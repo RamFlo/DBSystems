@@ -10,7 +10,7 @@ let app = angular.module('myApp', ["angucomplete-alt",'datatables']);
 //         }
 //     };
 // });
-app.controller('mainController', ['$scope','$rootScope','$timeout', function($scope,$rootScope,$timeout) { //$resource /*, $sce, require  '$sce','require'*/
+app.controller('mainController', ['$scope','$rootScope','$timeout', function($scope,$rootScope,$timeout,DTOptionsBuilder) { //$resource /*, $sce, require  '$sce','require'*/
 
     $scope.currentLocation = 0;
 
@@ -186,13 +186,14 @@ app.controller('mainController', ['$scope','$rootScope','$timeout', function($sc
 
     populateCuisineList();
 
+    this.dtOptions = DTOptionsBuilder.newOptions().withOption('order',[]);
 
-    $scope.submitUniqueIngredients = function() {
-        // uniqueIngredRouter.$get({}, function(res){});
-        let a = $scope.currUniqueIngred;
-
-        $scope.uniqueIngredintsResult = [{ingredient : "apple"}, {ingredient : "banana"}];
-    };
+    // $scope.submitUniqueIngredients = function() {
+    //     // uniqueIngredRouter.$get({}, function(res){});
+    //     let a = $scope.currUniqueIngred;
+    //
+    //     $scope.uniqueIngredintsResult = [{ingredient : "apple"}, {ingredient : "banana"}];
+    // };
 
 
     mapboxgl.accessToken = 'pk.eyJ1IjoicmFtZmxvIiwiYSI6ImNqcWZjNmFuajUzMHo0YW1zeTJ5ZDFrMTcifQ.-6GAbzLXvYr7ftYbYeKMUg';
