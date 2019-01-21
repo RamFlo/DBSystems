@@ -173,8 +173,8 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
                     coordinates: [rest.lng, rest.lat]
                 },
                 properties: {
-                    title: rest.cuisine,
-                    description: rest.restaurant_name
+                    title: rest.restaurant_name,
+                    description: rest.establishment_name
                 }
             }]
         };
