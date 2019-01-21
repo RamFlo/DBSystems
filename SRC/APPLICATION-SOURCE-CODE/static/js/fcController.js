@@ -109,15 +109,16 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
     //     console.log(value);
     // });
 
+    let $radios = $('input[name=priceRangeIng]').change(function () {
+        let value = $radios.filter(':checked').val();
+        $scope.ingredPriceLevel = value;
+    });
 
     $scope.submitIngredient = function() {
         let a = $scope.currIngredient;
         let location;
 
-        let $radios = $('input[name=priceRangeIng]').change(function () {
-            let value = $radios.filter(':checked').val();
-            alert(value);
-        });
+
 
         let submittedIng = document.getElementById("ingredient_value").value;
         let ingredDelivery = document.getElementById("ingredDelivery").checked;
