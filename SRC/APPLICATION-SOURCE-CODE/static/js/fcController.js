@@ -95,24 +95,29 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
         }
     };
 
-    $scope.priceLevelChangeIngred = function(newPriceLevel){
-        $scope.ingredPriceLevel = newPriceLevel;
-    };
+    // $scope.priceLevelChangeIngred = function(newPriceLevel){
+    //     $scope.ingredPriceLevel = newPriceLevel;
+    // };
 
-    $('#priceLevelSelector input').on("click",function(){
-        alert(this.value())
-    });
+    // $('#priceLevelSelector input').on("click",function(){
+    //     alert(this.value())
+    // });
 
-    $scope.priceLevelChangeBtn = 0;
-
-    $scope.$watch('priceLevelChangeBtn', function(value) {
-        console.log(value);
-    });
+    // $scope.priceLevelChangeBtn = 0;
+    //
+    // $scope.$watch('priceLevelChangeBtn', function(value) {
+    //     console.log(value);
+    // });
 
 
     $scope.submitIngredient = function() {
         let a = $scope.currIngredient;
         let location;
+
+        let $radios = $('input[name=priceRangeIng]').change(function () {
+            let value = $radios.filter(':checked').val();
+            alert(value);
+        });
 
         let submittedIng = document.getElementById("ingredient_value").value;
         let ingredDelivery = document.getElementById("ingredDelivery").checked;
