@@ -95,9 +95,12 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
         }
     };
 
+    $scope.priceLevelChangeIngred = function(newPriceLevel){
+        $scope.ingredPriceLevel = newPriceLevel;
+    };
+
     $scope.submitIngredient = function() {
         let a = $scope.currIngredient;
-        let b = $scope.ingredPriceLevel;
         let location;
 
         let submittedIng = document.getElementById("ingredient_value").value;
