@@ -94,6 +94,9 @@
 
     <div ng-show="searchType == 3" style="width:800px; margin:0 auto; text-align: left;">
         <div id="tasteFiltersDiv">
+            <br>
+            <p>Find restaurants by taste preferences:</p>
+            <br>
             <div class="checkbox">
                 <label>
                     <input ng-model="saltToggleValue" id="saltToggle" type="checkbox" data-toggle="toggle" data-on="High" data-off="Low">
@@ -221,7 +224,7 @@
 
     <!--map-->
     <div style="width:800px; margin:0 auto; text-align: left;">
-        <div ng-show="searchType == 0 || searchType == 2" id='map' style="width: 600px; height: 500px;"></div>
+        <div ng-show="searchType == 0 || searchType == 2 || searchType == 3" id='map' style="width: 600px; height: 500px;"></div>
     </div>
 
 
