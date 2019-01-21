@@ -151,27 +151,23 @@
             <thead>
             <tr>
                 <th>Restaurant Name</th>
+                <th>Establishment Name</th>
                 <th>Price Category</th>
                 <th>Rating</th>
+                <th>Online Delivery</th>
                 <th>Show on map</th>
             </tr>
             </thead>
             <tbody>
             <tr  style="text-align: center;" ng-repeat="rest in restFromIngred">
                 <td>{{rest.restaurant_name}}</td>
+                <td>{{rest.establishment_name}}</td>
                 <td>{{rest.price_category}}</td>
                 <td>{{rest.agg_review}}</td>
+                <td>{{rest.has_online_delivery}}</td>
                 <td><a href ng-click="locateRestInMap(rest)">click here</a></td>
             </tr>
             </tbody>
-            <tfoot>
-            <tr>
-                <th>Restaurant Name</th>
-                <th>Price Category</th>
-                <th>Rating</th>
-                <th>Show on map</th>
-            </tr>
-            </tfoot>
         </table>
     </div>
 
