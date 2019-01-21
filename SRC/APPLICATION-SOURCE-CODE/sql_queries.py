@@ -187,7 +187,7 @@ GROUP BY restaurant_name
 """
 
 get_common_ingredients_with = """
-SELECT ingredient, Count(ingredient)
+SELECT ingredient, Count(ingredient) AS count
 FROM Recipes, IngredientsRecipes
 WHERE Recipes.recipe_id = IngredientsRecipes.recipe_id
 		AND EXISTS (SELECT RE.recipe_id
