@@ -98,19 +98,19 @@
         <form id="restByIngredientPrice">
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
                     <label class="btn btn-secondary active">
-                        <input ng-model="ingredPriceLevel" ng-value="0" ng-click="priceLevelChangeIngred(0)" type="radio" name="priceRange" id="option1" autocomplete="off" checked> Unbounded
+                        <input ng-model="ingredPriceLevel" ng-value="0" ng-change="priceLevelChangeIngred(0)" type="radio" name="priceRange" id="option1" autocomplete="off" checked> Unbounded
                     </label>
                     <label class="btn btn-secondary">
-                        <input ng-model="ingredPriceLevel" ng-click="priceLevelChangeIngred(1)" ng-value="1" type="radio" name="priceRange" id="option2" autocomplete="off"> $
+                        <input ng-model="ingredPriceLevel" ng-change="priceLevelChangeIngred(1)" ng-value="1" type="radio" name="priceRange" id="option2" autocomplete="off"> $
                     </label>
                     <label class="btn btn-secondary">
-                        <input ng-model="ingredPriceLevel" ng-click="priceLevelChangeIngred(2)" ng-value="2" type="radio" name="priceRange" id="option3" autocomplete="off"> $$
+                        <input ng-model="ingredPriceLevel" ng-change="priceLevelChangeIngred(2)" ng-value="2" type="radio" name="priceRange" id="option3" autocomplete="off"> $$
                     </label>
                 <label class="btn btn-secondary">
-                    <input ng-model="ingredPriceLevel" ng-click="priceLevelChangeIngred(3)" ng-value="3" type="radio" name="priceRange" id="option4" autocomplete="off"> $$$
+                    <input ng-model="ingredPriceLevel" ng-change="priceLevelChangeIngred(3)" ng-value="3" type="radio" name="priceRange" id="option4" autocomplete="off"> $$$
                 </label>
                 <label class="btn btn-secondary">
-                    <input ng-model="ingredPriceLevel" ng-click="priceLevelChangeIngred(4)" ng-value="4" type="radio" name="priceRange" id="option5" autocomplete="off"> $$$$
+                    <input ng-model="ingredPriceLevel" ng-change="priceLevelChangeIngred(4)" ng-value="4" type="radio" name="priceRange" id="option5" autocomplete="off"> $$$$
                 </label>
             </div>
             <br>
