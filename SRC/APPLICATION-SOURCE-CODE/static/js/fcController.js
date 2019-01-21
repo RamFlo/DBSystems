@@ -127,16 +127,16 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
             location = map.getCenter();
         }
         let urlString = 'restaurants/'+submittedIng;
-        if(ingredDelivery != 0 || $scope.ingredPriceLevel != 0 || currentLocation.hasOwnProperty("lat")) {
+        if(ingredDelivery != 0 || $scope.ingredPriceLevel != 0 || currentLocation) {
             urlString += '/?';
         }
         if($scope.ingredPriceLevel != 0) {
             urlString += '&price_category=' + $scope.ingredPriceLevel;
         }
         if(ingredDelivery != 0) {
-            urlString += '&online_delivery=' + ingredDelivery;
+            urlString += '&online_delivery=' + '1';
         }
-        if(currentLocation.hasOwnProperty("lat")) {
+        if(currentLocation) {
             urlString += '&loclat=' + location.lat + '&loclng=' + location.lng;
         }
         fetch(urlString)
