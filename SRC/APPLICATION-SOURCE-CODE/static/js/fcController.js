@@ -228,7 +228,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
     let map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v9',
-        center: [-73.996155, 40.732013],
+        center: [-73.97450195452336, 40.786381192719745],
         zoom: 10
     });
 
