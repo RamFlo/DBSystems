@@ -103,6 +103,13 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
         alert(this.value())
     });
 
+    $scope.priceLevelChangeBtn = 0;
+
+    $scope.$watch('priceLevelChangeBtn', function(value) {
+        console.log(value);
+    });
+
+
     $scope.submitIngredient = function() {
         let a = $scope.currIngredient;
         let location;
