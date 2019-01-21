@@ -129,7 +129,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
             location = map.getCenter();
         }
         let urlString = 'restaurants/'+submittedIng;
-        if(ingredDelivery != 0 || $scope.ingredPriceLevel != 0 || currentLocation) {
+        if(ingredDelivery != 0 || $scope.ingredPriceLevel != 0 || currentLocation ||  $scope.minRevScoreIngVal != 0) {
             urlString += '/?';
         }
         if($scope.ingredPriceLevel != 0) {
@@ -140,6 +140,9 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
         }
         if(currentLocation) {
             urlString += '&loclat=' + location.lat + '&loclng=' + location.lng;
+        }
+        if($scope.minRevScoreIngVal != 0){
+            urlString += '&min_review=' + $scope.minRevScoreIngVal;
         }
         fetch(urlString)
             .then(data=>{return data.json()})
