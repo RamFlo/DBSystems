@@ -114,6 +114,8 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
         $scope.ingredPriceLevel = value;
     });
 
+    $scope.minRevScoreIngVal = 0;
+
     $scope.submitIngredient = function() {
         let a = $scope.currIngredient;
         let location;
