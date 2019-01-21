@@ -419,6 +419,8 @@
 <!--common ingredients-->
 <div ng-show="searchType == 4" style="width:800px; margin:0 auto; text-align: left;">
     <br>
+    <p>Find ingredients that commonly appear in the same recipes as the submitted ingredient:</p>
+    <br>
     <div id="commonIngred">
         <div angucomplete-alt id="commonIngredient" placeholder="Insert ingredient..." selected-object="selectedObj" text-searching="Searching for results..." remote-api-handler="autocompleteIngHandler"
              title-field="ingredient" minlength="1" input-class="form-control form-control-small" input-changed="autoComplete" match-class="highlight" parse-input="parseInput">
