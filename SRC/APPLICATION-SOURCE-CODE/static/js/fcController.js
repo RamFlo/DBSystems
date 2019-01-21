@@ -99,6 +99,10 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
         $scope.ingredPriceLevel = newPriceLevel;
     };
 
+    $('#priceLevelSelector input').on("click",function(){
+        alert(this.value())
+    });
+
     $scope.submitIngredient = function() {
         let a = $scope.currIngredient;
         let location;
