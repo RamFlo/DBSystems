@@ -182,6 +182,8 @@
 <!--discover new cusines-->
 <div ng-show="searchType == 1" style="width:800px; margin:0 auto; text-align: left;">
     <br>
+    <p>Choose a cuisine to either discover similar cuisines (based on common ingredients between the cuisines' recipes) or show the chosen cuisine's unique ingredients.</p>
+    <br>
     <div id="cuisineMainDiv">
         <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="discoverNewCuisineBaseSelect">
             <option ng-repeat="cuisine in discoverNewCuisine" value="{{cuisine.cuisine_id}}">{{cuisine.cuisine_name}}</option>
@@ -218,7 +220,7 @@
             </div>
 
             <div ng-hide="showCuisineUniqueTable == 0">
-            <table datatable="ng" id="CuisineUniqueTable" class="table table-striped table-bordered" style="margin: 0 auto;">
+            <table datatable="ng" dt-option="disableAutoOrderTableOptions" id="CuisineUniqueTable" class="table table-striped table-bordered" style="margin: 0 auto;">
                 <thead>
                 <tr>
                     <th>Ingredient</th>
