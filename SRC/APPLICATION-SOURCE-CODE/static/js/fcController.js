@@ -252,6 +252,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
             $scope.newCuisinesLoading = 0;
             $scope.$apply();
         });
+        $scope.newFranchiseLoading = 0;
     };
 
 
@@ -279,5 +280,12 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
         });
 
     };
+
+    $scope.commonIngredLoading = 0;
+    $scope.showCommonIngredTable = 0;
+    $scope.submitCommonIngred = function() {
+        $scope.commonIngredLoading = 1;
+        let ingredInput = document.getElementById("ingredient_value").value;
+    }
 
 }]);
