@@ -98,27 +98,23 @@
             <p>Find restaurants by taste preferences:</p>
             <br>
             <div class="checkbox">
-                <label>
-                    <input ng-model="saltToggleValue" id="saltToggle" type="checkbox" data-toggle="toggle" data-on="High" data-off="Low">
-                    Saltiness
+                <label class="border">
+                    <input ng-model="saltToggleValue" id="saltToggle" type="checkbox" data-toggle="toggle" data-on="High saltiness" data-off="Low saltiness">
                 </label>
             </div>
             <div class="checkbox">
-                <label>
-                    <input ng-model="sweetToggleValue" id="sweetToggle" type="checkbox" data-toggle="toggle" data-on="High" data-off="Low">
-                    Sweetness
+                <label class="border">
+                    <input ng-model="sweetToggleValue" id="sweetToggle" type="checkbox" data-toggle="toggle" data-on="High sweetness" data-off="Low sweetness">
                 </label>
             </div>
             <div class="checkbox">
-                <label>
-                    <input ng-model="sourToggleValue" id="sourToggle" type="checkbox" data-toggle="toggle" data-on="High" data-off="Low">
-                    Sourness
+                <label class="border">
+                    <input ng-model="sourToggleValue" id="sourToggle" type="checkbox" data-toggle="toggle" data-on="High sourness" data-off="Low sourness">
                 </label>
             </div>
             <div class="checkbox">
-                <label>
-                    <input ng-model="bitterToggleValue" id="bitterToggle" type="checkbox" data-toggle="toggle" data-on="High" data-off="Low">
-                    Bitterness
+                <label class="border">
+                    <input ng-model="bitterToggleValue" id="bitterToggle" type="checkbox" data-toggle="toggle" data-on="High bitterness" data-off="Low bitterness">
                 </label>
             </div>
             <form id="tastePrice">
@@ -380,7 +376,7 @@
             <br>
 
             <div ng-hide="restByTasteTableDivShow == 0">
-                <table datatable="ng" id="restFromTasteTable" class="table table-striped table-bordered" style="margin: 0 auto;">
+                <table datatable="ng" dt-options="disableAutoOrderTableOptions" id="restFromTasteTable" class="table table-striped table-bordered" style="margin: 0 auto;">
                     <thead>
                     <tr>
                         <th>Restaurant Name</th>
