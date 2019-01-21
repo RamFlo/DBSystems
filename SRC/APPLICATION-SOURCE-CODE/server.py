@@ -15,7 +15,7 @@ cuisine_discovery_cache = {}
 unique_ingredients_cache = {}
 cache_persistence_time = timedelta(days=1)
 
-geodist = 0.12  # used for restaurant geosearching - defines L1 radius
+geodist = 0.012  # used for restaurant geosearching - defines L1 radius
 
 
 @app.route('/')
