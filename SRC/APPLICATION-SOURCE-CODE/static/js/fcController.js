@@ -281,11 +281,19 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
 
     };
 
+    
     $scope.commonIngredLoading = 0;
     $scope.showCommonIngredTable = 0;
     $scope.submitCommonIngred = function() {
         $scope.commonIngredLoading = 1;
         let ingredInput = document.getElementById("ingredient_value").value;
+        let Url = 'get_common_ingredients_with/'+ingredInput;
+        fetch(Url).then(data=>{return data.json()}).then(res=> {
+            $scope.showCommonIngredTable = 1;
+            $scope.commonIngredData = res;
+            $scope.commonIngredLoading = 0;
+            $scope.$apply();
+        });
     }
 
 }]);
