@@ -214,7 +214,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
 
     $scope.disableAutoOrderTableOptions = DTOptionsBuilder.newOptions().withOption('order',[]);
 
-    $scope.cuisineUniqueTableOptions = DTOptionsBuilder.newOptions().withOption('order',[2,'desc']);
+    $scope.cuisineUniqueTableOptions = DTOptionsBuilder.newOptions().withOption('order',[[2,'desc']]);
 
     populateCuisineList();
 
