@@ -186,8 +186,6 @@
     <div angucomplete-alt id="ingredient" placeholder="Insert ingredient..." selected-object="selectedObj" text-searching="Searching for results..." remote-api-handler="autocompleteIngHandler"
          title-field="ingredient" minlength="1" input-class="form-control form-control-small" input-changed="autoComplete" match-class="highlight" parse-input="parseInput">
     </div>
-        <!--<div angucomplete-alt pause="400" selected-object="obj" remote-api-handler="autocompleteIngHandler" title-field="ingredient" minlength="1"></div>-->
-
         <br>
         <form id="restByIngredientPrice">
             <p>Select price range: </p>
@@ -247,7 +245,7 @@
         Restaurants found:
 
 
-        <table datatable="ng" dt-options="disableAutoOrderTableOptions" id="restFromIngredTable" class="table table-striped table-bordered" style="margin: 0 auto;">
+        <table datatable="ng" dt-options="disableAutoOrderTableOptions" id="restFromIngredTable" class="table table-striped table-bordered" style="max-width:800px; margin: 0 auto;">
             <thead>
             <tr>
                 <th>Restaurant Name</th>
