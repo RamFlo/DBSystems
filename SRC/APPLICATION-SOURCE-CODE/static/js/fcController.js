@@ -207,6 +207,8 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
     //$scope.dtOptions = DTOptionsBuilder.newOptions().withOption('order',[]);
     $scope.newCusTableOptions = DTOptionsBuilder.newOptions().withOption('order',[]);
 
+    $scope.disableAutoOrderTableOptions = DTOptionsBuilder.newOptions().withOption('order',[]);
+
     populateCuisineList();
 
     // $scope.submitUniqueIngredients = function() {
