@@ -91,6 +91,77 @@
     <p>Find the best franchise to establish based on the franchises surrounding the map's center.</p>
         <br>
     </div>
+
+    <div ng-show="searchType == 3" style="width:800px; margin:0 auto; text-align: left;">
+        <div id="tasteFiltersDiv">
+            <div class="checkbox">
+                <label>
+                    <input ng-model="saltToggleValue" id="saltToggle" type="checkbox" data-toggle="toggle" data-on="High" data-off="Low">
+                    Saltiness
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input ng-model="sweetToggleValue" id="sweetToggle" type="checkbox" data-toggle="toggle" data-on="High" data-off="Low">
+                    Sweetness
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input ng-model="sourToggleValue" id="sourToggle" type="checkbox" data-toggle="toggle" data-on="High" data-off="Low">
+                    Sourness
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input ng-model="bitterToggleValue" id="bitterToggle" type="checkbox" data-toggle="toggle" data-on="High" data-off="Low">
+                    Bitterness
+                </label>
+            </div>
+            <form id="tastePrice">
+                <p>Select price range: </p>
+                <div id="priceLevelSelectorTaste" class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-secondary active">
+                        <input value="0" type="radio" name="priceRangeTaste" id="optionTaste1" autocomplete="off" checked> Unbounded
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input value="1"  type="radio" name="priceRangeTaste" id="optionTaste2" autocomplete="off"> $
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input value="2" type="radio" name="priceRangeTaste" id="optionTaste3" autocomplete="off"> $$
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input value="3" type="radio" name="priceRangeTaste" id="optionTaste4" autocomplete="off"> $$$
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input value="4"  type="radio" name="priceRangeTaste" id="optionTaste5" autocomplete="off"> $$$$
+                    </label>
+                </div>
+                <br>
+                <div class="btn-group-toggle" data-toggle="buttons">
+                    <br>
+                    <label class="btn btn-secondary">
+                        <input type="checkbox" autocomplete="off" id="tasteDelivery"> Online delivery
+                    </label>
+                </div>
+                <br>
+                <div class="btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-secondary">
+                        <input type="checkbox" autocomplete="off" id="currentLocationTaste"> Search only around current location
+                    </label>
+                </div>
+                <br>
+                <div>
+                    <label class="w-25" for="minRevScoreIng">Minimal review score: {{minRevScoreTasteVal}}  </label>
+                    <input ng-model="minRevScoreTasteVal" value="0" type="range" class="custom-range w-25" id="minRevScoreTaste" min="0" max="5" step="0.1">
+                </div>
+
+            </form>
+            <br>
+            <input class="btn btn-success" type="submit" ng-click="submitSearchRestByTaste()" value="Submit">
+        </div>
+    </div>
+
 <div ng-show="searchType == 0" style="width:800px; margin:0 auto; text-align: left;">
     <br>
     <p>Enter an ingredient or flavor preferences, filter by restaurant preferences and we will find the best restaurants for you. We search over 18000 recipes, 5000 restaurants and over 7000 different ingredients to make sure you can discover new restaurants that you will definitely would like to come back to.</p>
@@ -267,9 +338,6 @@
         <!--new_franchise div-->
         <div ng-show="searchType == 2" style="width:800px; margin:0 auto; text-align: left;">
             <div id="new_franchise">
-                <br>
-                <p>Locate the center of the map</p>
-                <br>
                 <input class="btn btn-success" type="submit" ng-click="getLocation()" value="Search">
                 <div ng-show="newFranchiseLoading == 1">Loading...</div>
             </div>
@@ -304,32 +372,6 @@
 
 <div ng-show="searchType == 3" style="width:800px; margin:0 auto; text-align: left;">
     <div id="restByTasteDiv">
-        <div class="checkbox">
-            <label>
-                <input ng-model="saltToggleValue" id="saltToggle" type="checkbox" data-toggle="toggle" data-on="High" data-off="Low">
-                Saltiness
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input ng-model="sweetToggleValue" id="sweetToggle" type="checkbox" data-toggle="toggle" data-on="High" data-off="Low">
-                Sweetness
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input ng-model="sourToggleValue" id="sourToggle" type="checkbox" data-toggle="toggle" data-on="High" data-off="Low">
-                Sourness
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input ng-model="bitterToggleValue" id="bitterToggle" type="checkbox" data-toggle="toggle" data-on="High" data-off="Low">
-                Bitterness
-            </label>
-        </div>
-
-        <input class="btn btn-success" type="submit" ng-click="submitSearchRestByTaste()" value="Submit">
         <div>
             <div ng-show="restByTasteLoading == 1">Loading...</div>
             <br>

@@ -1,15 +1,6 @@
 
 let app = angular.module('myApp', ["angucomplete-alt",'datatables']);
-// app.directive("tablePostRepeatDirective",function(){
-//     return function(scope, element, attrs) {
-//         if (scope.$last){
-//             // iteration is complete, do whatever post-processing
-//             // is necessary
-//             // element.parent().css('border', '1px solid black');
-//             scope.initRestDataTable();
-//         }
-//     };
-// });
+
 app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBuilder', function($scope,$rootScope,$timeout,DTOptionsBuilder) { //$resource /*, $sce, require  '$sce','require'*/
 
     $scope.currentLocation = 0;
@@ -46,43 +37,11 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
             return {"data": $scope.searchIngRes};
         }, 1000);};
 
-    // $scope.searchAPI = function(userInputString, timeoutPromise) {
-    //     console.log("searching for: "+userInputString);
-    //     let urlString = 'ingredient_prefix/'+userInputString;
-    //     fetch(urlString)
-    //         .then(data=>{return data.json()})
-    //         .then(res=>{
-    //             return res;
-    //         })
-    //         .catch(error=>console.log(error));
-    //
-    //     if ($scope.searchType == 0) {
-    //         $scope.currIngredient = this.searchStr;
-    //     }
-    //     else if ($scope.searchType == 1) {
-    //         $scope.currResturant = this.searchStr;
-    //     }
-    //     else if ($scope.searchType == 2) {
-    //         $scope.currUniqueIngred = this.searchStr;
-    //     }
-    //
-    //
-    //     return $http.post('/yourownapi/', {q: userInputString}, {timeout: timeoutPromise});
-    // };
+
 
     // Auto complete according to the search type and the input text
     $scope.changeSearchType = function(/*text*/) {
 
-        // let searchStrIng = document.getElementById("ingredient_value").value;
-        // console.log("searching for: "+searchStrIng);
-        // // let urlString = 'ingredient_prefix/'+this.searchStr;
-        // let urlString = 'ingredient_prefix/'+searchStrIng;
-        // fetch(urlString)
-        //     .then(data=>{return data.json()})
-        //     .then(res=>{
-        //         $scope.autoCompleteRes = res;
-        //     })
-        //     .catch(error=>console.log(error));
 
         if ($scope.searchType == 0) {
             $scope.currIngredient = this.searchStr;
@@ -95,33 +54,25 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
         }
     };
 
-    // $scope.priceLevelChangeIngred = function(newPriceLevel){
-    //     $scope.ingredPriceLevel = newPriceLevel;
-    // };
-
-    // $('#priceLevelSelector input').on("click",function(){
-    //     alert(this.value())
-    // });
-
-    // $scope.priceLevelChangeBtn = 0;
-    //
-    // $scope.$watch('priceLevelChangeBtn', function(value) {
-    //     console.log(value);
-    // });
 
     let $radios = $('input[name=priceRangeIng]').change(function () {
         let value = $radios.filter(':checked').val();
         $scope.ingredPriceLevel = value;
     });
 
+    $scope.tastePriceLevel = 0;
+
+    $scope.minRevScoreTasteVal = 0;
+
+    let $radiosTaste = $('input[name=priceRangeTaste]').change(function () {
+        let value = $radiosTaste.filter(':checked').val();
+        $scope.tastePriceLevel = value;
+    });
+
     $scope.minRevScoreIngVal = 0;
 
     $scope.submitIngredient = function() {
-        let a = $scope.currIngredient;
         let location;
-
-
-
         let submittedIng = document.getElementById("ingredient_value").value;
         let ingredDelivery = document.getElementById("ingredDelivery").checked;
         let currentLocation = document.getElementById("currentLocation").checked;
@@ -152,22 +103,6 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
                 })
             .catch(error=>console.log(error));
     };
-
-    // $scope.initRestDataTable = function() {
-    //     $(document).ready(function() {
-    //         $('restFromIngredTable').DataTable({
-    //             // pageLength:10,
-    //             // lengthMenu: [ 10, 25, 50, 75, 100 ],
-    //             // dom: 'Bfrtip',
-    //             // buttons: [ 'pageLength' ]
-    //             //"lengthChange": false
-    //             "scrollY":        "200px",
-    //             "scrollCollapse": true,
-    //             "paging":         false
-    //         });
-    //     } )
-    // };
-
 
     let populateCuisineList = function () {
         const Url2 = 'get_cuisines';
@@ -209,7 +144,6 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
 
     };
 
-    //$scope.dtOptions = DTOptionsBuilder.newOptions().withOption('order',[]);
     $scope.newCusTableOptions = DTOptionsBuilder.newOptions().withOption('order',[]);
 
     $scope.disableAutoOrderTableOptions = DTOptionsBuilder.newOptions().withOption('order',[]);
@@ -218,12 +152,6 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
 
     populateCuisineList();
 
-    // $scope.submitUniqueIngredients = function() {
-    //     // uniqueIngredRouter.$get({}, function(res){});
-    //     let a = $scope.currUniqueIngred;
-    //
-    //     $scope.uniqueIngredintsResult = [{ingredient : "apple"}, {ingredient : "banana"}];
-    // };
 
 
     mapboxgl.accessToken = 'pk.eyJ1IjoicmFtZmxvIiwiYSI6ImNqcWZjNmFuajUzMHo0YW1zeTJ5ZDFrMTcifQ.-6GAbzLXvYr7ftYbYeKMUg';
@@ -292,7 +220,10 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
     $scope.sweetToggleValue = false;
     $scope.sourToggleValue = false;
     $scope.bitterToggleValue = false;
+
+
     $scope.submitSearchRestByTaste = function () {
+
         $scope.restByTasteTableDivShow = 0;
         $scope.restByTasteLoading = 1;
         let salt = $scope.saltToggleValue? 1:0;
@@ -300,6 +231,33 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
         let sour = $scope.sourToggleValue? 1:0;
         let bitter = $scope.bitterToggleValue? 1:0;
         let Url = 'restaurants/'+salt+'/'+sweet+'/'+sour+'/'+bitter;
+
+
+        let locationTaste;
+        let tasteDelivery = document.getElementById("tasteDelivery").checked;
+        let currentLocationTaste = document.getElementById("currentLocationTaste").checked;
+        if (currentLocationTaste) {
+            locationTaste = map.getCenter();
+        }
+        if(tasteDelivery != 0 || $scope.tastePriceLevel != 0 || currentLocationTaste ||  $scope.minRevScoreTasteVal != 0) {
+            Url += '/?';
+        }
+        if($scope.tastePriceLevel != 0) {
+            Url += '&price_category=' + $scope.tastePriceLevel;
+        }
+        if(tasteDelivery != 0) {
+            Url += '&online_delivery=' + '1';
+        }
+        if(currentLocationTaste) {
+            Url += '&loclat=' + locationTaste.lat + '&loclng=' + locationTaste.lng;
+        }
+        if($scope.minRevScoreTasteVal != 0){
+            Url += '&min_review=' + $scope.minRevScoreTasteVal;
+        }
+
+
+
+
         fetch(Url).then(data=>{return data.json()}).then(res=> {
             $scope.restByTasteTableDivShow = 1;
             $scope.restsByTaste = res;
