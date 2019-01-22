@@ -106,7 +106,11 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
                 $scope.showCuisineByIngred = 1;
                 $scope.$apply();
                 })
-            .catch(error=>console.log(error));
+            .catch(error=>{
+                console.log(error);
+                $scope.showCuisineByIngred = 1;
+                $scope.$apply();
+            });
     };
 
     // Get all cuisine list
@@ -138,7 +142,6 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
                 $scope.showCuisineUniqueTable = 0;
                 $scope.showNewCuisinesTable = 1;
                 $scope.newCuisines = res;
-                //$scope.newCusOptions = DTOptionsBuilder.newOptions().withOption('order',[]);
             }
             else {
                 $scope.showCuisineUniqueTable = 1;
@@ -147,7 +150,19 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
             }
             $scope.newCuisinesLoading = 0;
             $scope.$apply();
-        }).catch(error=>console.log(error));
+        }).catch(error=>{
+            console.log(error);
+            if ($scope.cuisineSubmitChoice == 0) {
+                $scope.showCuisineUniqueTable = 0;
+                $scope.showNewCuisinesTable = 1;
+            }
+            else {
+                $scope.showCuisineUniqueTable = 1;
+                $scope.showNewCuisinesTable = 0;
+            }
+            $scope.newCuisinesLoading = 0;
+            $scope.$apply();
+        });
 
     };
 
@@ -214,7 +229,12 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
                 $scope.newFranchiseArr = res;
             $scope.newCuisinesLoading = 0;
             $scope.$apply();
-        }).catch(error=>console.log(error));
+        }).catch(error=>{
+            console.log(error);
+            $scope.showNewFranchiseTable = 1;
+            $scope.newCuisinesLoading = 0;
+            $scope.$apply();
+        });
         $scope.newFranchiseLoading = 0;
     };
 
@@ -269,7 +289,12 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
             $scope.restsByTaste = res;
             $scope.restByTasteLoading = 0;
             $scope.$apply();
-        }).catch(error=>console.log(error));
+        }).catch(error=>{
+            console.log(error);
+            $scope.restByTasteTableDivShow = 1;
+            $scope.restByTasteLoading = 0;
+            $scope.$apply();
+        });
 
     };
 
