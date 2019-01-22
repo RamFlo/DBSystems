@@ -176,7 +176,7 @@
 
             </form>
             <br>
-            <input class="btn btn-success" type="submit" ng-click="submitSearchRestByTaste()" value="Search">
+            <a href="#restByTaste"><input class="btn btn-success" type="submit" ng-click="submitSearchRestByTaste()" value="Search"></a>
         </div>
     </div>
 
@@ -244,7 +244,7 @@
     <div ng-show="searchType == 0" style="max-width:800px; margin:0 auto; text-align: left;">
 
 
-        <div style="min-height: 100px" id="cusineIngredDiv">
+        <div style="min-height: 250px" id="cusineIngredDiv">
         <div ng-hide="showCuisineByIngred == 0">
         <table datatable="ng" dt-options="disableAutoOrderTableOptions" id="restFromIngredTable" class="table table-striped table-bordered" style="max-width:800px; margin: 0 auto;">
             <thead>
@@ -291,7 +291,7 @@
         </div>
         <br>
         <a href="#discoverCuisineDiv"><input class="btn btn-success" type="submit" ng-click="submitDiscoverNewCuisine()" value="Search"></a>
-        <div id="discoverCuisineDiv">
+        <div id="discoverCuisineDiv" style="min-height: 250px">
             <div ng-show="newCuisinesLoading == 1">Loading...</div>
         <br>
 
@@ -367,6 +367,7 @@
             <div ng-show="restByTasteLoading == 1">Loading...</div>
             <br>
 
+            <div id="restByTaste" style="min-height: 250px">
             <div ng-hide="restByTasteTableDivShow == 0">
                 <table datatable="ng" dt-options="disableAutoOrderTableOptions" id="restFromTasteTable" class="table table-striped table-bordered" style="margin: 0 auto;">
                     <thead>
@@ -386,10 +387,11 @@
                         <td>{{rest.price_category}}</td>
                         <td>{{rest.agg_review}}</td>
                         <td>{{rest.has_online_delivery}}</td>
-                        <td><a href ng-click="locateRestInMap(rest)">click here</a></td>
+                        <td><a href ng-click="locateRestInMap(rest)"><img src='static/resources/mapbox-icon2.png' title="show on map" width="25" height="25"></a></td>
                     </tr>
                     </tbody>
                 </table>
+            </div>
             </div>
         </div>
     </div>
