@@ -13,8 +13,8 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
     $scope.decision = function (dec) {
         $scope.searchType = dec;
         // $('.nav > li > a[href="'+window.location.pathname+'"]').parent().addClass('active');
-        let myEl = angular.element(document.querySelector('navpage1'));
-        myEl.addClass('active');
+        // let myEl = angular.element(document.querySelector('navpage1'));
+        // myEl.addClass('active');
 
     };
 
