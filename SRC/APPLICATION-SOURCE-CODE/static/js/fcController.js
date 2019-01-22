@@ -70,6 +70,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
     });
 
     $scope.minRevScoreIngVal = 0;
+    $scope.showCuisineByIngred = 0;
 
     $scope.submitIngredient = function() {
         let location;
@@ -99,6 +100,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
             .then(data=>{return data.json()})
             .then(res=>{
                 $scope.restFromIngred = res;
+                $scope.showCuisineByIngred = 1;
                 $scope.$apply();
                 })
             .catch(error=>console.log(error));
