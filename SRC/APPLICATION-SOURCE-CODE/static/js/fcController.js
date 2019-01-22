@@ -288,7 +288,12 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
             $scope.commonIngredData = res;
             $scope.commonIngredLoading = 0;
             $scope.$apply();
-        }).catch(error=>console.log(error));
+        }).catch(error=>{
+            console.log(error);
+            $scope.showCommonIngredTable = 1;
+            $scope.commonIngredLoading = 0;
+            $scope.$apply();
+        });
     }
 
 }]);
