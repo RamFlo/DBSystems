@@ -12,9 +12,14 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
     // Determine the view for each query
     $scope.decision = function (dec) {
         $scope.searchType = dec;
-        // $('.nav > li > a[href="'+window.location.pathname+'"]').parent().addClass('active');
-        // let myEl = angular.element(document.querySelector('navpage1'));
-        // myEl.addClass('active');
+        document.getElementById("navpage0").classList.remove('active');
+        document.getElementById("navpage1").classList.remove('active');
+        document.getElementById("navpage2").classList.remove('active');
+        document.getElementById("navpage3").classList.remove('active');
+        document.getElementById("navpage4").classList.remove('active');
+        
+        let curPage='navpage'+dec;
+        document.getElementById("navpage4").classList.add('active');
 
     };
 
