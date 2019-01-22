@@ -56,6 +56,7 @@
     }
 </style>
 <head>
+    <title>The food Court</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
 </head>
@@ -69,16 +70,16 @@
         </div>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href ng-click="decision(0)">Ingredients</a>
+                <a class="nav-link" href ng-click="decision(0)">Find restaurants by ingredient</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href ng-click="decision(3)">Find restaurants by taste</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href ng-click="decision(1)">Cuisines</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href ng-click="decision(2)">Best franchise location</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href ng-click="decision(3)">Find restaurants by taste</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href ng-click="decision(4)">Common ingredients</a>
@@ -174,7 +175,7 @@
 
             </form>
             <br>
-            <input class="btn btn-success" type="submit" ng-click="submitSearchRestByTaste()" value="Submit">
+            <input class="btn btn-success" type="submit" ng-click="submitSearchRestByTaste()" value="Search">
         </div>
     </div>
 
@@ -287,7 +288,7 @@
             <label class="custom-control-label" for="ShowCuisineIngRad">Show cuisine's unique ingredients</label>
         </div>
         <br>
-        <input class="btn btn-success" type="submit" ng-click="submitDiscoverNewCuisine()" value="Submit">
+        <input class="btn btn-success" type="submit" ng-click="submitDiscoverNewCuisine()" value="Search">
         <div>
             <div ng-show="newCuisinesLoading == 1">Loading...</div>
         <br>
@@ -332,11 +333,7 @@
     <div>
         <!--new_franchise div-->
         <div ng-show="searchType == 2" style="max-width:800px; margin:0 auto; text-align: left;">
-
             <div>
-
-
-
                 <div ng-show="showNewFranchiseTable == 1">
                     <p>Franchises found:</p>
                 <table datatable="ng" id="newFranchiseTable" class="table table-striped table-bordered" style="margin: 0 auto;">
@@ -398,14 +395,14 @@
 
 <!--common ingredients-->
 <div ng-show="searchType == 4" style="max-width:800px; margin:0 auto; text-align: left;">
-    <p>Find ingredients that commonly appear in the same recipes as the submitted ingredient:</p>
+    <p>"Enter an ingredient and we will find the ingredients that appear the most with it in our recipe collection. So the next time you go buying for products you'll know better how to pick the right ingredients that go with your favorite one:</p>
     <br>
     <div id="commonIngred">
         <div angucomplete-alt id="commonIngredient" placeholder="Insert ingredient..." selected-object="selectedObj" text-searching="Searching for results..." remote-api-handler="autocompleteIngHandler"
              title-field="ingredient" minlength="1" input-class="form-control form-control-small" input-changed="autoComplete" match-class="highlight" parse-input="parseInput">
         </div>
         <br>
-        <input class="btn btn-success" type="submit" ng-click="submitCommonIngred()" value="Submit">
+        <input class="btn btn-success" type="submit" ng-click="submitCommonIngred()" value="Search">
         <div>
             <div ng-show="commonIngredLoading == 1">Loading...</div>
             <br>
@@ -414,7 +411,7 @@
                     <thead>
                     <tr>
                         <th>Ingredient</th>
-                        <th>count res</th>
+                        <th>Common appearances</th>
                     </tr>
                     </thead>
                     <tbody>
