@@ -12,6 +12,10 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
     // Determine the view for each query
     $scope.decision = function (dec) {
         $scope.searchType = dec;
+        // $('.nav > li > a[href="'+window.location.pathname+'"]').parent().addClass('active');
+        let myEl = angular.element(document.querySelector('navpage1'));
+        myEl.addClass('active');
+
     };
 
 
