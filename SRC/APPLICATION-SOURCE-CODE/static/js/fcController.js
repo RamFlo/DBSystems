@@ -17,9 +17,9 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
         document.getElementById("navpage2").classList.remove('active');
         document.getElementById("navpage3").classList.remove('active');
         document.getElementById("navpage4").classList.remove('active');
-        
+
         let curPage='navpage'+dec;
-        document.getElementById("navpage4").classList.add('active');
+        document.getElementById(curPage).classList.add('active');
 
     };
 
