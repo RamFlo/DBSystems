@@ -54,6 +54,9 @@
         text-align: center;
         font-family: 'Open Sans', sans-serif;
     }
+    .toggle.ourToggle, .toggle-on.ourToggle, .toggle-off.ourToggle { border: 2px solid #545b62; }
+    .toggle.ourToggle .toggle-handle { border: 2px solid #545b62; }
+
 </style>
 <head>
     <title>The Food Court</title>
@@ -102,7 +105,6 @@
     <div ng-show="searchType == 3" style="max-width:800px; margin:0 auto; text-align: left;">
         <br>
         <p>Enter an ingredient or flavor preferences, filter by restaurant preferences and we will find the best restaurants for you. We search over 18000 recipes, 5000 restaurants and over 7000 different ingredients to make sure you can discover new restaurants that you will definitely would like to come back to.</p>
-        <br>
         <div id="tasteFiltersDiv">
             <br>
             <p>Find restaurants by taste preferences:</p>
@@ -128,7 +130,7 @@
                     <b>Choose sourness level: &nbsp;&nbsp;&nbsp;&nbsp;</b>
                 </label>
                 <label>
-                    <input ng-model="sourToggleValue" id="sourToggle" type="checkbox" data-toggle="toggle" data-on="High" data-off="Low" data-size="small">
+                    <input ng-model="sourToggleValue" id="sourToggle" type="checkbox" data-toggle="toggle" data-on="High" data-off="Low" data-size="small" data-style="ourToggle">
                 </label>
             </div>
             <div class="checkbox">
