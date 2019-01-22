@@ -12,8 +12,6 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
     // Determine the view for each query
     $scope.decision = function (dec) {
         $scope.searchType = dec;
-        if (dec == 2)
-            map.clear();
     };
 
 
