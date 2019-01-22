@@ -132,7 +132,8 @@ class Database:
             wrapped_query += " AND source.price_category = %s" % (price_category)
         if min_agg_review is not None:
             try:
-                float(min_agg_review)
+                min_agg_review = float(min_agg_review)
+                min_agg_review = "%.5f" % (min_agg_review - 0.0001) # epsilon
             except:
                 return -1
             wrapped_query += " AND source.agg_review >= %s" % (min_agg_review)
