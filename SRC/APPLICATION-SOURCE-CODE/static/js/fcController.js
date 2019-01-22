@@ -15,6 +15,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
     };
 
 
+    // handler for the auto-complete
     $rootScope.parseInput = function(str) {
         let emptyStr="";
         return emptyStr;
@@ -22,6 +23,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
 
     $scope.searchIngRes = {};
 
+    // Handler for the auto-complete text search
     $scope.autocompleteIngHandler= function (userInputString, timeoutPromise) {
         return $timeout(async function () {
             console.log("searching for: " + userInputString);
@@ -72,6 +74,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
     $scope.minRevScoreIngVal = 0;
     $scope.showCuisineByIngred = 0;
 
+    // Get the filter params for 'find restaurants by ingredients', pass them to the server and display the results
     $scope.submitIngredient = function() {
         let location;
         let submittedIng = document.getElementById("ingredient_value").value;
@@ -106,6 +109,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
             .catch(error=>console.log(error));
     };
 
+    // Get all cuisine list
     let populateCuisineList = function () {
         const Url2 = 'get_cuisines';
         fetch(Url2).then(data=>{return data.json()}).then(res=>{$scope.discoverNewCuisine = res}).catch(error=>console.log(error));
@@ -120,6 +124,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
     $scope.showNewFranchiseTable = 0;
     $scope.newFranchiseLoading = 0;
 
+    // Discover new cuisine according to the user input
     $scope.submitDiscoverNewCuisine = function () {
         let choice = document.getElementById("cuisineChoiceRadios")
         $scope.newCuisinesLoading = 1;
@@ -154,8 +159,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
 
     populateCuisineList();
 
-
-
+    // Create the map
     mapboxgl.accessToken = 'pk.eyJ1IjoicmFtZmxvIiwiYSI6ImNqcWZjNmFuajUzMHo0YW1zeTJ5ZDFrMTcifQ.-6GAbzLXvYr7ftYbYeKMUg';
     let map = new mapboxgl.Map({
         container: 'map',
@@ -164,7 +168,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
         zoom: 10
     });
 
-
+    // For locating the restaurant in the map
     $scope.locateRestInMap = function (rest) {
         let geojson = {
             type: 'FeatureCollection',
@@ -198,6 +202,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
         map.flyTo({center: [rest.lng, rest.lat] ,zoom : 14});
     };
 
+    // search for new franchise according to the map center
     $scope.getLocation = function() {
         $scope.newFranchiseLoading = 1;
         let center = map.getCenter();
@@ -224,6 +229,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
     $scope.bitterToggleValue = false;
 
 
+    // Get the filter params for 'find restaurants by taste', pass them to the server and display the results
     $scope.submitSearchRestByTaste = function () {
 
         $scope.restByTasteTableDivShow = 0;
@@ -258,8 +264,6 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
         }
 
 
-
-
         fetch(Url).then(data=>{return data.json()}).then(res=> {
             $scope.restByTasteTableDivShow = 1;
             $scope.restsByTaste = res;
@@ -272,6 +276,8 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
 
     $scope.commonIngredLoading = 0;
     $scope.showCommonIngredTable = 0;
+
+    // search for common ingredients for the user input
     $scope.submitCommonIngred = function() {
         let ingredInput = document.getElementById("commonIngredient_value").value;
         if (ingredInput !="")
