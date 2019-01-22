@@ -54,8 +54,8 @@
         text-align: center;
         font-family: 'Open Sans', sans-serif;
     }
-    .toggle.ourToggle, .toggle-on.ourToggle, .toggle-off.ourToggle { border: 2px solid #545b62; }
-    .toggle.ourToggle .toggle-handle { border: 2px solid #545b62; }
+    .toggle.ourToggle, .toggle-on.ourToggle, .toggle-off.ourToggle { border: 2px solid #17a2b8; }
+    /*.toggle.ourToggle .toggle-handle { border: 2px solid #545b62; }*/
 
 </style>
 <head>
@@ -114,7 +114,7 @@
                     <b>Choose saltiness level: &nbsp;&nbsp;&nbsp;&nbsp;</b>
                 </label>
                 <label>
-                    <input ng-model="saltToggleValue" id="saltToggle" type="checkbox" data-toggle="toggle" data-on="High" data-off="Low" data-size="small" >
+                    <input ng-model="saltToggleValue" id="saltToggle" type="checkbox" data-toggle="toggle" data-on="High" data-off="Low" data-size="small" data-style="ourToggle">
                 </label>
             </div>
             <div class="checkbox">
@@ -122,7 +122,7 @@
                     <b>Choose sweetness level: &nbsp;&nbsp;&nbsp;&nbsp;</b>
                 </label>
                 <label>
-                    <input ng-model="sweetToggleValue" id="sweetToggle" type="checkbox" data-toggle="toggle" data-on="High" data-off="Low" data-size="small">
+                    <input ng-model="sweetToggleValue" id="sweetToggle" type="checkbox" data-toggle="toggle" data-on="High" data-off="Low" data-size="small" data-style="ourToggle">
                 </label>
             </div>
             <div class="checkbox">
@@ -138,7 +138,7 @@
                     <b>Choose bitterness level: &nbsp;&nbsp;&nbsp;&nbsp;</b>
                 </label>
                 <label>
-                    <input ng-model="bitterToggleValue" id="bitterToggle" type="checkbox" data-toggle="toggle" data-on="High" data-off="Low" data-size="small">
+                    <input ng-model="bitterToggleValue" id="bitterToggle" type="checkbox" data-toggle="toggle" data-on="High" data-off="Low" data-size="small" data-style="ourToggle">
                 </label>
             </div>
             <form id="tastePrice">
