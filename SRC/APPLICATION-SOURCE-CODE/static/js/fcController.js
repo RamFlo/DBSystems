@@ -108,7 +108,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
 
     let populateCuisineList = function () {
         const Url2 = 'get_cuisines';
-        fetch(Url2).then(data=>{return data.json()}).then(res=>{$scope.discoverNewCuisine = res});
+        fetch(Url2).then(data=>{return data.json()}).then(res=>{$scope.discoverNewCuisine = res}).catch(error=>console.log(error));
     };
 
     $scope.newCuisines = {};
@@ -142,7 +142,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
             }
             $scope.newCuisinesLoading = 0;
             $scope.$apply();
-        });
+        }).catch(error=>console.log(error));
 
     };
 
@@ -209,7 +209,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
                 $scope.newFranchiseArr = res;
             $scope.newCuisinesLoading = 0;
             $scope.$apply();
-        });
+        }).catch(error=>console.log(error));
         $scope.newFranchiseLoading = 0;
     };
 
@@ -265,7 +265,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
             $scope.restsByTaste = res;
             $scope.restByTasteLoading = 0;
             $scope.$apply();
-        });
+        }).catch(error=>console.log(error));
 
     };
 
@@ -282,7 +282,7 @@ app.controller('mainController', ['$scope','$rootScope','$timeout','DTOptionsBui
             $scope.commonIngredData = res;
             $scope.commonIngredLoading = 0;
             $scope.$apply();
-        });
+        }).catch(error=>console.log(error));
     }
 
 }]);
