@@ -16,6 +16,11 @@ class Database:
         self.cur = self.con.cursor()
         self.logger = Logger("error").logger
 
+    def reset_connection(self):
+        self.con = mdb.connect(localhost_name, username, password, db_name)
+        self.con.set_character_set('utf8')
+        self.cur = self.con.cursor()
+
     def run_sql_query(self, query):
         try:
             self.cur.execute(query)

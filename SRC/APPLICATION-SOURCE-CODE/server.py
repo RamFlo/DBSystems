@@ -36,7 +36,10 @@ def get_ingredient_by_prefix(prefix):
 def get_cuisines():
     query_res = database.get_cuisines()
     if query_res == -1:
-        return "[]"
+        database.reset_connection()
+        query_res = database.get_cuisines()  # try again
+        if query_res == -1:
+            return "[]"
     logger.info("GET get_cuisines query")
     return query_res
 
